@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using ProjectAPI.Models.Enums;
 
 namespace ProjectAPI.Models
@@ -11,8 +12,8 @@ namespace ProjectAPI.Models
         public double Cost { get; set; }
         public double DiscountedCost { get; set; }
         
-        Genre Genre { get; set; }
-        List<string> Tags { get; set; }
+        public Genre Genre { get; set; }
+        public List<string> Tags { get; set; }
         public string AudioFile { get; set; }
         public string DemoFile { get; set; }
         public string ImgFile { get; set; }

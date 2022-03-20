@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zvy+QG9keCYfVcykSNhuqUWjkcQHRUdftMmPyY8tvdMyxvwR8QMQw7q6PWXf+JXzKSGqArs+d2TF3rZwYjSXiA==",
+  "dgSpecHash": "S/0wkwhjlqXGkm3ntddAzChWauS5AgPA+iLUgIAvbFKsJy5pBEEnHSJU7b+tv3ifmAH9UxhRz0vP9Qs3Os7IMw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\ProjectAPI\\ProjectAPI.csproj",
+  "projectFilePath": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\projectapi\\ProjectAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\patry\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\patry\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

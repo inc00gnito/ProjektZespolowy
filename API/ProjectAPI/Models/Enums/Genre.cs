@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProjectAPI.Models.Enums
 {
-    enum Genre
+    public enum Genre
     {
-        Rock,
-        Pop,
-        PopRock,
-        PunkRock,
-        HipHop,
-        RnB,
-        Electronic,
+        Rock= 0,
+        Pop=1,
+        PopRock=2,
+        PunkRock=3,
+        HipHop=4,
+        RnB=5,
+        Electronic=6,
     }
 }
