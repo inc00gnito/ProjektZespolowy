@@ -1,0 +1,62 @@
+@import "../../app/styles/variables.scss";
+.container {
+  position: relative;
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $navbarHeight;
+    padding-left: $dashboardSpace;
+    padding-right: $dashboardSpace;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    .title {
+      .heading {
+        font-family: "roboto";
+        font-weight: 400;
+        font-size: 2rem;
+      }
+    }
+    .menu {
+      display: flex;
+      .menuItems {
+        display: flex;
+        .link {
+          text-decoration: none;
+          list-style-type: none;
+          margin-left: 2vw;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.9rem;
+          font-weight: 400;
+        }
+      }
+      .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 4vw;
+        .icon {
+          font-size: 1rem;
+        }
+      }
+      .account {
+        margin-left: 3vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .item {
+          font-size: 0.9rem;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+  .content {
+  }
+}

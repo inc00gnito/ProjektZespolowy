@@ -1,0 +1,7 @@
+@import "../../../app/styles/variables.scss";
+
+.container {
+  padding-top: $navbarHeight; //odusniecie elementów zeby nie były pod nawigacja
+  background-color: black;
+  color: white;
+}
