@@ -1,13 +1,3 @@
-import {
-  AppBar,
-  Box,
-  List,
-  ListItem,
-  Menu,
-  Toolbar,
-  Typography,
-  ListItemText,
-} from "@mui/material";
 import React from "react";
 import styles from "./styles/Home.module.scss";
 import { BiSearch } from "react-icons/bi";

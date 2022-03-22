@@ -1,14 +1,13 @@
 import React from "react";
 import HomeLayout from "Layout/Home";
-import styles from "./styles/Dashboard.module.scss";
+import Start from "./components/Start/Start";
+import BestSellers from "./components/BestSellers/BestSellers";
 
 const Dashboard = () => {
   return (
     <HomeLayout>
-      <div className={styles.container}>
-        <p>aaa</p>
-        <p>sd</p>
-      </div>
+      <Start />
+      <BestSellers />
     </HomeLayout>
   );
 };

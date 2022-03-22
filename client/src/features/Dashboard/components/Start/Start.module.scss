@@ -1,0 +1,95 @@
+@import "../../../../app/styles/variables.scss";
+
+.start {
+  background-color: black;
+  height: calc(100vh - $navbarHeight);
+  width: 100vw;
+  background-image: url("../../../../assets/starterBgc.jpg");
+  background-size: cover;
+  .content {
+    padding-left: $dashboardSpace;
+    padding-right: $dashboardSpace;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    .boxes {
+      display: flex;
+      height: 75vh;
+      width: 100%;
+      justify-content: space-between;
+      .pinkCard {
+        height: 20vw;
+        width: 30vw;
+        margin-top: 6vh;
+        background-color: $primaryColor;
+        border-radius: 2.6vw;
+        padding: 4vh 4.25vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: white;
+        .heading {
+          font-size: 3rem;
+          line-height: 1.1;
+          font-family: "Montserrat", sans-serif;
+        }
+        .subHeading {
+          font-size: 1.4rem;
+        }
+        .button {
+          width: 7vw;
+          height: 2.5vw;
+          border: 2px solid white;
+          background-color: transparent;
+          border-radius: 1.04vw;
+          color: white;
+          transition: background 0.3s, color 0.3s;
+          cursor: pointer;
+          &:hover {
+            background: white;
+            color: $primaryColor;
+          }
+        }
+      }
+      .composerCard {
+        background-size: cover;
+        height: 100%;
+        width: 28vw;
+        border-radius: 1.5vw;
+        background-image: url("../../../../assets/compositor.jpg");
+        display: flex;
+        align-items: flex-end;
+        color: white;
+        .text {
+          display: flex;
+          .first {
+            position: relative;
+
+            .firstContent {
+              font-family: "Montserrat", sans-serif;
+              color: $primaryColor;
+              transform: rotate(352deg);
+              .firstLetter {
+                font-size: 7.7rem;
+                line-height: 0;
+              }
+              .restLetters {
+                font-size: 4.8rem;
+              }
+            }
+            .second {
+              position: absolute;
+              right: 95%;
+              top: 0;
+              .text {
+                font-size: 48px;
+                font-weight: bold;
+                text-shadow: 1px 1px 4px #fff;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
