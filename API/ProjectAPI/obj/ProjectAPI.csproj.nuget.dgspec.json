@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\projectapi\\ProjectAPI.csproj": {}
+    "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\ProjectAPI\\ProjectAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\projectapi\\ProjectAPI.csproj": {
+    "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\ProjectAPI\\ProjectAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\projectapi\\ProjectAPI.csproj",
+        "projectUniqueName": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\ProjectAPI\\ProjectAPI.csproj",
         "projectName": "ProjectAPI",
-        "projectPath": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\projectapi\\ProjectAPI.csproj",
+        "projectPath": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\ProjectAPI\\ProjectAPI.csproj",
         "packagesPath": "C:\\Users\\patry\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\projectapi\\obj\\",
+        "outputPath": "C:\\Users\\patry\\source\\repos\\ProjektZespolowy\\API\\ProjectAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\patry\\AppData\\Roaming\\NuGet\\NuGet.Config",
