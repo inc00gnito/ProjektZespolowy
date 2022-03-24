@@ -6,9 +6,16 @@ namespace ProjectAPI.Data
 {
     public class DataBaseContext :DbContext
     {
-        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
+        public DbContextOptions<DataBaseContext> Options { get; }
+
+        public DataBaseContext()
         {
             
+        }
+
+        public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options)
+        {
+            Options = options;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

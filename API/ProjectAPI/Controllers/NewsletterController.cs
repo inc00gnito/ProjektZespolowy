@@ -12,12 +12,13 @@ namespace ProjectAPI.Controllers
     [ApiController]
     public class NewsletterController : ControllerBase
     {
-        private readonly DataBaseContext _db;
+        public readonly DataBaseContext _db;
 
         public NewsletterController(DataBaseContext db)
         {
             _db = db;
         }
+        
 
         [HttpPost("{email}")]
         public IActionResult Subscribe([FromRoute]string email)
@@ -35,7 +36,6 @@ namespace ProjectAPI.Controllers
             }
             Debug.Print("Email is incorrect");
             return Conflict();
-
 
         }
 
