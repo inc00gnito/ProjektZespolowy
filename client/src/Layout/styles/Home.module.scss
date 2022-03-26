@@ -3,6 +3,7 @@
   position: relative;
   .nav {
     position: fixed;
+    z-index: 20;
     top: 0;
     left: 0;
     right: 0;
@@ -40,9 +41,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-left: 4vw;
+        margin-left: 1.5vw;
         .icon {
-          font-size: 1rem;
+          font-size: 1.2vw;
         }
       }
       .account {

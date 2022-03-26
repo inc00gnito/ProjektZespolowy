@@ -1,0 +1,64 @@
+@import "../../../../app/styles/variables.scss";
+.container {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  background-color: black;
+  color: white;
+  .content {
+    .text {
+      .title {
+        font-size: $titleFS;
+        margin-bottom: 2vh;
+        text-align: center;
+      }
+      .paragraph {
+        text-align: center;
+        font-size: $textFS;
+      }
+    }
+    .form {
+      margin-top: 5vh;
+      .fieldName {
+        font-size: $textFS;
+        text-align: center;
+        margin-bottom: 0.5vh;
+      }
+      .field {
+        width: 27vw;
+        height: 5.21vw;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0.75vw;
+        border: 0.11vw solid white;
+        background-color: white;
+        overflow: hidden;
+        .input {
+          width: 100%;
+          height: 50%;
+          background-color: black;
+          border: none;
+          text-align: center;
+          color: white;
+          font-size: 1vw;
+        }
+        .button {
+          width: 100%;
+          height: 50%;
+          background-color: white;
+          border: none;
+          font-weight: bold;
+          font-family: montserrat;
+          font-size: $textFS;
+          cursor: pointer;
+          transition: background-color 0.3s, color 0.2s;
+          &:hover {
+            background-color: $primaryColor;
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}

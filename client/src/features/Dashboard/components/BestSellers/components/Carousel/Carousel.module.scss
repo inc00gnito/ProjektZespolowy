@@ -1,0 +1,117 @@
+@import "../../../../../../app/styles/variables.scss";
+.container {
+  position: relative;
+  color: white;
+  width: 100%;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  overflow: hidden;
+  .carousel {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60vh;
+    position: relative;
+    overflow: hidden;
+    .box {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      left: 0;
+      width: calc(100% / var(--elements));
+      flex-shrink: 0;
+      transition: transform 0.5s, opacity 0.2s;
+      .item {
+        position: relative;
+        aspect-ratio: 1/1;
+        width: 88%;
+        .content {
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          .image {
+            display: block;
+            width: 100%;
+            transition: transform 0.5s;
+            &:hover {
+              transform: scale(1.3);
+            }
+          }
+        }
+        .download {
+          position: absolute;
+          top: 2%;
+          right: 2%;
+          width: 2.3vw;
+          height: 2.3vw;
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-color: rgb(192, 192, 192);
+          .icon {
+            color: black;
+            font-size: 1.1vw;
+            font-weight: 200;
+          }
+        }
+        .action {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 1.2vh;
+          .name {
+            font-weight: bold;
+            font-size: 0.95vw;
+          }
+          .price {
+            font-size: 0.855vw;
+            margin-top: 0.2vh;
+          }
+          .button {
+            background-color: $primaryColor;
+            border: none;
+            margin-top: 0.5vh;
+            width: 16vw;
+            height: 2.2vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            &:hover {
+              background-color: $primaryColorDarker;
+            }
+            .text {
+              font-weight: bold;
+              font-size: 0.82vw;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+  .leftArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 1%;
+    cursor: pointer;
+    .icon {
+      font-size: 1.5vw;
+    }
+  }
+  .rightArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1%;
+    cursor: pointer;
+    .icon {
+      font-size: 1.5vw;
+    }
+  }
+}

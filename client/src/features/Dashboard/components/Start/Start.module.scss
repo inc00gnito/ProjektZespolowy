@@ -1,22 +1,61 @@
 @import "../../../../app/styles/variables.scss";
 
 .start {
+  position: relative;
   background-color: black;
   height: calc(100vh - $navbarHeight);
-  width: 100vw;
-  background-image: url("../../../../assets/starterBgc.jpg");
+  width: 100%;
   background-size: cover;
+  @media (orientation: portrait) {
+    & {
+      height: 85vh;
+    }
+  }
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 75vh;
+    @media (orientation: portrait) {
+      & {
+        top: 20%;
+        height: 40vh;
+      }
+    }
+    .image {
+      display: block;
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+  }
   .content {
+    position: relative;
+    z-index: 2;
     padding-left: $dashboardSpace;
     padding-right: $dashboardSpace;
     display: flex;
     height: 100%;
     align-items: center;
+    color: white;
+    @media (orientation: portrait) {
+      & {
+        padding-top: 3vh;
+      }
+    }
     .boxes {
       display: flex;
-      height: 75vh;
+      height: 85%;
       width: 100%;
       justify-content: space-between;
+      @media (orientation: portrait) {
+        & {
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
       .pinkCard {
         height: 20vw;
         width: 30vw;
@@ -27,24 +66,51 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        color: white;
+
+        @media (orientation: portrait) {
+          & {
+            height: 38vh;
+            width: 88vw;
+            padding: 4vh;
+            border-radius: 3.5vh;
+          }
+        }
         .heading {
-          font-size: 3rem;
+          font-size: 2.8vw;
           line-height: 1.1;
           font-family: "Montserrat", sans-serif;
+          @media (orientation: portrait) {
+            & {
+              font-size: 4vh;
+            }
+          }
         }
         .subHeading {
-          font-size: 1.4rem;
+          font-size: 1.2vw;
+          @media (orientation: portrait) {
+            & {
+              font-size: 2.2vh;
+            }
+          }
         }
         .button {
           width: 7vw;
           height: 2.5vw;
           border: 2px solid white;
           background-color: transparent;
+          font-size: 0.8vw;
           border-radius: 1.04vw;
           color: white;
           transition: background 0.3s, color 0.3s;
           cursor: pointer;
+          @media (orientation: portrait) {
+            & {
+              width: 15vh;
+              height: 5.5vh;
+              border-radius: 2.35vh;
+              font-size: 1.52vh;
+            }
+          }
           &:hover {
             background: white;
             color: $primaryColor;
@@ -60,33 +126,82 @@
         display: flex;
         align-items: flex-end;
         color: white;
+        @media (orientation: portrait) {
+          & {
+            display: none;
+          }
+        }
+      }
+      .composerText {
+        color: white;
+        @media (orientation: portrait) {
+          & {
+            transform: translateX(14vw);
+          }
+        }
         .text {
           display: flex;
           .first {
             position: relative;
 
             .firstContent {
-              font-family: "Montserrat", sans-serif;
+              font-family: "Caveat", cursive;
+              font-weight: 300;
               color: $primaryColor;
               transform: rotate(352deg);
+              @media (orientation: portrait) {
+                & {
+                  transform: rotate(352deg);
+                }
+              }
               .firstLetter {
-                font-size: 7.7rem;
+                font-size: 6.8vw;
                 line-height: 0;
+                @media (orientation: portrait) {
+                  & {
+                    font-size: 6.2vh;
+                  }
+                }
               }
               .restLetters {
-                font-size: 4.8rem;
+                font-size: 4vw;
+                @media (orientation: portrait) {
+                  & {
+                    font-size: 4.2vh;
+                  }
+                }
               }
             }
             .second {
               position: absolute;
               right: 95%;
               top: 0;
+              @media (orientation: portrait) {
+                & {
+                  bottom: 75%;
+                  top: auto;
+                  right: 45.5%;
+                }
+              }
               .text {
-                font-size: 48px;
+                font-size: 2.5vw;
                 font-weight: bold;
                 text-shadow: 1px 1px 4px #fff;
+                @media (orientation: portrait) {
+                  & {
+                    font-size: 4.7vh;
+                  }
+                }
               }
             }
+          }
+        }
+      }
+      .composerTextMobile {
+        display: none;
+        @media (orientation: portrait) {
+          & {
+            display: block;
           }
         }
       }

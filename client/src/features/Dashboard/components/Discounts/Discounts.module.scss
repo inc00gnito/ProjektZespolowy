@@ -1,0 +1,97 @@
+@import "../../../../app/styles/variables.scss";
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  .content {
+    position: relative;
+    height: 27.05vw;
+    width: 69vw;
+    .titleCard {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      height: 18.8vw;
+      width: 30vw;
+      background-color: $primaryColor;
+      border-radius: 1.6vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      .text {
+        .paragraph {
+          font-size: 1.16vw;
+          text-align: center;
+        }
+        .discount {
+          font-weight: bold;
+          font-size: 7.3vw;
+          line-height: 1;
+          padding-left: 0.3vw;
+        }
+        .subTitle {
+          font-size: $titleFS;
+          font-weight: bold;
+        }
+      }
+      .button {
+        margin-top: 2vh;
+        background-color: $primaryColor;
+        font-size: 0.7vw;
+        border: 0.12vw solid white;
+        width: 7.5vw;
+        height: 2.2vw;
+        border-radius: 1.05vw;
+        font-family: roboto;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.2s;
+        &:hover {
+          background-color: white;
+          color: $primaryColor;
+        }
+      }
+    }
+    .tracks {
+      position: relative;
+      height: 100%;
+      .track {
+        position: absolute;
+        z-index: 0;
+        height: 27vw;
+        width: 20vw;
+
+        .image {
+          display: block;
+          height: 100%;
+          width: 100%;
+          border-radius: 1.5vw;
+        }
+      }
+      .trackOne {
+        top: 0;
+        left: 40%;
+      }
+      .trackTwo {
+        top: 27%;
+        left: 62%;
+        .image {
+          box-shadow: 0 0 10px 0.5px #555;
+        }
+      }
+      .trackThree {
+        top: 6%;
+        left: 75%;
+        .image {
+          box-shadow: 0 0 10px 0.5px #222;
+        }
+      }
+    }
+  }
+}

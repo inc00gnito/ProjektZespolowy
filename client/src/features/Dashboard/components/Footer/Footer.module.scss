@@ -1,0 +1,23 @@
+@import "../../../../app/styles/variables.scss";
+.container {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  .content {
+    width: 100%;
+    .colorBlock {
+      background-color: $primaryColor;
+      height: 18vw;
+      width: 100%;
+    }
+    .line {
+      margin: 0 auto;
+      margin-top: 2.5vh;
+      width: 90vw;
+      background-color: white;
+      height: 0.05vw;
+    }
+  }
+}

@@ -1,8 +1,13 @@
 import React from "react";
 import styles from "./Start.module.scss";
+import background from "assets/starterBgc.jpg";
+import cx from "classnames";
 const Start = () => {
   return (
     <div className={styles.start}>
+      <div className={styles.background}>
+        <img src={background} alt="concert" className={styles.image} />
+      </div>
       <div className={styles.content}>
         <div className={styles.boxes}>
           <div className={styles.pinkCard}>
@@ -15,6 +20,22 @@ const Start = () => {
             <button className={styles.button}>Buy Now</button>
           </div>
           <div className={styles.composerCard}>
+            <div className={styles.composerText}>
+              <div className={styles.text}>
+                <div className={styles.first}>
+                  <div className={styles.firstContent}>
+                    <span className={styles.firstLetter}>L</span>
+                    <span className={styles.restLetters}>ANCE</span>
+                  </div>
+
+                  <div className={styles.second}>
+                    <span className={styles.text}>TRACKS</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={cx(styles.composerText, styles.composerTextMobile)}>
             <div className={styles.text}>
               <div className={styles.first}>
                 <div className={styles.firstContent}>
