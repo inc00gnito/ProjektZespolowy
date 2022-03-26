@@ -29,7 +29,7 @@ namespace ProjectAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataBaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("kozak")));
+                options.UseSqlServer(Configuration.GetConnectionString("ola")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

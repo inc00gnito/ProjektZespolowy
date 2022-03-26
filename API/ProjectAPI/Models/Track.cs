@@ -10,8 +10,9 @@ namespace ProjectAPI.Models
         public string Title { get; set; }
         public float Time { get; set; }
         public double Cost { get; set; }
-        public double DiscountedCost { get; set; }
-        
+
+        public double DiscountedByUser {get; set; } // w PLN
+        public double DiscountedByShop {get; set; } // w %
         public Genre Genre { get; set; }
         public List<string> Tags { get; set; }
         public string AudioFile { get; set; }
@@ -19,8 +20,7 @@ namespace ProjectAPI.Models
         public string ImgFile { get; set; }
 
         
-
-        private bool IsBestSeller { get; set; }
+        public int TimesSold { get; set; }
         public bool IsDiscounted { get; set; }
     }
 }
