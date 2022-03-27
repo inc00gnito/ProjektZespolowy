@@ -4,6 +4,8 @@ import Dashboard from "features/Dashboard";
 import Contact from "features/Contact";
 import AuthRoute from "./AuthRoute";
 import PublicRoute from "./PublicRoute";
+import About from "features/About";
+
 
 const AppRoutes = () => {
   return (
@@ -12,6 +14,7 @@ const AppRoutes = () => {
         <Route path="/" element={<AuthRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
         </Route>
         <Route path="/" element={<PublicRoute />}>
           <Route path="/signin" element={<div>ds</div>} />

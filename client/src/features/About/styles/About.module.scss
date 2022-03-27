@@ -1,0 +1,54 @@
+@import "../../../app/styles/variables.scss";
+
+.container {
+  padding-top: $navbarHeight; //odusniecie elementów zeby nie były pod nawigacja
+  display:flex;
+  background-color: black;
+  color: white;
+  height:calc(100vh - $navbarHeight);
+  box-sizing: border-box;
+}
+.line{
+  padding-bottom:200px;
+  border-top: 1px solid white;
+  height: 1px;
+  width:90%;
+  margin:auto
+}
+.Team{
+  margin: 50px;
+  text-align: center;
+  font-size:50px;
+}
+.text{
+  margin:20px;
+  text-align: center;
+}
+.gif{
+  width:400px;
+  border: 3px solid white;
+  border-radius: 50%;
+  position:relative;
+  bottom: 400px;
+  left:200px;
+  z-index: 0;
+}
+.trackslance{
+  width:300px;
+  height:300px;
+  border: 3px solid white;
+  background-color: black;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 300px;
+  font-size:30px;
+  margin-top:80px;
+  z-index: 999;
+  position: relative;
+}
+.wrapper1{
+  width:40%;
+}
+.wrapper2{
+  width:60%;
+}
