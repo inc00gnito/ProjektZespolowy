@@ -8,6 +8,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  @media (orientation: portrait) {
+    padding-top: 0vh;
+  }
   .content {
     width: 100%;
   }
@@ -20,9 +23,17 @@
     padding-right: $dashboardSpace;
     display: flex;
     justify-content: space-between;
+    @media (orientation: portrait) {
+      display: flex;
+      flex-direction: column;
+    }
     .title {
       color: white;
       font-size: $titleFS;
+      @media (orientation: portrait) {
+        text-align: center;
+        font-size: $titleFSPortrait;
+      }
     }
     .button {
       border: 0.11vw solid white;
@@ -31,7 +42,17 @@
       height: 2vw;
       width: 6.9vw;
       color: white;
+      font-size: 0.85vw;
       cursor: pointer;
+      @media (orientation: portrait) {
+        width: 13vh;
+        height: 4.8vh;
+        border-radius: 2.3vh;
+        border-width: 0.3vh;
+        margin: 0 auto;
+        margin-top: 5vh;
+        font-size: 1.5vh;
+      }
     }
   }
 }

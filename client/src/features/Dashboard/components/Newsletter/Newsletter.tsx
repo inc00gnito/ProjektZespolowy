@@ -25,6 +25,7 @@ const Newsletter = () => {
           whileInView="animate"
           variants={variants}
           transition={transition}
+          viewport={{ once: true }}
         >
           <h1 className={styles.title}>NEWSLETTER</h1>
           <p className={styles.paragraph}>Sign up to recive updates on new</p>
@@ -36,6 +37,7 @@ const Newsletter = () => {
           whileInView="animate"
           variants={variants}
           transition={transition}
+          viewport={{ once: true }}
         >
           <p className={styles.fieldName}>Email *</p>
           <div className={styles.field}>

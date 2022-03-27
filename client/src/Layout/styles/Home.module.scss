@@ -15,11 +15,25 @@
     align-items: center;
     justify-content: space-between;
     color: white;
+    @media (orientation: portrait) {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 90%;
+        left: 5%;
+        right: 5%;
+        height: 0.2vh;
+        background-color: white;
+      }
+    }
     .title {
       .heading {
         font-family: "roboto";
         font-weight: 400;
-        font-size: 2rem;
+        font-size: 1.8vw;
+        @media (orientation: portrait) {
+          font-size: 3vh;
+        }
       }
     }
     .menu {
@@ -33,7 +47,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 1rem;
+          font-size: 0.84vw;
           font-weight: 400;
         }
       }
@@ -52,8 +66,79 @@
         justify-content: center;
         align-items: center;
         .item {
-          font-size: 0.9rem;
+          font-size: 0.8vw;
           font-weight: 400;
+        }
+      }
+      @media (orientation: portrait) {
+        display: none;
+      }
+    }
+    .mobileIcons {
+      display: none;
+      @media (orientation: portrait) {
+        display: flex;
+      }
+      .search {
+        z-index: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          font-size: 3.5vh;
+        }
+      }
+      .hamburger {
+        position: relative;
+        z-index: 5;
+        margin-right: 3vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          font-size: 4vh;
+        }
+      }
+    }
+    .mobileMenu {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background-color: white;
+      .header {
+        height: $navbarHeight;
+        display: flex;
+        align-items: center;
+        .user {
+          margin-left: 25vw;
+          .image {
+            display: block;
+            height: 10vw;
+            width: 10vw;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+      }
+      .menuM {
+        .list {
+          margin-top: 7vh;
+          .item {
+            text-align: center;
+            &:not(:first-child) {
+              margin-top: 5vh;
+            }
+            .link {
+              text-decoration: none;
+              font-family: montserrat;
+              color: black;
+              font-size: 2.5vh;
+              font-weight: 700;
+            }
+          }
         }
       }
     }

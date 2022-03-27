@@ -8,7 +8,7 @@
   background-size: cover;
   @media (orientation: portrait) {
     & {
-      height: 85vh;
+      height: 80vh;
     }
   }
   .background {
@@ -63,9 +63,6 @@
         background-color: $primaryColor;
         border-radius: 2.6vw;
         padding: 4vh 4.25vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
 
         @media (orientation: portrait) {
           & {
@@ -73,47 +70,56 @@
             width: 88vw;
             padding: 4vh;
             border-radius: 3.5vh;
+            display: flex;
+            justify-content: center;
           }
         }
-        .heading {
-          font-size: 2.8vw;
-          line-height: 1.1;
-          font-family: "Montserrat", sans-serif;
-          @media (orientation: portrait) {
-            & {
-              font-size: 4vh;
+        .textContainer {
+          display: inline-flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+          .heading {
+            font-size: 2.8vw;
+            line-height: 1.1;
+            font-family: "Montserrat", sans-serif;
+            @media (orientation: portrait) {
+              & {
+                font-size: 4vh;
+              }
             }
           }
-        }
-        .subHeading {
-          font-size: 1.2vw;
-          @media (orientation: portrait) {
-            & {
-              font-size: 2.2vh;
+          .subHeading {
+            font-size: 1.2vw;
+            @media (orientation: portrait) {
+              & {
+                font-size: 2.2vh;
+              }
             }
           }
-        }
-        .button {
-          width: 7vw;
-          height: 2.5vw;
-          border: 2px solid white;
-          background-color: transparent;
-          font-size: 0.8vw;
-          border-radius: 1.04vw;
-          color: white;
-          transition: background 0.3s, color 0.3s;
-          cursor: pointer;
-          @media (orientation: portrait) {
-            & {
-              width: 15vh;
-              height: 5.5vh;
-              border-radius: 2.35vh;
-              font-size: 1.52vh;
+          .button {
+            width: 7vw;
+            height: 2.5vw;
+            border: 2px solid white;
+            background-color: transparent;
+            font-size: 0.8vw;
+            font-weight: bold;
+            border-radius: 1.04vw;
+            color: white;
+            transition: background 0.3s, color 0.3s;
+            cursor: pointer;
+            @media (orientation: portrait) {
+              & {
+                width: 15vh;
+                height: 5.5vh;
+                border-radius: 2.35vh;
+                font-size: 1.52vh;
+              }
             }
-          }
-          &:hover {
-            background: white;
-            color: $primaryColor;
+            &:hover {
+              background: white;
+              color: $primaryColor;
+            }
           }
         }
       }
@@ -131,65 +137,55 @@
             display: none;
           }
         }
-      }
-      .composerText {
-        color: white;
-        @media (orientation: portrait) {
-          & {
-            transform: translateX(14vw);
-          }
-        }
-        .text {
-          display: flex;
-          .first {
-            position: relative;
+        .composerText {
+          color: white;
+          .text {
+            display: flex;
 
-            .firstContent {
-              font-family: "Caveat", cursive;
-              font-weight: 300;
-              color: $primaryColor;
-              transform: rotate(352deg);
-              @media (orientation: portrait) {
-                & {
-                  transform: rotate(352deg);
+            .first {
+              position: relative;
+
+              .firstContent {
+                font-family: "Caveat", cursive;
+                font-weight: 300;
+                color: $primaryColor;
+                transform: rotate(352deg);
+                .firstLetter {
+                  font-size: 6.8vw;
+                  line-height: 0;
+                  @media (orientation: portrait) {
+                    & {
+                      font-size: 6.2vh;
+                    }
+                  }
                 }
-              }
-              .firstLetter {
-                font-size: 6.8vw;
-                line-height: 0;
-                @media (orientation: portrait) {
-                  & {
-                    font-size: 6.2vh;
+                .restLetters {
+                  font-size: 4vw;
+                  @media (orientation: portrait) {
+                    & {
+                      font-size: 4.2vh;
+                    }
                   }
                 }
               }
-              .restLetters {
-                font-size: 4vw;
+              .second {
+                position: absolute;
+                right: 95%;
+                top: 0;
                 @media (orientation: portrait) {
                   & {
-                    font-size: 4.2vh;
+                    position: relative;
+                    margin: 0 auto;
                   }
                 }
-              }
-            }
-            .second {
-              position: absolute;
-              right: 95%;
-              top: 0;
-              @media (orientation: portrait) {
-                & {
-                  bottom: 75%;
-                  top: auto;
-                  right: 45.5%;
-                }
-              }
-              .text {
-                font-size: 2.5vw;
-                font-weight: bold;
-                text-shadow: 1px 1px 4px #fff;
-                @media (orientation: portrait) {
-                  & {
-                    font-size: 4.7vh;
+                .text {
+                  font-size: 2.5vw;
+                  font-weight: bold;
+                  text-shadow: 1px 1px 4px #fff;
+                  @media (orientation: portrait) {
+                    & {
+                      font-size: 4.7vh;
+                    }
                   }
                 }
               }
@@ -197,8 +193,68 @@
           }
         }
       }
+
       .composerTextMobile {
         display: none;
+        color: white;
+
+        .text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .second {
+            position: relative;
+            margin: 0 auto;
+            transform: translateX(-4.5vw);
+            @media (orientation: portrait) {
+              & {
+                position: relative;
+                margin: 0 auto;
+              }
+            }
+            .text {
+              font-size: 2.5vw;
+              font-weight: bold;
+              text-shadow: 1px 1px 4px #fff;
+              @media (orientation: portrait) {
+                & {
+                  font-size: 4.7vh;
+                }
+              }
+            }
+            .first {
+              position: absolute;
+              top: 80%;
+              left: 60%;
+
+              .firstContent {
+                font-family: "Caveat", cursive;
+                font-style: italic;
+                font-weight: 300;
+                color: $primaryColor;
+                transform: rotate(352deg);
+                .firstLetter {
+                  font-size: 6.8vw;
+                  line-height: 0;
+                  @media (orientation: portrait) {
+                    & {
+                      font-size: 6.2vh;
+                    }
+                  }
+                }
+                .restLetters {
+                  font-size: 4vw;
+                  @media (orientation: portrait) {
+                    & {
+                      font-size: 4.2vh;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
         @media (orientation: portrait) {
           & {
             display: block;

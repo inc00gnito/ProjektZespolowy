@@ -6,7 +6,42 @@
   padding-left: 2vw;
   padding-right: 2vw;
   overflow: hidden;
+  .arrowContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    .leftArrow {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 1%;
+      cursor: pointer;
+      .icon {
+        font-size: 1.5vw;
+        @media (orientation: portrait) {
+          font-size: 4vh;
+        }
+      }
+    }
+    .rightArrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 1%;
+      z-index: 5;
+      cursor: pointer;
+      .icon {
+        font-size: 1.5vw;
+        @media (orientation: portrait) {
+          font-size: 4vh;
+        }
+      }
+    }
+  }
   .carousel {
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -14,12 +49,18 @@
     height: 60vh;
     position: relative;
     overflow: hidden;
+    @media (orientation: portrait) {
+      & {
+        height: 65vh;
+      }
+    }
+
     .box {
       position: absolute;
       display: flex;
       justify-content: center;
-      align-items: center;
       left: 0;
+      top: 0%;
       width: calc(100% / var(--elements));
       flex-shrink: 0;
       transition: transform 0.5s, opacity 0.2s;
@@ -27,6 +68,11 @@
         position: relative;
         aspect-ratio: 1/1;
         width: 88%;
+        @media (orientation: portrait) {
+          & {
+            width: 66%;
+          }
+        }
         .content {
           width: 100%;
           height: 100%;
@@ -59,16 +105,31 @@
         }
         .action {
           display: flex;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
           flex-direction: column;
           align-items: center;
           margin-top: 1.2vh;
           .name {
             font-weight: bold;
             font-size: 0.95vw;
+            @media (orientation: portrait) {
+              & {
+                font-size: 2.2vh;
+              }
+            }
           }
           .price {
             font-size: 0.855vw;
             margin-top: 0.2vh;
+            @media (orientation: portrait) {
+              & {
+                font-size: 2vh;
+                margin-top: 1vh;
+              }
+            }
           }
           .button {
             background-color: $primaryColor;
@@ -81,6 +142,12 @@
             align-items: center;
             transition: background-color 0.3s;
             cursor: pointer;
+            @media (orientation: portrait) {
+              & {
+                width: 50vw;
+                height: 5vh;
+              }
+            }
             &:hover {
               background-color: $primaryColorDarker;
             }
@@ -88,30 +155,15 @@
               font-weight: bold;
               font-size: 0.82vw;
               color: white;
+              @media (orientation: portrait) {
+                & {
+                  font-size: 2vh;
+                }
+              }
             }
           }
         }
       }
-    }
-  }
-  .leftArrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 1%;
-    cursor: pointer;
-    .icon {
-      font-size: 1.5vw;
-    }
-  }
-  .rightArrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 1%;
-    cursor: pointer;
-    .icon {
-      font-size: 1.5vw;
     }
   }
 }
