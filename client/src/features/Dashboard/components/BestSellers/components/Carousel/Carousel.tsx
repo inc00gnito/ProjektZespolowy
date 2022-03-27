@@ -22,6 +22,9 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
   const [cards, setCards] = useState<any[]>([]);
   const [posArr, setPosArr] = useState<number[]>([]);
   const container = useRef<HTMLDivElement>(null);
+  const [isPortrait, setPortrait] = useState(
+    window.innerHeight > window.innerWidth
+  );
   const isPageTransition = useRef(false);
 
   const onRightClick = () => {
@@ -79,6 +82,7 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
       const width = container.current.offsetWidth;
       setWidth(width);
     }
+    if (window.innerHeight > window.innerWidth) setPortrait(true);
   }, []);
 
   useEffect(() => {
@@ -159,6 +163,19 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
 
   return (
     <div className={styles.container}>
+      <div
+        style={{
+          height: (width / elements) * (isPortrait ? 0.66 : 0.88) + "px",
+        }}
+        className={styles.arrowContainer}
+      >
+        <div className={styles.leftArrow} onClick={onLeftClick}>
+          <BsChevronLeft className={styles.icon} />
+        </div>
+        <div className={styles.rightArrow} onClick={onRightClick}>
+          <BsChevronRight className={styles.icon} />
+        </div>
+      </div>
       <div className={styles.carousel} ref={container}>
         {Array.from(Array(sliderElements).keys()).map((item) => {
           const lastCardIndex = posArr.indexOf(Math.max(...posArr));
@@ -172,7 +189,7 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
               style={
                 {
                   "--elements": elements,
-                  transform: `translateX(${posArr[item] * elementWidth}px)`,
+                  transform: `translate(${posArr[item] * elementWidth}px)`,
                   opacity: isFirstOrLast ? 0 : 1,
                 } as any
               }
@@ -200,12 +217,6 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
             </div>
           );
         })}
-      </div>
-      <div className={styles.leftArrow} onClick={onLeftClick}>
-        <BsChevronLeft className={styles.icon} />
-      </div>
-      <div className={styles.rightArrow} onClick={onRightClick}>
-        <BsChevronRight className={styles.icon} />
       </div>
     </div>
   );

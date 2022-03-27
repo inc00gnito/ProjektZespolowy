@@ -40,7 +40,6 @@ const Discounts = () => {
   return (
     <section className={styles.container} ref={ref}>
       <AnimatePresence>
-        {/* {render ? ( */}
         <div className={styles.content}>
           <motion.div
             className={styles.titleCard}
