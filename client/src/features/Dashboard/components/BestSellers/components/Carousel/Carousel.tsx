@@ -71,10 +71,11 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
   }, []);
 
   const onWindowResize = useCallback(() => {
-    if (window.innerWidth < 1024) {
+    const isPortrait = window.innerHeight > window.innerWidth;
+    if (isPortrait) {
       setElements(mobileView);
       setSliderElements(mobileView + 4);
-    } else if (window.innerWidth >= 1024) {
+    } else {
       setElements(desktopView);
       setSliderElements(desktopView + 4);
     }
@@ -82,14 +83,14 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
       const width = container.current.offsetWidth;
       setWidth(width);
     }
-    if (window.innerHeight > window.innerWidth) setPortrait(true);
+    if (isPortrait) setPortrait(true);
   }, []);
 
   useEffect(() => {
-    if (window.innerWidth < 1024) {
+    if (isPortrait) {
       setElements(mobileView);
       setSliderElements(mobileView + 4);
-    } else if (window.innerWidth >= 1024) {
+    } else {
       setElements(desktopView);
       setSliderElements(desktopView + 4);
     }

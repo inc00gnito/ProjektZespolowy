@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   @media (orientation: portrait) {
-    padding-top: 0vh;
+    padding-top: 5vw;
   }
   .content {
     width: 100%;
@@ -26,13 +26,14 @@
     @media (orientation: portrait) {
       display: flex;
       flex-direction: column;
+      margin-bottom: 7vw;
     }
     .title {
       color: white;
       font-size: $titleFS;
       @media (orientation: portrait) {
         text-align: center;
-        font-size: $titleFSPortrait;
+        font-size: 7vw;
       }
     }
     .button {
@@ -45,13 +46,13 @@
       font-size: 0.85vw;
       cursor: pointer;
       @media (orientation: portrait) {
-        width: 13vh;
-        height: 4.8vh;
-        border-radius: 2.3vh;
-        border-width: 0.3vh;
+        width: 30vw;
+        height: 10.5vw;
+        border-radius: 5vw;
+        border-width: 0.7vw;
         margin: 0 auto;
         margin-top: 5vh;
-        font-size: 1.5vh;
+        font-size: 3.3vw;
       }
     }
   }

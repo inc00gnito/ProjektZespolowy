@@ -147,4 +147,8 @@
     height: $navbarHeight;
     background-color: black;
   }
+  .content {
+    position: relative;
+    z-index: 1;
+  }
 }
