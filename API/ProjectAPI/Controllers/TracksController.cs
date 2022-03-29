@@ -9,6 +9,8 @@ using ProjectAPI.Models.Enums;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace ProjectAPI.Controllers
 {
