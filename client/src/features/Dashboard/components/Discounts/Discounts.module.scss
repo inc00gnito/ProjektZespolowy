@@ -6,7 +6,7 @@
   align-items: center;
   background-color: black;
   @media (orientation: portrait) {
-    height: 130vh;
+    height: auto;
     overflow: hidden;
   }
   .content {
@@ -17,7 +17,7 @@
       display: flex;
       flex-direction: column;
       width: 100vw;
-      height: max-content;
+      height: auto;
       padding: 0 5vw;
     }
     .titleCard {
@@ -38,9 +38,9 @@
       overflow: hidden;
       @media (orientation: portrait) {
         position: static;
-        margin: 0 auto;
+        margin: 5vh auto;
         width: 100%;
-        height: 30vh;
+        height: 55vw;
         border-radius: 7.5vw;
       }
       .text {
@@ -48,7 +48,7 @@
           font-size: 1.16vw;
           text-align: center;
           @media (orientation: portrait) {
-            font-size: 2.2vh;
+            font-size: 4.4vw;
             text-align: center;
           }
         }
@@ -58,7 +58,7 @@
           line-height: 1;
           padding-left: 0.3vw;
           @media (orientation: portrait) {
-            font-size: 6.5vh;
+            font-size: 13.5vw;
             padding-left: 0;
             text-align: center;
             padding-top: 0.5vh;
@@ -68,7 +68,7 @@
           font-size: $titleFS;
           font-weight: bold;
           @media (orientation: portrait) {
-            font-size: 4.2vh;
+            font-size: 8.8vw;
             text-align: center;
           }
         }

@@ -6,6 +6,7 @@
   padding-left: 2vw;
   padding-right: 2vw;
   overflow: hidden;
+
   .arrowContainer {
     position: absolute;
     top: 0;
@@ -21,7 +22,7 @@
       .icon {
         font-size: 1.5vw;
         @media (orientation: portrait) {
-          font-size: 4vh;
+          font-size: 9vw;
         }
       }
     }
@@ -35,7 +36,7 @@
       .icon {
         font-size: 1.5vw;
         @media (orientation: portrait) {
-          font-size: 4vh;
+          font-size: 9vw;
         }
       }
     }
@@ -51,7 +52,7 @@
     overflow: hidden;
     @media (orientation: portrait) {
       & {
-        height: 65vh;
+        height: 100vw;
       }
     }
 

@@ -14,16 +14,26 @@ const Discounts = () => {
     threshold: 0,
     rootMargin: "-350px",
   });
+  const [isPortrait, setPortrait] = useState(
+    window.innerHeight > window.innerWidth
+  );
   useEffect(() => {
     if (inView) setRender(true);
   }, [inView]);
 
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerHeight > window.innerWidth) setPortrait(true);
+    };
+    window.addEventListener("resize", onResize);
+  });
+
   const titleCardVariants = {
-    initial: { opacity: 0, x: 100, y: "-50%" },
+    initial: { opacity: 0, x: 100, y: isPortrait ? 0 : "-50%" },
     animate: {
       opacity: 1,
       x: 0,
-      y: "-50%",
+      y: isPortrait ? 0 : "-50%",
     },
   };
   const tracksVariants = {

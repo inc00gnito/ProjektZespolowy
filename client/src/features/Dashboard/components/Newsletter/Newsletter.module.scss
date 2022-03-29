@@ -8,10 +8,15 @@
   color: white;
   @media (orientation: portrait) {
     & {
-      height: 35vh;
+      height: auto;
+      padding-top: 3vw;
+      padding-bottom: 3vw;
     }
   }
   .content {
+    @media (orientation: portrait) {
+      width: 88%;
+    }
     .text {
       .title {
         font-size: $titleFS;
@@ -19,7 +24,7 @@
         text-align: center;
         @media (orientation: portrait) {
           & {
-            font-size: 4vh;
+            font-size: 7.2vw;
           }
         }
       }
@@ -28,7 +33,7 @@
         font-size: $textFS;
         @media (orientation: portrait) {
           & {
-            font-size: 2.5vh;
+            font-size: 4.1vw;
           }
         }
       }
@@ -37,7 +42,7 @@
       margin-top: 5vh;
       @media (orientation: portrait) {
         & {
-          margin-top: 3vh;
+          margin-top: 5.5vw;
         }
       }
       .fieldName {
@@ -46,7 +51,7 @@
         margin-bottom: 0.5vh;
         @media (orientation: portrait) {
           & {
-            font-size: 2vh;
+            font-size: 3.5vw;
           }
         }
       }
@@ -78,7 +83,7 @@
           font-size: 1vw;
           @media (orientation: portrait) {
             & {
-              font-size: 1.8vh;
+              font-size: 3.8vw;
             }
           }
         }
@@ -94,7 +99,7 @@
           transition: background-color 0.3s, color 0.2s;
           @media (orientation: portrait) {
             & {
-              font-size: 1.8vh;
+              font-size: 3.8vw;
             }
           }
           &:hover {

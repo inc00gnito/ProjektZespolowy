@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles/Home.module.scss";
 import { BiSearch } from "react-icons/bi";
 import { motion, useCycle } from "framer-motion";
@@ -11,6 +11,7 @@ interface IProps {
 
 const Home: React.FC<IProps> = ({ children }) => {
   const [isOpen, toggleOpen] = useCycle(false, true);
+  const [mobileVisiblity, setMobileVisibility] = useState("visible");
 
   const variants = () => {
     if (isOpen)
@@ -34,7 +35,6 @@ const Home: React.FC<IProps> = ({ children }) => {
 
         <div className={styles.mobileIcons}>
           <motion.div
-            initial={false}
             className={styles.hamburger}
             animate={isOpen ? "open" : "closed"}
           >
@@ -50,10 +50,20 @@ const Home: React.FC<IProps> = ({ children }) => {
         <motion.div
           className={styles.mobileMenu}
           animate={variants()}
+          style={{
+            visibility: mobileVisiblity as any,
+          }}
+          initial={{ opacity: 0 }}
           transition={{
             type: "spring",
             stiffness: 230,
             damping: 40,
+          }}
+          onAnimationComplete={() => {
+            if (!isOpen) setMobileVisibility("hidden");
+          }}
+          onAnimationStart={() => {
+            if (isOpen) setMobileVisibility("visible");
           }}
         >
           <div className={styles.header}>
