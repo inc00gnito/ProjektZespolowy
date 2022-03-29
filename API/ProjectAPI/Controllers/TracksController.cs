@@ -8,6 +8,7 @@ using ProjectAPI.Models;
 using ProjectAPI.Models.Enums;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjectAPI.Controllers
 {
@@ -122,7 +123,61 @@ namespace ProjectAPI.Controllers
 
             return Ok(Tracks);
         }
-        
+
+        [HttpPut("[action]/{trackId}")]
+        public ActionResult DiscountTrackByUser(int trackId, double discountedPrice)
+        {
+            var track = _db.TracksDbSet.FirstOrDefault(x => x.Id == trackId);
+            if (track == null)
+                return NotFound();
+            track.DiscountedByUser = discountedPrice;
+
+            _db.Entry(track).State = EntityState.Modified;
+            _db.SaveChanges();
+
+            //Newsletter is being sent everytime a discount price is changed
+            List<NewsletterEmail> emails = _db.NewsletterEmailsDbSet.ToList();
+            SendMail(emails);
+
+            return NoContent();
+
+        }
+
+        #region Methods
+
+        private void SendMail(List<NewsletterEmail> newsletterEmails)
+        {
+            var client = new SmtpClient();
+            client.Connect("smtp.gmail.com", 587, false);
+            client.Authenticate("trackslance@gmail.com", "Trackslance1!"); // later hide password somehow
+
+            foreach (var newsletterEmail in newsletterEmails)
+            {
+                var msg = CreateMessage(newsletterEmail.Email);
+                client.Send(msg);
+            }
+            client.Disconnect(true);
+
+        }
+
+        private MimeMessage CreateMessage(string email)
+        {
+            var msg = new MimeMessage();
+            msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
+            msg.To.Add(new MailboxAddress("", email));
+            msg.Subject = "Newsletter!";
+
+            msg.Body = new TextPart("plain")
+            {
+                Text = @"Testing put changes  in fucking api"
+            };
+
+            return msg;
+        }
+
+
+        #endregion
+
     }
 
 }
