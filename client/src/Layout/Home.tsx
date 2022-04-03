@@ -4,6 +4,7 @@ import { BiSearch } from "react-icons/bi";
 import { motion, useCycle } from "framer-motion";
 import { MenuToggle } from "./MenuToggle";
 import user from "assets/user.png";
+import { Link } from "react-router-dom";
 
 interface IProps {
   children: React.ReactNode | React.ReactNode[];
@@ -74,24 +75,24 @@ const Home: React.FC<IProps> = ({ children }) => {
           <div className={styles.menuM}>
             <ul className={styles.list}>
               <li className={styles.item}>
-                <a href="" className={styles.link}>
+                <Link to="/tracks" className={styles.link}>
                   Tracks
-                </a>
+                </Link>
               </li>
               <li className={styles.item}>
-                <a href="" className={styles.link}>
+                <Link to="/sale" className={styles.link}>
                   On Sale
-                </a>
+                </Link>
               </li>
               <li className={styles.item}>
-                <a href="" className={styles.link}>
-                  About Us
-                </a>
+                <Link to="/about" className={styles.link}>
+                  About us
+                </Link>
               </li>
               <li className={styles.item}>
-                <a href="" className={styles.link}>
-                  Contact Us
-                </a>
+                <Link to="/contact" className={styles.link}>
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
@@ -99,10 +100,26 @@ const Home: React.FC<IProps> = ({ children }) => {
 
         <div className={styles.menu}>
           <ul className={styles.menuItems}>
-            <li className={styles.link}>Tracks</li>
-            <li className={styles.link}>On Sale</li>
-            <li className={styles.link}>About Us</li>
-            <li className={styles.link}>Contact Us</li>
+            <li className={styles.item}>
+              <Link to="/tracks" className={styles.link}>
+                Tracks
+              </Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/sale" className={styles.link}>
+                On Sale
+              </Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/about" className={styles.link}>
+                About us
+              </Link>
+            </li>
+            <li className={styles.item}>
+              <Link to="/contact" className={styles.link}>
+                Contact
+              </Link>
+            </li>
           </ul>
           <div className={styles.search}>
             <BiSearch className={styles.icon} />

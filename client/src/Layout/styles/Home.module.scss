@@ -40,15 +40,20 @@
       display: flex;
       .menuItems {
         display: flex;
-        .link {
+        .item {
           text-decoration: none;
           list-style-type: none;
           margin-left: 2vw;
           display: flex;
           justify-content: center;
           align-items: center;
-          font-size: 0.84vw;
-          font-weight: 400;
+
+          .link {
+            text-decoration: none;
+            color: white;
+            font-size: 0.84vw;
+            font-weight: 400;
+          }
         }
       }
       .search {
