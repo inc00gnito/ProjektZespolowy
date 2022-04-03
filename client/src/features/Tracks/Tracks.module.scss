@@ -1,0 +1,6 @@
+@import "../../app/styles/variables.scss";
+.container {
+  background-color: black;
+  height: 100%;
+  height: calc(100vh - $navbarHeight);
+}
