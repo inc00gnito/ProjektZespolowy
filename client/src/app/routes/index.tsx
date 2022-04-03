@@ -5,7 +5,7 @@ import Contact from "features/Contact";
 import AuthRoute from "./AuthRoute";
 import PublicRoute from "./PublicRoute";
 import About from "features/About";
-
+import Tracks from "features/Tracks";
 
 const AppRoutes = () => {
   return (
@@ -15,6 +15,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/tracks" element={<Tracks />} />
         </Route>
         <Route path="/" element={<PublicRoute />}>
           <Route path="/signin" element={<div>ds</div>} />

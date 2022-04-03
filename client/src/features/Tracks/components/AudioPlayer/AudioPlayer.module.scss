@@ -1,0 +1,178 @@
+@import "../../../../app/styles/variables.scss";
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  color: white;
+  border-top: 0.1em solid white;
+  .content {
+    max-width: 1600px;
+    width: 100%;
+    display: flex;
+    & > * {
+      width: calc(100% / 3);
+    }
+    .track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .photo {
+        width: 5em;
+        height: 5em;
+        .img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .info {
+        margin-left: 1em;
+        .title {
+          font-weight: bold;
+          font-size: 1rem;
+        }
+        .author {
+          font-weight: 200;
+          font-size: 0.85rem;
+          margin-top: 0.5em;
+        }
+      }
+      .button {
+        margin-left: 2em;
+        background-color: $primaryColor;
+        border: none;
+        width: 7.5em;
+        height: 2.5em;
+        color: white;
+        border-radius: 0.2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.3s, background 0.3s;
+        &:hover {
+          background-color: white;
+          color: $primaryColor;
+        }
+        .icon {
+          font-size: 1.2rem;
+          margin-left: 0.2em;
+          vertical-align: center;
+        }
+      }
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .previous {
+        cursor: pointer;
+        .icon {
+          font-size: 2rem;
+        }
+      }
+      .play {
+        margin-left: 0.5em;
+        width: 3em;
+        cursor: pointer;
+        height: 3em;
+        border-radius: 50%;
+        background-color: $primaryColor;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          font-size: 1.2rem;
+          color: black;
+        }
+        .iconSmall {
+          font-size: 1rem;
+        }
+      }
+      .next {
+        margin-left: 0.5em;
+        cursor: pointer;
+        .icon {
+          font-size: 2rem;
+        }
+      }
+    }
+    .volume {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .volumeContainer {
+        display: flex;
+        .icon {
+          font-size: 1.5rem;
+          color: white;
+        }
+        .range {
+          -webkit-appearance: none;
+          background: transparent;
+          margin-left: 0.2em;
+          width: 100%;
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: $primaryColor;
+            cursor: pointer;
+            height: 0.9em;
+            width: 0.9em;
+            margin-top: -5px;
+          }
+          &:focus {
+            outline: none;
+          }
+          &::-ms-track {
+            width: 100%;
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            color: transparent;
+          }
+          &::-moz-range-thumb {
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: $primaryColor;
+            cursor: pointer;
+            height: 0.9em;
+            width: 0.9em;
+            margin-top: -5px;
+          }
+          &::-ms-thumb {
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: $primaryColor;
+            cursor: pointer;
+            height: 0.9em;
+            width: 0.9em;
+            margin-top: -5px;
+          }
+          &::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: var(--progress);
+            border-radius: 1.3px;
+          }
+
+          &::-moz-range-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: $primaryColor;
+            border-radius: 1.3px;
+          }
+        }
+      }
+    }
+  }
+}
