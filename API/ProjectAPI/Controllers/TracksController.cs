@@ -144,6 +144,18 @@ namespace ProjectAPI.Controllers
             return NoContent();
 
         }
+        [HttpDelete("deletetrack/{id}")]
+        public ActionResult DeleteTrack([FromRoute] int id)
+        {
+            var track = _db.TracksDbSet.FirstOrDefault(r => r.Id == id);
+            if (track == null)
+            {
+                return NotFound();
+            }
+            _db.TracksDbSet.Remove(track);
+            _db.SaveChanges();
+            return NoContent();
+        }
 
         #region Methods
 
