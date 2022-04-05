@@ -6,4 +6,5 @@ export default class AuthenticationStore {
   }
 
   isAuthenticated = true;
+  authenticationPopup = "signin";
 }
