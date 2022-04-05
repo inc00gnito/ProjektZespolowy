@@ -1,0 +1,28 @@
+@import "../../../../app/styles/variables.scss";
+.container {
+  color: white;
+  .header {
+    .title {
+      font-size: clamp(2rem, 2vw + 0.8rem, 4.5rem);
+      color: $primaryColor;
+      text-align: center;
+    }
+    .helper {
+      margin-top: 0.8rem;
+      .link {
+        color: white;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+  .form {
+    margin-top: 2rem;
+    .field {
+      width: 18rem;
+      &:nth-child(2) {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
