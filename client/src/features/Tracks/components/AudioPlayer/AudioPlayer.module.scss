@@ -22,8 +22,8 @@
       align-items: center;
 
       .photo {
-        width: 5em;
-        height: 5em;
+        width: 6em;
+        height: 6em;
         .img {
           display: block;
           width: 100%;
@@ -68,38 +68,102 @@
       }
     }
     .controls {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      .previous {
-        cursor: pointer;
-        .icon {
-          font-size: 2rem;
-        }
-      }
-      .play {
-        margin-left: 0.5em;
-        width: 3em;
-        cursor: pointer;
-        height: 3em;
-        border-radius: 50%;
-        background-color: $primaryColor;
+      .buttons {
+        padding-top: 1vh;
         display: flex;
         justify-content: center;
         align-items: center;
-        .icon {
-          font-size: 1.2rem;
-          color: black;
+        .previous {
+          cursor: pointer;
+          .icon {
+            font-size: 2rem;
+          }
         }
-        .iconSmall {
-          font-size: 1rem;
+        .play {
+          margin-left: 0.5em;
+          width: 3em;
+          cursor: pointer;
+          height: 3em;
+          border-radius: 50%;
+          background-color: $primaryColor;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .icon {
+            font-size: 1.2rem;
+            color: black;
+          }
+          .iconSmall {
+            font-size: 1rem;
+          }
+        }
+        .next {
+          margin-left: 0.5em;
+          cursor: pointer;
+          .icon {
+            font-size: 2rem;
+          }
         }
       }
-      .next {
-        margin-left: 0.5em;
-        cursor: pointer;
-        .icon {
-          font-size: 2rem;
+      .timeTrack {
+        .range {
+          -webkit-appearance: none;
+          background: transparent;
+          margin-left: 0.2em;
+          width: 100%;
+          &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: $primaryColor;
+            cursor: pointer;
+            height: 0.9em;
+            width: 0.9em;
+            margin-top: -5px;
+          }
+          &:focus {
+            outline: none;
+          }
+          &::-ms-track {
+            width: 100%;
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            color: transparent;
+          }
+          &::-moz-range-thumb {
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: $primaryColor;
+            cursor: pointer;
+            height: 0.9em;
+            width: 0.9em;
+            margin-top: -5px;
+          }
+          &::-ms-thumb {
+            border: 1px solid #000000;
+            border-radius: 50%;
+            background: $primaryColor;
+            cursor: pointer;
+            height: 0.9em;
+            width: 0.9em;
+            margin-top: -5px;
+          }
+          &::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: var(--progress);
+            border-radius: 1.3px;
+          }
+
+          &::-moz-range-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: var(--progress);
+            border-radius: 1.3px;
+          }
         }
       }
     }
@@ -168,7 +232,7 @@
             width: 100%;
             height: 2px;
             cursor: pointer;
-            background: $primaryColor;
+            background: var(--progress);
             border-radius: 1.3px;
           }
         }
