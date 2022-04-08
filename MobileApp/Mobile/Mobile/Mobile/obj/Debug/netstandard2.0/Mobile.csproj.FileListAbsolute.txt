@@ -1,0 +1,40 @@
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\bin\Debug\netstandard2.0\Mobile.deps.json
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\bin\Debug\netstandard2.0\Mobile.dll
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\bin\Debug\netstandard2.0\ref\Mobile.dll
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\bin\Debug\netstandard2.0\Mobile.pdb
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.csproj.AssemblyReference.cache
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.AssemblyInfoInputs.cache
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.AssemblyInfo.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.csproj.CoreCompileInputs.cache
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.dll
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\ref\Mobile.dll
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.pdb
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Menu.xaml.g.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\AboutUs.xaml.g.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\ContactUs.xaml.g.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\OnSale.xaml.g.cs
+C:\Users\mateu\Desktop\ProejktZespolowy\ProjektZespolowy\API\Mobile\Mobile\obj\Debug\netstandard2.0\Tracks.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\bin\Debug\netstandard2.0\Mobile.deps.json
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\bin\Debug\netstandard2.0\Mobile.dll
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\bin\Debug\netstandard2.0\ref\Mobile.dll
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\bin\Debug\netstandard2.0\Mobile.pdb
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.csproj.AssemblyReference.cache
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\AboutUs.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\ContactUs.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Menu.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\OnSale.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Tracks.xaml.g.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.AssemblyInfoInputs.cache
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.AssemblyInfo.cs
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.csproj.CoreCompileInputs.cache
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.dll
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\ref\Mobile.dll
+C:\Users\mateu\Desktop\CHUJ WIE MOZE ZADZIALA\ProjektZespolowy\MobileApp\Mobile\Mobile\Mobile\obj\Debug\netstandard2.0\Mobile.pdb
