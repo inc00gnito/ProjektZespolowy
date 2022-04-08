@@ -1,16 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
-using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using ProjectAPI.Data;
 using ProjectAPI.Models;
 using ProjectAPI.Models.Enums;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using MailKit.Net.Smtp;
-using MimeKit;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace ProjectAPI.Controllers
 {
@@ -18,109 +23,156 @@ namespace ProjectAPI.Controllers
     [ApiController]
     public class TracksController : ControllerBase
     {
-        public readonly DataBaseContext _db;    
-        public TracksController(DataBaseContext db)
+        public readonly DataBaseContext _db;
+        private readonly Cloudinary _cloudinary;
+        public TracksController(DataBaseContext db, Cloudinary cloudinary)
         {
             _db = db;
+            _cloudinary = cloudinary;
+        }
+
+        //TODO - to postTrack add UserId after authorization is done 
+            
+
+
+        [HttpPost]
+        public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm)
+        {
+
+            var track = new Track
+            {
+                Title = trackFromForm.Title,
+                Time = trackFromForm.Time,
+                Authors = trackFromForm.Authors,
+                Cost = trackFromForm.Cost,
+                Genre = trackFromForm.Genre,
+
+
+            };
+             
+            if (trackFromForm.audioFormFile == null || trackFromForm.demoFormFile == null || trackFromForm.audioFormFile == null)
+                return BadRequest("File cannot be empty");
+            track.AudioFile = GetFileStringAndUpload(trackFromForm.audioFormFile).Result;
+            track.DemoFile = GetFileStringAndUpload(trackFromForm.demoFormFile).Result;
+            track.ImgFile = GetFileStringAndUpload(trackFromForm.imageFormFile, "image").Result;
+
+
+            _db.TracksDbSet.Add(track);
+            await _db.SaveChangesAsync();
+
+            foreach (var author in track.Authors.ToList())
+            {
+                if (author.StageName != null)
+                {
+                    var newAuthor = new Author
+                    {
+                        StageName = author.StageName,
+                        TrackId = track.Id,
+                    };
+                    _db.AuthorsDbSet.Add(newAuthor);
+                }
+
+            }
+
+            //await _db.SaveChangesAsync();
+            return Ok();
         }
 
         [HttpGet]
-        public ActionResult< List<Track> > GetTracks()
+        public ActionResult<List<Track>> GetTracks()
         {
-           var Tracks =  _db.TracksDbSet.ToList();
-           return Ok(Tracks);
-
+            var Tracks = _db.TracksDbSet.ToList();
+            return Ok(Tracks);
         }
 
 
         [HttpGet("bestSellers")]
-        public ActionResult< List<Track> > GetBestSellers()
+        public ActionResult<List<Track>> GetBestSellers()
         {
             var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) {
-                return y.TimesSold.CompareTo(x.TimesSold);
-            });
-            
-            int numberOfTrack = Math.Min(6,Tracks.Count());
+            Tracks.Sort(delegate(Track x, Track y) { return y.TimesSold.CompareTo(x.TimesSold); });
+
+            var numberOfTrack = Math.Min(6, Tracks.Count());
             var BestSellers = Tracks.GetRange(0, numberOfTrack);
 
             return Ok(BestSellers);
         }
-        
+
         [HttpGet("discounted")]
-        public ActionResult< List<Track> > GetDiscounted()
+        public ActionResult<List<Track>> GetDiscounted()
         {
-            var Discounted = _db.TracksDbSet.ToList().Where(x => x.IsDiscounted == true);;
+            var Discounted = _db.TracksDbSet.ToList().Where(x => x.IsDiscounted);
+            ;
             return Ok(Discounted);
         }
 
-        [HttpGet("filterbygenerer")] 
-
-        public ActionResult< List<Track> >FilterByGernes( [FromQuery] params Genre[] genre )
+        [HttpGet("filterbygenerer")]
+        public ActionResult<List<Track>> FilterByGernes([FromQuery] params Genre[] genre)
         {
             Debug.Print(genre.Count().ToString());
 
 
-            var Tracks = _db.TracksDbSet.ToList().Where(x => genre.Contains(x.Genre));            
+            var Tracks = _db.TracksDbSet.ToList().Where(x => genre.Contains(x.Genre));
             return Ok(Tracks);
         }
 
-       
-        
+
         // cost = cost - miscountedbyuser
         [HttpGet("sortbycostlowtohigh")] // nie testowane 
-        public ActionResult< List<Track> >SortByCostLowToHigh()
+        public ActionResult<List<Track>> SortByCostLowToHigh()
         {
             var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) {
+            Tracks.Sort(delegate(Track x, Track y)
+            {
                 return (x.Cost - x.DiscountedByUser).CompareTo(y.Cost - y.DiscountedByUser);
             });
 
             return Ok(Tracks);
-        } 
+        }
 
-        [HttpGet("sortbycosthightolow")] 
-        public ActionResult< List<Track> >SortByCostHighToLow()
+        [HttpGet("sortbycosthightolow")]
+        public ActionResult<List<Track>> SortByCostHighToLow()
         {
             var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) {
+            Tracks.Sort(delegate(Track x, Track y)
+            {
                 return (y.Cost - y.DiscountedByUser).CompareTo(x.Cost - x.DiscountedByUser);
             });
 
             return Ok(Tracks);
         }
 
-        [HttpGet("sortbytimessold")] 
-        public ActionResult< List<Track> >SortByTimesSold()
+        [HttpGet("sortbytimessold")]
+        public ActionResult<List<Track>> SortByTimesSold()
         {
             var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) {
-                return y.TimesSold.CompareTo(x.TimesSold);
-            });
+            Tracks.Sort(delegate(Track x, Track y) { return y.TimesSold.CompareTo(x.TimesSold); });
 
             return Ok(Tracks);
-        }      
+        }
 
-    
-        [HttpGet("sortbydiscountedlowtohigh")] 
+
+        [HttpGet("sortbydiscountedlowtohigh")]
         public ActionResult<List<Track>> SortByDiscountedLowToHigh()
         {
             var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) {
-                return (x.DiscountedByUser )
-                .CompareTo(y.DiscountedByUser);
+            Tracks.Sort(delegate(Track x, Track y)
+            {
+                return x.DiscountedByUser
+                    .CompareTo(y.DiscountedByUser);
             });
 
             return Ok(Tracks);
         }
-        
-         [HttpGet("sortbydiscountedhightolow")] 
+
+        [HttpGet("sortbydiscountedhightolow")]
         public ActionResult<List<Track>> SortByDiscountedHighToLow()
         {
             var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) {
-                return (y.DiscountedByUser )
-                .CompareTo(x.DiscountedByUser);
+            Tracks.Sort(delegate(Track x, Track y)
+            {
+                return y.DiscountedByUser
+                    .CompareTo(x.DiscountedByUser);
             });
 
             return Ok(Tracks);
@@ -138,11 +190,10 @@ namespace ProjectAPI.Controllers
             _db.SaveChanges();
 
             //Newsletter is being sent everytime a discount price is changed
-            List<NewsletterEmail> emails = _db.NewsletterEmailsDbSet.ToList();
+            var emails = _db.NewsletterEmailsDbSet.ToList();
             SendMail(emails);
 
             return NoContent();
-
         }
 
         #region Methods
@@ -158,8 +209,8 @@ namespace ProjectAPI.Controllers
                 var msg = CreateMessage(newsletterEmail.Email);
                 client.Send(msg);
             }
-            client.Disconnect(true);
 
+            client.Disconnect(true);
         }
 
         private MimeMessage CreateMessage(string email)
@@ -177,9 +228,32 @@ namespace ProjectAPI.Controllers
             return msg;
         }
 
+        private async Task<string> GetFileStringAndUpload(IFormFile file, string type = "")
+        {
+            if (file == null)
+                return string.Empty;
+            RawUploadResult uploadResult;
+
+            if (type == "image")
+            {
+                 uploadResult = await _cloudinary.UploadAsync(new ImageUploadParams
+                {
+                    File = new FileDescription(file.FileName, file.OpenReadStream())
+                }).ConfigureAwait(false);
+            }
+            else
+            {
+                 uploadResult = await _cloudinary.UploadAsync("video", null,
+                    new FileDescription(file.FileName, file.OpenReadStream())).ConfigureAwait(false);
+
+            }
+
+            
+            return uploadResult.Url.ToString();
+        }
+
+       
 
         #endregion
-
     }
-
 }
