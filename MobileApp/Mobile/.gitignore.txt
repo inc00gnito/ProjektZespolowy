@@ -8,11 +8,11 @@ obj/
 *.userprefs
 .packages
 ###App obj and debug ###
-./Mobile/obj
-./Mobile/bin
+Mobile/obj/
+Mobile/bin/
 
-./MobileApp/obj
-./MobileApp/bin
+MobileApp/obj/
+MobileApp/bin/
 
 
 
