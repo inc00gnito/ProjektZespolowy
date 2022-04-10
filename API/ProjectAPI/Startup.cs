@@ -43,12 +43,12 @@ namespace ProjectAPI
             var apiKey = Configuration.GetValue<string>("AccountSettings:ApiKey");
             var apiSecret = Configuration.GetValue<string>("AccountSettings:ApiSecret");
 
-            if (new[] {cloudName, apiSecret, apiKey}.Any(string.IsNullOrWhiteSpace))
+            /*if (new[] {cloudName, apiSecret, apiKey}.Any(string.IsNullOrWhiteSpace))
                 throw new ArgumentException("Specify Cloudinary account details");
-
+*/
             services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
             services.AddDbContext<DataBaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("kozak")));
+                options.UseSqlServer(Configuration.GetConnectionString("ola")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -14,6 +14,7 @@ using ProjectAPI.Models.Enums;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
@@ -34,7 +35,7 @@ namespace ProjectAPI.Controllers
         //TODO - to postTrack add UserId after authorization is done 
             
 
-
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm)
         {
@@ -116,7 +117,7 @@ namespace ProjectAPI.Controllers
             return Ok(Tracks);
         }
 
-
+/*
         // cost = cost - miscountedbyuser
         [HttpGet("sortbycostlowtohigh")] // nie testowane 
         public ActionResult<List<Track>> SortByCostLowToHigh()
@@ -174,6 +175,26 @@ namespace ProjectAPI.Controllers
                 return y.DiscountedByUser
                     .CompareTo(x.DiscountedByUser);
             });
+
+            return Ok(Tracks);
+        }
+*/
+        [HttpGet("sort")]
+        public ActionResult<List<Track>> Sort([FromQuery] SortBy key)
+        {
+            
+            var Tracks = _db.TracksDbSet.ToList();
+            
+            if (key == SortBy.CostLowToHigh)
+                return Ok(Tracks.OrderBy(x => (x.Cost - x.DiscountedByUser)));
+            else if (key == SortBy.CostHighToLow)
+                return Ok(Tracks.OrderBy(x => (x.DiscountedByUser- x.Cost)));
+            else if (key == SortBy.TimesSold)
+                return Ok(Tracks.OrderBy(x => (x.TimesSold)).Reverse());
+            else if (key == SortBy.DiscountedLowToHigh)
+                return Ok(Tracks.OrderBy(x => (x.DiscountedByUser)));
+            else if (key == SortBy.DiscountedLowToHigh)
+                return Ok(Tracks.OrderBy(x => (x.DiscountedByUser)).Reverse());
 
             return Ok(Tracks);
         }

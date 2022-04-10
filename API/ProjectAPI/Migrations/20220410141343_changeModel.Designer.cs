@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectAPI.Data;
 
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220410141343_changeModel")]
+    partial class changeModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,29 +94,6 @@ namespace ProjectAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("OrdersDbSet");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Session", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SessionDbSet");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
@@ -212,15 +191,6 @@ namespace ProjectAPI.Migrations
                     b.HasOne("ProjectAPI.Models.User", null)
                         .WithMany("Orders")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Session", b =>
-                {
-                    b.HasOne("ProjectAPI.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
