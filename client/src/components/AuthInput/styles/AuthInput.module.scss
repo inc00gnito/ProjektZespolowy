@@ -1,3 +1,4 @@
+@import "../../../app/styles/variables.scss";
 .container {
   .label {
     display: flex;
@@ -12,6 +13,19 @@
       font-size: 1em;
       padding-left: 1em;
       margin-top: 0.4em;
+      color: white;
+      &:focus {
+        border: 0.05em solid $primaryColor;
+      }
     }
+    .inputError {
+      border: 0.05em solid red;
+    }
+  }
+  .error {
+    color: red;
+    font-weight: bold;
+    padding-top: 0.1rem;
+    font-size: 0.9em;
   }
 }

@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import styles from "./styles/Signin.module.scss";
+import styles from "./styles/Signup.module.scss";
 import AuthenticationLayout from "Layout/Authentication/Authentication";
 import AuthInput from "components/AuthInput/AuthInput";
 import { useForm } from "react-hook-form";
@@ -11,9 +10,12 @@ import { useAuthenticationStore } from "app/provider/Provider";
 const schema = yup.object({
   email: yup.string().required("To pole jest wymagane"),
   password: yup.string().required("To pole jest wymagane"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Hasła są różne"),
 });
 
-const Signin = () => {
+const Signup = () => {
   const { openPopUp } = useAuthenticationStore();
   const {
     handleSubmit,
@@ -28,13 +30,8 @@ const Signin = () => {
     <AuthenticationLayout>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Sign in</h1>
-          <p className={styles.helper}>
-            Don't have an account?{" "}
-            <a className={styles.link} onClick={() => openPopUp("signup")}>
-              Sign up
-            </a>
-          </p>
+          <p className={styles.helper}>Don't have an account?</p>
+          <h1 className={styles.title}>Sign up</h1>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.field}>
@@ -51,20 +48,27 @@ const Signin = () => {
               error={errors.password?.message}
             />
           </div>
-          <button
-            className={styles.forgetPassword}
-            type="button"
-            onClick={() => openPopUp("resetPassword")}
-          >
-            Forgot Password?
-          </button>
+          <div className={styles.field}>
+            <AuthInput
+              label="Confirm Password"
+              inputProps={register("confirmPassword")}
+              error={errors.confirmPassword?.message}
+            />
+          </div>
+
           <button type="submit" className={styles.button}>
-            Sign In
+            Sign Up
           </button>
         </form>
+        <p className={styles.helper}>
+          Already have an account?{" "}
+          <a className={styles.link} onClick={() => openPopUp("signin")}>
+            Sign In
+          </a>
+        </p>
       </div>
     </AuthenticationLayout>
   );
 };
 
-export default Signin;
+export default Signup;

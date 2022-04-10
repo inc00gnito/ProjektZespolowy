@@ -1,7 +1,7 @@
 import React from "react";
 import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
 import styles from "./Tracks.module.scss";
-import HomeLayout from "Layout/Home";
+import HomeLayout from "Layout/Home/Home";
 const index = () => {
   return (
     <HomeLayout>

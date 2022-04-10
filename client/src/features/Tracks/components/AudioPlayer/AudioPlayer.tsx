@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./AudioPlayer.module.scss";
 import { AiOutlineShopping } from "react-icons/ai";
 import { BsFillSkipEndFill, BsFillSkipStartFill } from "react-icons/bs";
@@ -90,7 +90,6 @@ const AudioPlayer = () => {
     if (audioPlayer.current) {
       const duration = audioPlayer.current.duration;
       const progress = duration * (Number(e.target.value) / 100);
-      console.log(duration * (Number(e.target.value) / 100));
       audioPlayer.current.currentTime = progress;
     }
   };
@@ -108,7 +107,6 @@ const AudioPlayer = () => {
       audioPlayer.current.volume = 0.2;
     }
   }, []);
-
   return (
     <div className={styles.container}>
       <audio
@@ -185,6 +183,12 @@ const AudioPlayer = () => {
               onChange={handleVolumeChange}
             />
           </div>
+        </div>
+        <div className={styles.mobile}>
+          <button className={styles.button}>
+            ${mp3List[trackNumber].price}.00
+            <AiOutlineShopping className={styles.icon} />
+          </button>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import HomeLayout from "Layout/Home";
+import HomeLayout from "Layout/Home/Home";
 import Start from "./components/Start/Start";
 import BestSellers from "./components/BestSellers/BestSellers";
 import styles from "./styles/Dashboard.module.scss";

@@ -1,5 +1,5 @@
 import React from "react";
-import HomeLayout from "Layout/Home";
+import HomeLayout from "Layout/Home/Home";
 import styles from "./styles/Contact.module.scss";
 
 const Contact = () => {
