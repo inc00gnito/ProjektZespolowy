@@ -1,0 +1,88 @@
+body{
+    color: white;
+}
+.cointaner{
+    color:white;
+     width: 900px;
+      margin: auto;
+}
+
+.line{
+    border-bottom: 1px solid white;
+    padding-bottom: 5px;
+    width: 100%;
+}
+.Time{
+    text-align: center;
+}
+.hashtag{
+    box-sizing: content-box;
+    border:2px solid #d400b8;
+    border-radius: 20px;
+    text-align: center;
+    padding:10px;
+    height:20px;
+    width:50px;
+}
+.shopAll{
+padding:50px;
+color: #d400b8;
+font-size: 4rem;
+font-weight: 600;
+}
+.download{
+    font-size:25px;
+    border:none;
+    border:1px solid #d400b8;
+    border-radius: 5px;;
+    padding: 0 5px;
+    background-color: #d400b8;
+    color:white;
+    box-shadow: none;
+    margin:50px;
+    margin-left: 150px;
+    margin-right:10px;
+}
+.buy{
+    font-size:15px;
+    border:none;
+    border:1px solid #d400b8;
+    color:white;
+    border-radius: 5px;;
+    background-color: #d400b8;
+    width:100px;
+    margin-top: 10px;
+    margin:auto;
+    padding:7.5px;
+}
+.search{
+    display:block;
+margin:50px auto;
+width:600px;
+padding:15px 10px 10px 10px;
+font-size: 15px;
+background-color: rgba(40,40,40,0.5);
+color:white;
+border:none;
+
+}
+
+::-webkit-input-placeholder {
+    text-align: center;
+    color:white;
+ }
+ 
+ :-moz-placeholder { /* Firefox 18- */
+    text-align: center;
+    color:white;  
+ }
+ 
+ ::-moz-placeholder {  /* Firefox 19+ */
+    text-align: center; 
+    color:white; 
+ }
+ 
+ :-ms-input-placeholder {  
+    text-align: center; 
+    color:white;
+ }
