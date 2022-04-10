@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./styles/Signin.module.scss";
+import styles from "./styles/ResetPassword.module.scss";
 import AuthenticationLayout from "Layout/Authentication/Authentication";
 import AuthInput from "components/AuthInput/AuthInput";
 import { useForm } from "react-hook-form";
@@ -13,7 +13,7 @@ const schema = yup.object({
   password: yup.string().required("To pole jest wymagane"),
 });
 
-const Signin = () => {
+const ResetPassword = () => {
   const { openPopUp } = useAuthenticationStore();
   const {
     handleSubmit,
@@ -28,12 +28,10 @@ const Signin = () => {
     <AuthenticationLayout>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1 className={styles.title}>Sign in</h1>
+          <h1 className={styles.title}>Reset Password</h1>
+          <p className={styles.helper}>Enter your email or username.</p>
           <p className={styles.helper}>
-            Don't have an account?{" "}
-            <a className={styles.link} onClick={() => openPopUp("signup")}>
-              Sign up
-            </a>
+            We will send you an email with password reset link.
           </p>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -44,27 +42,20 @@ const Signin = () => {
               error={errors.email?.message}
             />
           </div>
-          <div className={styles.field}>
-            <AuthInput
-              label="Password"
-              inputProps={register("password")}
-              error={errors.password?.message}
-            />
-          </div>
-          <button
-            className={styles.forgetPassword}
-            type="button"
-            onClick={() => openPopUp("resetPassword")}
-          >
-            Forgot Password?
-          </button>
+
           <button type="submit" className={styles.button}>
-            Sign In
+            Reset
           </button>
         </form>
+        <div className={styles.back}>
+          <span className={styles.text}>Back to </span>
+          <button className={styles.button} onClick={() => openPopUp("signin")}>
+            Sign In
+          </button>
+        </div>
       </div>
     </AuthenticationLayout>
   );
 };
 
-export default Signin;
+export default ResetPassword;

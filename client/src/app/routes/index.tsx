@@ -8,13 +8,31 @@ import About from "features/About";
 import Tracks from "features/Tracks";
 import { useAuthenticationStore } from "app/provider/Provider";
 import Signin from "features/Auth/Signin/Signin";
+import { IAuthModalType } from "app/model/authentication";
+import { observer } from "mobx-react-lite";
+import Signup from "features/Auth/signup/Signup";
+import ResetPassword from "features/Auth/ResetPassword/ResetPassword";
 
 const AppRoutes = () => {
-  const { authenticationPopup } = useAuthenticationStore();
+  const popUpComponent = (type: IAuthModalType) => {
+    switch (type) {
+      case "signin":
+        return <Signin />;
+      case "signup":
+        return <Signup />;
+      case "resetPassword":
+        return <ResetPassword />;
+      default:
+        return <></>;
+    }
+  };
+  const { authPopUp } = useAuthenticationStore();
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Signin />} />
+        {authPopUp ? (
+          <Route path="/*" element={popUpComponent(authPopUp)} />
+        ) : null}
       </Routes>
 
       <Routes>
@@ -24,12 +42,10 @@ const AppRoutes = () => {
           <Route path="/about" element={<About />} />
           <Route path="/tracks" element={<Tracks />} />
         </Route>
-        <Route path="/" element={<PublicRoute />}>
-          {/* <Route path="/signin" element={<div>ds</div>} /> */}
-        </Route>
+        <Route path="/" element={<PublicRoute />}></Route>
       </Routes>
     </BrowserRouter>
   );
 };
 
-export default AppRoutes;
+export default observer(AppRoutes);

@@ -16,14 +16,53 @@
     & > * {
       width: calc(100% / 3);
     }
+
+    @media (max-width: 480px) {
+      & > * {
+        width: auto;
+      }
+      & {
+        padding-bottom: 0.5em;
+      }
+    }
+    @media (max-width: 1024px) and (orientation: landscape) {
+      & > * {
+        width: auto;
+      }
+      & {
+        padding-bottom: 0.5em;
+      }
+    }
     .track {
       display: flex;
       justify-content: center;
       align-items: center;
+      @media (max-width: 480px) {
+        & {
+          margin-left: 0.5em;
+        }
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        & {
+          margin-left: 0.5em;
+        }
+      }
 
       .photo {
-        width: 6em;
-        height: 6em;
+        @media (max-width: 480px) {
+          & {
+            display: none;
+          }
+        }
+        @media (max-width: 1024px) and (orientation: landscape) {
+          & {
+            width: 4rem;
+            height: 4rem;
+          }
+        }
+        width: 6rem;
+        height: 6rem;
+
         .img {
           display: block;
           width: 100%;
@@ -32,18 +71,56 @@
         }
       }
       .info {
+        max-width: 7rem;
+
+        @media (max-width: 480px) {
+          & {
+            margin-left: 0;
+            max-width: 5.5rem;
+          }
+        }
+        @media (max-width: 1024px) and (orientation: landscape) {
+          & {
+            margin-left: 1rem;
+            max-width: 6.5rem;
+          }
+        }
         margin-left: 1em;
         .title {
           font-weight: bold;
           font-size: 1rem;
+          width: 100%;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          @media (max-width: 480px) {
+            & {
+              font-size: 0.9rem;
+            }
+          }
         }
         .author {
           font-weight: 200;
           font-size: 0.85rem;
           margin-top: 0.5em;
+          @media (max-width: 480px) {
+            & {
+              font-size: 0.8rem;
+            }
+          }
         }
       }
       .button {
+        @media (max-width: 480px) {
+          & {
+            display: none;
+          }
+        }
+        @media (max-width: 1024px) and (orientation: landscape) {
+          & {
+            display: none;
+          }
+        }
         margin-left: 2em;
         background-color: $primaryColor;
         border: none;
@@ -68,6 +145,17 @@
       }
     }
     .controls {
+      @media (max-width: 480px) {
+        & {
+          flex-grow: 1;
+        }
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        & {
+          flex-grow: 1;
+        }
+      }
+
       .buttons {
         padding-top: 1vh;
         display: flex;
@@ -171,6 +259,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      @media (max-width: 480px) {
+        & {
+          display: none;
+        }
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        & {
+          display: none;
+        }
+      }
       .volumeContainer {
         display: flex;
         .icon {
@@ -235,6 +333,48 @@
             background: var(--progress);
             border-radius: 1.3px;
           }
+        }
+      }
+    }
+    .mobile {
+      display: none;
+      @media (max-width: 480px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0.5em;
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 0.5em;
+      }
+      .button {
+        margin-left: 2em;
+        background-color: $primaryColor;
+        border: none;
+        width: 6em;
+        height: 2.2em;
+        color: white;
+        border-radius: 0.2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: color 0.3s, background 0.3s;
+        @media (max-width: 1024px) and (orientation: landscape) {
+          width: 7em;
+          height: 2.5em;
+        }
+        &:hover {
+          background-color: white;
+          color: $primaryColor;
+        }
+        .icon {
+          font-size: 1.2rem;
+          margin-left: 0.2em;
+          vertical-align: center;
         }
       }
     }

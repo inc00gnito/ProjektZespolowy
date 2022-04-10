@@ -1,0 +1,183 @@
+@import "../../../app/styles/variables.scss";
+.container {
+  position: relative;
+  .nav {
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $navbarHeight;
+    padding-left: $dashboardSpace;
+    padding-right: $dashboardSpace;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    @media (orientation: portrait) {
+      &::after {
+        content: "";
+        position: absolute;
+        top: 90%;
+        left: 5%;
+        right: 5%;
+        height: 0.2vh;
+        background-color: white;
+      }
+    }
+    .title {
+      .heading {
+        font-family: "roboto";
+        font-weight: 400;
+        font-size: 1.8vw;
+        @media (max-width: 480px) {
+          font-size: 3vh;
+        }
+      }
+    }
+    .menu {
+      display: flex;
+      .menuItems {
+        display: flex;
+        .item {
+          text-decoration: none;
+          list-style-type: none;
+          margin-left: 2vw;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .link {
+            text-decoration: none;
+            color: white;
+            font-size: 0.84vw;
+            font-weight: 400;
+          }
+        }
+      }
+      .search {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 1.5vw;
+        .icon {
+          font-size: 1.2vw;
+        }
+      }
+      .account {
+        margin-left: 3vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .item {
+          font-size: 0.8vw;
+          font-weight: 400;
+        }
+      }
+      @media (max-width: 480px) {
+        display: none;
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        display: none;
+      }
+    }
+    .mobileIcons {
+      display: none;
+      @media (max-width: 480px) {
+        display: flex;
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        display: flex;
+      }
+      .search {
+        z-index: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          font-size: 3.5vh;
+        }
+      }
+      .hamburger {
+        position: relative;
+        z-index: 5;
+        margin-right: 3vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .icon {
+          font-size: 4vh;
+        }
+      }
+    }
+    .mobileMenu {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100vh;
+      background-color: white;
+      .header {
+        height: $navbarHeight;
+        display: flex;
+        align-items: center;
+        .user {
+          margin-left: 25vw;
+          display: flex;
+          @media (max-width: 1024px) and (orientation: landscape) {
+            & {
+              margin-left: 40vw;
+            }
+          }
+          .image {
+            display: block;
+            height: 10vw;
+            width: 10vw;
+            border-radius: 50%;
+            object-fit: cover;
+            @media (max-width: 1024px) and (orientation: landscape) {
+              height: 3vw;
+              width: 3vw;
+            }
+          }
+          .login {
+            background: none;
+            border: none;
+            text-decoration: underline;
+            font-weight: bold;
+            margin-left: 0.5em;
+            font-size: 1em;
+          }
+        }
+      }
+      .menuM {
+        .list {
+          margin-top: 7vh;
+          .item {
+            text-align: center;
+            &:not(:first-child) {
+              margin-top: 5vh;
+            }
+            .link {
+              text-decoration: none;
+              font-family: montserrat;
+              color: black;
+              font-size: 2.5vh;
+              font-weight: 700;
+            }
+          }
+        }
+      }
+    }
+  }
+  .padding {
+    height: $navbarHeight;
+    background-color: black;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+  }
+}
