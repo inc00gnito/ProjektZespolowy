@@ -18,8 +18,14 @@ h6 {
   font-family: "Montserrat", sans-serif;
 }
 
+
 .dropdown{
   background-color: #d400b8;
   color:white;
   margin-left: 20px;
    }
+
+*:focus {
+  outline: none;
+}
+

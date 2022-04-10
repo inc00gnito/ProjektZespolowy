@@ -11,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
+using MimeKit.Encodings;
 using ProjectAPI.Data;
 
 namespace ProjectAPI
@@ -37,8 +39,16 @@ namespace ProjectAPI
                     .AllowCredentials();
             }));
 
+            var cloudName = Configuration.GetValue<string>("AccountSettings:CloudName");
+            var apiKey = Configuration.GetValue<string>("AccountSettings:ApiKey");
+            var apiSecret = Configuration.GetValue<string>("AccountSettings:ApiSecret");
+
+            if (new[] {cloudName, apiSecret, apiKey}.Any(string.IsNullOrWhiteSpace))
+                throw new ArgumentException("Specify Cloudinary account details");
+
+            services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
             services.AddDbContext<DataBaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ola")));
+                options.UseSqlServer(Configuration.GetConnectionString("kozak")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

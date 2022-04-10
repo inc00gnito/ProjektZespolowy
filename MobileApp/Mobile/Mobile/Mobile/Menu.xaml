@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Menu"
+             BackgroundColor="Black">
+    <ContentPage.Content>
+        <StackLayout>
+            <Image Source="track_lance.png"/>
+            <Button Text="Tracks" HorizontalOptions="Center" Margin="0,15,0,15"  TextColor="White" 
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="TracksClicked"/>
+            <Button Text="OnSale" HorizontalOptions="Center" Margin="0,15,0,15"  TextColor="White" 
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="OnSaleClicked"/>
+            <Button Text="About Us" HorizontalOptions="Center" Margin="0,15,0,15" TextColor="White" 
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="AboutUsClicked"/>
+            <Button Text="Contact US" HorizontalOptions="Center" Margin="0,15,0,15" TextColor="White" 
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="ContactUsClicked"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>
