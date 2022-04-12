@@ -19,13 +19,23 @@ const mp3List = [
     price: 15,
   },
   {
-    id: 1,
+    id: 2,
     name: "Flamingo dance",
     author: "flaming",
     mp3: "https://img-9gag-fun.9cache.com/photo/a810rbZ_460svav1.mp4",
     demo: "https://img-9gag-fun.9cache.com/photo/a810rbZ_460svav1.mp4",
     picture: Flaming,
     price: 20,
+  },
+  {
+    id: 3,
+    name: "BUCH jak gorąco",
+    author: "Młoda",
+    mp3: "https://res.cloudinary.com/trackslance/video/upload/v1649794978/special%20track/Chad_ls5wcg.wav",
+    demo: "https://res.cloudinary.com/trackslance/video/upload/v1649794978/special%20track/Chad_ls5wcg.wav",
+    picture:
+      "https://res.cloudinary.com/trackslance/image/upload/v1649794955/special%20track/k1_dk4pg2.jpg",
+    price: 50,
   },
 ];
 
