@@ -56,6 +56,32 @@
           }
         }
       }
+      .cart {
+        position: relative;
+        margin-left: 1.5vw;
+        .link {
+          color: white;
+          text-decoration: none;
+          .icon {
+            font-size: 1em;
+          }
+          .badge {
+            position: absolute;
+            left: 80%;
+            bottom: 80%;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: $primaryColor;
+            font-size: 0.65em;
+            font-weight: bold;
+          }
+        }
+        cursor: pointer;
+      }
       .search {
         display: flex;
         justify-content: center;
