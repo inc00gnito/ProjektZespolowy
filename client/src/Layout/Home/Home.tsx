@@ -6,6 +6,7 @@ import { MenuToggle } from "./components/MenuToggle/MenuToggle";
 import user from "assets/user.png";
 import { Link } from "react-router-dom";
 import { useAuthenticationStore } from "app/provider/Provider";
+import { GiShoppingBag } from "react-icons/gi";
 
 interface IProps {
   children: React.ReactNode | React.ReactNode[];
@@ -130,6 +131,12 @@ const Home: React.FC<IProps> = ({ children }) => {
               </Link>
             </li>
           </ul>
+          <div className={styles.cart}>
+            <Link to="/cart" className={styles.link}>
+              <GiShoppingBag className={styles.icon} />
+              <div className={styles.badge}>2</div>
+            </Link>
+          </div>
           <div className={styles.search}>
             <BiSearch className={styles.icon} />
           </div>
