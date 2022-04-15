@@ -1,13 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+    
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Mobile.Tracks">
-    
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+             xmlns:local="clr-namespace:Mobile"
+             x:Class="Mobile.Tracks"
+             xmlns:myViews="clr-namespace:Mobile">
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45" ></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Text="Genre:" Margin="10,0,0,0" VerticalOptions="End"></Label>
+        <Label Grid.Column="1" Text="Sort by:" VerticalOptions="End"></Label>
+        <local:Dropdown Grid.Row="1" Grid.Column="0" HorizontalOptions="Start"
+                        WidthRequest="170"
+                        VerticalOptions="Start"
+                        BackgroundColor="#F03598" 
+                        Margin="10,0,0,0"
+                        x:Name="dropdown"/>
+
+        <local:Dropdown Grid.Row="1" Grid.Column="1"
+                        HorizontalOptions="Start"
+                        WidthRequest="170"
+                        VerticalOptions="Start"
+                        BackgroundColor="#F03598" 
+                        x:Name="dropdown2"/>
+        <StackLayout Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center"
+                     VerticalOptions="Center"
+                     Padding="10"
+                     WidthRequest="200"
+                     BackgroundColor="LightGreen">
+            <Label HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   x:Name="label"/>
+            <Button x:Name="btn"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="Center"
+                Clicked="btn_Clicked"
+                Text="Proceed to checkout"/>
         </StackLayout>
-    </ContentPage.Content>
+    </Grid>
 </ContentPage>
