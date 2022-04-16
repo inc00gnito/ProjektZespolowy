@@ -52,3 +52,55 @@
 .wrapper2{
   width:60%;
 }
+@media(max-width:1000px){
+  .container{
+    display:block;
+  }
+  .wrapper1{
+    width:100%;
+    margin-bottom: 200px;
+    text-align:start;
+  }
+  .wrapper2{
+    width:80%;
+    margin:auto;
+    margin-right: 200px;
+  }
+  .trackslance{
+    width:250px;
+  height:250px;
+  line-height: 250px;
+  position: relative;
+  top:100px;
+  left:100px;
+  }
+
+
+}
+@media(max-width:700px){
+  .wrapper1{
+    width:100%;
+    margin-bottom: 250px;
+    text-align:start;
+  }
+
+  .gif{
+    width:350px;
+  }
+
+}
+@media(max-width:600px){
+  .gif{
+    width:300px;
+  }
+  .trackslance{
+    font-size:20px;
+    line-height: 200px;
+    width:200px;
+    height:200px;
+    top:50px;
+    left:200px;
+    position: relative;
+  }
+
+}
