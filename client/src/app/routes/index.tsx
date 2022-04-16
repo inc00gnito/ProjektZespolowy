@@ -13,6 +13,7 @@ import { observer } from "mobx-react-lite";
 import Signup from "features/Auth/signup/Signup";
 import ResetPassword from "features/Auth/ResetPassword/ResetPassword";
 import Cart from "features/Cart/Cart";
+import Payment from "features/Payment/Payment";
 
 const AppRoutes = () => {
   const popUpComponent = (type: IAuthModalType) => {
@@ -43,6 +44,7 @@ const AppRoutes = () => {
           <Route path="/about" element={<About />} />
           <Route path="/tracks" element={<Tracks />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/payment" element={<Payment />} />
         </Route>
         <Route path="/" element={<PublicRoute />}></Route>
       </Routes>

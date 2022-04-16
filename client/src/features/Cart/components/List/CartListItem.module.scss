@@ -1,0 +1,125 @@
+.item {
+  display: flex;
+  margin-top: 2em;
+  .track {
+    display: flex;
+    .image {
+      width: 4.5em;
+      height: 5em;
+      .img {
+        display: block;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .details {
+    display: flex;
+    width: 100%;
+    @media (max-width: 480px) {
+      flex-direction: column;
+      position: relative;
+    }
+    @media (max-width: 1024px) and (orientation: landscape) {
+      flex-direction: column;
+      position: relative;
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      margin-left: 1em;
+      .name {
+        font-size: 0.9em;
+        color: #d1d1d1;
+      }
+      .price {
+        font-size: 0.75em;
+        padding-top: 0.5em;
+        color: #a2a2a2;
+      }
+    }
+    .gap {
+      flex-grow: 1;
+    }
+    .summary {
+      display: flex;
+      justify-content: space-between;
+      width: 30%;
+      height: 3em;
+      @media (max-width: 480px) {
+        margin-left: 1em;
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        margin-left: 1em;
+      }
+      .amount {
+        display: flex;
+        align-items: center;
+        .text {
+          font-size: 0.8em;
+          padding: 0 0.7em;
+        }
+        .button {
+          border: none;
+          background-color: transparent;
+          color: #a2a2a2;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          @media (max-width: 480px) {
+            font-size: 1.1em;
+            padding: 10px;
+            &:nth-child(1) {
+              padding: 10px 10px 10px 0;
+            }
+          }
+          @media (max-width: 1024px) and (orientation: landscape) {
+            font-size: 1.1em;
+            padding: 10px;
+          }
+        }
+      }
+      .price {
+        display: flex;
+        align-items: center;
+        @media (max-width: 480px) {
+          margin-left: 1em;
+        }
+        @media (max-width: 1024px) and (orientation: landscape) {
+          margin-left: 1em;
+        }
+        .text {
+          font-size: 0.9em;
+        }
+      }
+      .delete {
+        display: flex;
+        align-items: center;
+        @media (max-width: 480px) {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin-left: 1em;
+        }
+        @media (max-width: 1024px) and (orientation: landscape) {
+          position: absolute;
+          top: 0;
+          right: 0;
+          margin-left: 1em;
+        }
+        .button {
+          border: none;
+          background-color: transparent;
+          color: #a2a2a2;
+          font-size: 1.5em;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

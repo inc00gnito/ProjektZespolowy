@@ -1,6 +1,9 @@
 @import "../../../app/styles/variables.scss";
 .container {
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   .nav {
     position: fixed;
     z-index: 20;
@@ -145,6 +148,13 @@
       right: 0;
       height: 100vh;
       background-color: white;
+      display: none;
+      @media (max-width: 480px) {
+        display: block;
+      }
+      @media (max-width: 1024px) and (orientation: landscape) {
+        display: block;
+      }
       .header {
         height: $navbarHeight;
         display: flex;
@@ -204,6 +214,9 @@
   }
   .content {
     position: relative;
+    display: flex;
+    flex-direction: column;
     z-index: 1;
+    flex-grow: 1;
   }
 }

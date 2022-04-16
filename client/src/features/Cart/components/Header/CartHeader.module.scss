@@ -1,0 +1,17 @@
+.title {
+  position: relative;
+  margin-bottom: 0.4em;
+  .text {
+    font-size: 1.5em;
+    font-weight: 400;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    top: 110%;
+    left: 0;
+    right: 0;
+    height: 1.1px;
+    background-color: white;
+  }
+}
