@@ -1,0 +1,13 @@
+.list {
+  position: relative;
+  padding-bottom: 2em;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: white;
+  }
+}
