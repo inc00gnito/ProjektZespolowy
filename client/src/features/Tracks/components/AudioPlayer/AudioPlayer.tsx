@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./AudioPlayer.module.scss";
 import { AiOutlineShopping } from "react-icons/ai";
 import { BsFillSkipEndFill, BsFillSkipStartFill } from "react-icons/bs";
@@ -31,11 +31,11 @@ const mp3List = [
 
 const AudioPlayer = () => {
   const [volume, setVolume] = useState("20");
+  const [timeTracker, setTimeTrakcer] = useState("0");
   const audioPlayer = useRef<HTMLAudioElement>();
   const [isPlaying, setPlaying] = useState(false);
   const [trackNumber, setTrackNumber] = useState(0);
-  console.log("playing?");
-  console.log(isPlaying);
+
   const play = () => {
     if (audioPlayer.current) {
       setPlaying(true);
@@ -72,12 +72,40 @@ const AudioPlayer = () => {
     }
   };
 
+  const handleTimeUpdate = (
+    e: React.SyntheticEvent<HTMLAudioElement, Event>
+  ) => {
+    const event = e.target as any;
+    const duration = event.duration;
+    const currentTime = event.currentTime;
+    let progress = (currentTime / duration) * 100;
+    if (isNaN(progress)) {
+      progress = 0;
+    }
+    setTimeTrakcer(String(progress));
+  };
+
+  const handleTimeTrackerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTimeTrakcer(e.target.value);
+    if (audioPlayer.current) {
+      const duration = audioPlayer.current.duration;
+      const progress = duration * (Number(e.target.value) / 100);
+      audioPlayer.current.currentTime = progress;
+    }
+  };
+
+  const handleEndSong = () => {
+    setPlaying(false);
+  };
+
   useEffect(() => {
-    if (trackNumber > 0) play();
+    if (isPlaying) play();
   }, [trackNumber]);
 
   useEffect(() => {
-    if (audioPlayer.current) audioPlayer.current.volume = 0.2;
+    if (audioPlayer.current) {
+      audioPlayer.current.volume = 0.2;
+    }
   }, []);
 
   const style = {
@@ -103,7 +131,12 @@ const AudioPlayer = () => {
 
   return (
     <div className={styles.container}>
-      <audio src={mp3List[trackNumber].mp3} ref={audioPlayer as any}></audio>
+      <audio
+        src={mp3List[trackNumber].mp3}
+        ref={audioPlayer as any}
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleEndSong}
+      ></audio>
       <div className={styles.content}>
         <div className={styles.track}>
           <div className={styles.photo}>
@@ -123,18 +156,36 @@ const AudioPlayer = () => {
           </button>
         </div>
         <div className={styles.controls}>
-          <div className={styles.previous} onClick={previous}>
-            <BsFillSkipStartFill className={styles.icon} />
+          <div className={styles.buttons}>
+            <div className={styles.previous} onClick={previous}>
+              <BsFillSkipStartFill className={styles.icon} />
+            </div>
+            <div className={styles.play} onClick={isPlaying ? pause : play}>
+              {isPlaying ? (
+                <FaPause className={cx(styles.icon, styles.iconSmall)} />
+              ) : (
+                <IoPlay className={styles.icon} />
+              )}
+            </div>
+            <div className={styles.next} onClick={next}>
+              <BsFillSkipEndFill className={styles.icon} />
+            </div>
           </div>
-          <div className={styles.play} onClick={isPlaying ? pause : play}>
-            {isPlaying ? (
-              <FaPause className={cx(styles.icon, styles.iconSmall)} />
-            ) : (
-              <IoPlay className={styles.icon} />
-            )}
-          </div>
-          <div className={styles.next} onClick={next}>
-            <BsFillSkipEndFill className={styles.icon} />
+          <div className={styles.timeTrack}>
+            <input
+              type="range"
+              className={styles.range}
+              style={
+                {
+                  "--progress": `linear-gradient(to right, #ff0dbf 0,#ff0dbf ${timeTracker}%, #e1e1e1 ${timeTracker}%, #e1e1e1 100%)`,
+                } as any
+              }
+              min={0}
+              max={100}
+              step={0.1}
+              value={timeTracker}
+              onChange={handleTimeTrackerChange}
+            />
           </div>
         </div>
         <div className={styles.volume}>
@@ -145,7 +196,7 @@ const AudioPlayer = () => {
               className={styles.range}
               style={
                 {
-                  "--progress": `linear-gradient(to right, #ff0dbf 0,#ff0dbf ${volume}%, black ${volume}%, black 100%)`,
+                  "--progress": `linear-gradient(to right, #ff0dbf 0, #ff0dbf ${volume}%,  #e2e2e2 ${volume}%, #e2e2e2 100%)`,
                 } as any
               }
               min={0}
@@ -154,6 +205,12 @@ const AudioPlayer = () => {
               onChange={handleVolumeChange}
             />
           </div>
+        </div>
+        <div className={styles.mobile}>
+          <button className={styles.button}>
+            ${mp3List[trackNumber].price}.00
+            <AiOutlineShopping className={styles.icon} />
+          </button>
         </div>
       </div>
     </div>

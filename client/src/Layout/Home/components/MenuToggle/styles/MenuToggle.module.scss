@@ -1,0 +1,13 @@
+.container {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2em;
+  height: 2em;
+  @media (max-width: 1024px) and (orientation: landscape) {
+    width: 1.2em;
+    height: 1.2em;
+  }
+}

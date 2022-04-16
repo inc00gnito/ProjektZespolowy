@@ -26,16 +26,15 @@ namespace ProjectAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("StageName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TrackId");
 
                     b.ToTable("AuthorsDbSet");
                 });
@@ -172,6 +171,15 @@ namespace ProjectAPI.Migrations
                     b.ToTable("UsersDbSet");
                 });
 
+            modelBuilder.Entity("ProjectAPI.Models.Author", b =>
+                {
+                    b.HasOne("ProjectAPI.Models.Track", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ProjectAPI.Models.NewsletterEmail", b =>
                 {
                     b.HasOne("ProjectAPI.Models.Newsletter", null)
@@ -196,6 +204,11 @@ namespace ProjectAPI.Migrations
             modelBuilder.Entity("ProjectAPI.Models.Newsletter", b =>
                 {
                     b.Navigation("Emails");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.Track", b =>
+                {
+                    b.Navigation("Authors");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.User", b =>
