@@ -1,8 +1,9 @@
 body{
     color: white;
-    overflow: hidden;
     padding:0;
     margin:0;
+    // overflow: hidden;
+    background-color: black;
 }
 .cointaner{
     color:white;
@@ -138,7 +139,6 @@ ul{
     
     margin-block-start: 0;
     margin-block-end: 0;
-    overflow: hidden;
     padding-top:0px;
     padding-bottom:0px;
 }
