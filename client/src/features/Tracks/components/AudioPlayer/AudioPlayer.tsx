@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./AudioPlayer.module.scss";
-import albumsPhoto from "assets/track1.webp";
 import { AiOutlineShopping } from "react-icons/ai";
 import { BsFillSkipEndFill, BsFillSkipStartFill } from "react-icons/bs";
 import { IoPlay } from "react-icons/io5";
@@ -80,6 +79,27 @@ const AudioPlayer = () => {
   useEffect(() => {
     if (audioPlayer.current) audioPlayer.current.volume = 0.2;
   }, []);
+
+  const style = {
+    menuList: (base: any) => ({
+      ...base,
+  
+      "::-webkit-scrollbar": {
+        width: "4px",
+        height: "0px",
+      },
+      "::-webkit-scrollbar-track": {
+        background: "#f1f1f1"
+      },
+      "::-webkit-scrollbar-thumb": {
+        background: "#888"
+      },
+      "::-webkit-scrollbar-thumb:hover": {
+        background: "#555"
+      }
+    })
+  }
+  
 
   return (
     <div className={styles.container}>
