@@ -4,51 +4,555 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Mobile"
              x:Class="Mobile.Tracks"
-             xmlns:myViews="clr-namespace:Mobile">
+             xmlns:myViews="clr-namespace:Mobile"
+             >
 
 
-    <Grid>
+    <ScrollView BackgroundColor="Black">
+    <Grid >
+
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10">
+            </ColumnDefinition>
+            
             <ColumnDefinition>
             </ColumnDefinition>
             <ColumnDefinition>
+            </ColumnDefinition>
+            
+            <ColumnDefinition>
+            </ColumnDefinition>
+            <ColumnDefinition>
+            </ColumnDefinition>
+            
+            <ColumnDefinition Width="10">
             </ColumnDefinition>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="45" ></RowDefinition>
+            <RowDefinition Height="90" ></RowDefinition>
+            <RowDefinition Height="80" ></RowDefinition>
+            <RowDefinition Height="100" ></RowDefinition>
+            
+            
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            
 
         </Grid.RowDefinitions>
-        <Label Grid.Row="0" Text="Genre:" Margin="10,0,0,0" VerticalOptions="End"></Label>
-        <Label Grid.Column="1" Text="Sort by:" VerticalOptions="End"></Label>
-        <local:Dropdown Grid.Row="1" Grid.Column="0" HorizontalOptions="Start"
+        <Label 
+            Grid.Row="0" 
+            Grid.Column="1"
+            Grid.ColumnSpan="4" 
+            Text="SHOP ALL" 
+            FontAttributes="Bold" 
+            FontSize="32" 
+            HeightRequest="42" 
+            Padding="10,0,30,0" 
+            HorizontalOptions="Center" 
+            VerticalOptions="Center" 
+            TextColor="#FF0DBF"
+            ></Label>
+        
+        <Label Grid.Row="1" 
+               Grid.Column="1"
+               Text="Genre:" 
+               FontSize="14"
+               Margin="10,0,0,0" 
+               VerticalOptions="Start" 
+               TextColor="White"></Label>
+        <Label Grid.Row="1" 
+               Grid.Column="3" 
+               Text="Sort by:" 
+               VerticalOptions="Start" 
+               TextColor="White"></Label>
+        <local:Dropdown Grid.Row="1" 
+                        Grid.Column="1" 
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="Start"
                         WidthRequest="170"
-                        VerticalOptions="Start"
+                        VerticalOptions="End"
                         BackgroundColor="#FF0DBF" 
                         Margin="10,0,0,0"
                         x:Name="dropdown"/>
 
-        <local:Dropdown Grid.Row="1" Grid.Column="1"
+        <local:Dropdown Grid.Row="1" 
+                        Grid.Column="3"
+                        Grid.ColumnSpan="2"
                         HorizontalOptions="Start"
                         WidthRequest="170"
-                        VerticalOptions="Start"
-                        BackgroundColor="#F03598" 
+                        VerticalOptions="End"
+                        BackgroundColor="#FF0DBF" 
                         x:Name="dropdown2"/>
-        <StackLayout Grid.Row="1" Grid.ColumnSpan="2" HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     Padding="10"
-                     WidthRequest="200"
-                     BackgroundColor="LightGreen">
-            <Label HorizontalOptions="Center"
-                   VerticalOptions="Center"
-                   x:Name="label"/>
+       
             <Button x:Name="btn"
-                HorizontalOptions="FillAndExpand"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    
                 VerticalOptions="Center"
                 Clicked="btn_Clicked"
-                Text="Proceed to checkout"/>
-        </StackLayout>
-    </Grid>
+                Text="Proceed to checkout"
+                BackgroundColor="#FF0DBF" 
+/>
+        <Line 
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="2"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="2"
+                      />
+        
+        <!--Tracki-->
+            
+            <StackLayout 
+                Grid.Column="1"
+                Grid.Row="3"
+                Grid.ColumnSpan="4"
+                Margin="0,10,0,0"
+                >
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_2.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           FontSize="14" 
+                           Text="Sample track name - sample artist type beat prod. sample producer" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$49,95"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name 2 - sample artist hard type beat" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$149,99"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_2.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name - sample artist type beat prod. sample producer" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$49,95"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name 2 - sample artist hard type beat" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$149,99"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_2.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name - sample artist type beat prod. sample producer" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$49,95"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name 2 - sample artist hard type beat" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$149,99"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_2.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name - sample artist type beat prod. sample producer" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$49,95"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+                        <ColumnDefinition>
+                        </ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Image 
+                        Grid.Column="0"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        
+                        >
+
+                    </Image>
+                    <Label Grid.Column="1" 
+                           Grid.ColumnSpan="3"
+                           Text="Sample track name 2 - sample artist hard type beat" 
+                           TextColor="White"></Label>
+                    <Button Grid.Column="4" 
+                            Margin="2,5,2,10"
+                            FontSize="9"
+                            CornerRadius="10"
+                            Text="$149,99"
+                            BackgroundColor="#FF0DBF" 
+                            >
+                    </Button>
+                    <Line 
+            Grid.Row="0"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="End"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+
+
+                </Grid>
+
+
+            </StackLayout>
+            <Button
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    
+                VerticalOptions="Center"
+                Clicked="btn_Clicked"
+                Text="Proceed to checkout"
+                BackgroundColor="#FF0DBF" 
+/>
+        </Grid>
+    </ScrollView>
 </ContentPage>
