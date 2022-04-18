@@ -21,43 +21,46 @@ body{
 }
 .hashtag{
     box-sizing: content-box;
-    border:2px solid #d400b8;
+    border:2px solid #ff0dbf;
     border-radius: 20px;
     text-align: center;
     padding:10px 30px;
     height:20px;
-    width:50px;
 }
 .shopAll{
 padding:50px;
-color: #d400b8;
+color: #ff0dbf;
 font-size: 4rem;
 font-weight: 600;
 }
 .download{
     font-size:25px;
     border:none;
-    border:1px solid #d400b8;
+    border:1px solid #ff0dbf;
     border-radius: 5px;;
     padding: 5px 10px;
-    background-color: #d400b8;
+    background-color: #ff0dbf;
     color:white;
     box-shadow: none;
     margin:50px;
-    margin-left: 0;
+    margin-left: 80px;
     margin-right:10px;
 }
 .buy{
     font-size:15px;
     border:none;
-    border:1px solid #d400b8;
+    border:1px solid #ff0dbf;
     color:white;
     border-radius: 5px;;
-    background-color: #d400b8;
+    background-color: #ff0dbf;
     width:150px;
     margin-top: 10px;
     margin:auto;
+    margin-left:0;
     padding:11px;
+    max-width:90px;
+    margin-right:0;
+    align-self: flex-end;
 }
 .search{
     display:block;
@@ -72,7 +75,7 @@ border:none;
 }
 
 .forms{
-    background-color: #d400b8;
+    background-color: #ff0dbf;
     color:white;
     text-align: center;
     border-radius: 5px;
@@ -107,7 +110,7 @@ border:none;
     -moz-appearance:none; /* Firefox */
     -webkit-appearance:none; /* Safari and Chrome */
     appearance:none;
-    background-color: #d400b8;
+    background-color: #ff0dbf;
     color:white;
     [class$="ValueContainer"] {
         min-height: 28px !important;
@@ -128,7 +131,7 @@ border:none;
   }
 }
 .ul{
-    background-color: #d400b8;
+    background-color: #ff0dbf;
 }
 .ulTracks{
 
