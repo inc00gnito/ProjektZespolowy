@@ -38,7 +38,7 @@ namespace Mobile
 
         private void OnDropdownSelected(object sender, ItemSelectedEventArgs e)
         {
-            label.Text = IsItem1 ? Items1[e.SelectedIndex] : Items2[e.SelectedIndex];
+            //label.Text = IsItem1 ? Items1[e.SelectedIndex] : Items2[e.SelectedIndex];
         }
 
         private void btn_Clicked(object sender, EventArgs e)
