@@ -19,25 +19,25 @@ namespace Mobile
         private void AboutUsClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            btn.TextColor = Color.FromHex("#F03598");
+            btn.TextColor = Color.FromHex("#FF0DBF");
             Navigation.PushAsync(new AboutUs());
         }
         private void TracksClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            btn.TextColor = Color.FromHex("#F03598");
+            btn.TextColor = Color.FromHex("#FF0DBF");
             Navigation.PushAsync(new Tracks());
         }
         private void OnSaleClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            btn.TextColor = Color.FromHex("#F03598");
+            btn.TextColor = Color.FromHex("#FF0DBF");
             Navigation.PushAsync(new OnSale());
         }
         private void ContactUsClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            btn.TextColor = Color.FromHex("#F03598");
+            btn.TextColor = Color.FromHex("#FF0DBF");
             Navigation.PushAsync(new ContactUs());
         }
     }

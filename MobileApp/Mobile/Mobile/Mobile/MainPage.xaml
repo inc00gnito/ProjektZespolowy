@@ -20,11 +20,11 @@
             <StackLayout>
                 <Image Source="background_photo.jpg" VerticalOptions="Start"/>
                 <ContentView  HeightRequest="270" Margin="20,0,20,0" >
-                    <Frame BackgroundColor="#F03598" CornerRadius="35">
+                    <Frame BackgroundColor="#FF0DBF" CornerRadius="35">
                         <StackLayout>
                             <Label Text="TRACKS FOR ALL SORT OF MOODS" FontSize="39" TextColor="White" Margin="30,0,0,0" FontAttributes="Bold"/>
                             <Label Text="Now Available on PC &amp; Mobile" TextColor="White" FontSize="18" Margin="30,0,0,0"/>
-                            <Button Text="Buy Now" Margin="30,0,130,30" CornerRadius="35" BorderWidth="2" TextColor="White" BorderColor="White" BackgroundColor="#F03598"/>
+                            <Button Text="Buy Now" Margin="30,0,130,30" CornerRadius="35" BorderWidth="2" TextColor="White" BorderColor="White" BackgroundColor="#FF0DBF"/>
                         </StackLayout>
                        
                     </Frame>
@@ -34,12 +34,12 @@
                 <Label Text="BEST SELLERS" TextColor="White" FontSize="35" Margin="0,30"  FontAttributes="Bold"/>
                 <Button Text="View all" Margin="130,30,130,30" BackgroundColor="Black" TextColor="White" BorderColor="White" BorderWidth="2" CornerRadius="35" />
                 <ContentView  HeightRequest="200" Margin="20,0,20,0" >
-                    <Frame BackgroundColor="#F03598" CornerRadius="35">
+                    <Frame BackgroundColor="#FF0DBF" CornerRadius="35">
                         <StackLayout>
                             <Label Text="THIS WEEK'S DEALS" FontSize="18" TextColor="White" Margin="75,0,0,0" />
                             <Label Text="10%" TextColor="White" FontSize="40"  FontAttributes="Bold" Margin="115,0,0,0 "/>
                             <Label Text="off all tracks" FontSize="25" FontAttributes="Bold" TextColor="White" Margin="85,0,0,0" Padding="0,0,0,0"/>
-                            <Button Text="Shop Now" Margin="80,0,80,30" CornerRadius="35" BorderWidth="2" TextColor="White" BorderColor="White" BackgroundColor="#F03598"/>
+                            <Button Text="Shop Now" Margin="80,0,80,30" CornerRadius="35" BorderWidth="2" TextColor="White" BorderColor="White" BackgroundColor="#FF0DBF"/>
                         </StackLayout>
                     </Frame>
                 </ContentView>
