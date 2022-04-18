@@ -40,7 +40,11 @@ namespace Mobile
         {
             //label.Text = IsItem1 ? Items1[e.SelectedIndex] : Items2[e.SelectedIndex];
         }
-
+        private void ProceedCheckoutClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Navigation.PushAsync(new CartPage());
+        }
         private void btn_Clicked(object sender, EventArgs e)
         {
             //dropdown.ItemsSource = IsItem1 ? Items2 : Items1;
