@@ -3,14 +3,14 @@ import WhatIsLove from "assets/whatislove.webp";
 import Flaming from "assets/flaming.jpg";
 import styles from "./styles/TrackList.module.scss";
 import { AiFillShopping, AiOutlineDownload } from "react-icons/ai";
-import { Theme, useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+import { Theme, useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
 import { Select, SelectChangeEvent } from "@mui/material";
 import { FiChevronDown } from "react-icons/fi";
-import { bgcolor } from "@mui/system";
+import { makeStyles } from '@mui/styles';
 
 const mp3List = [
   {
@@ -37,34 +37,31 @@ const mp3List = [
   },
 ];
 
-
 const MenuProps = {
   PaperProps: {
     style: {
-      width: 120,
+      width: 100,
       disableScrollLock: true,
       bgcolor: "#d400b8",
       padding: 0,
-      margin:0
+      
     },
+    
   },
+  disableScrollLock: true
 };
 
 const names = [
-  'Hip hop',
-  'Pop',
-  'R&B',
-  'Electronic',
-  'Reggae',
-  'Rock',
-  'HyperPop',
+  "Hip hop",
+  "Pop",
+  "R&B",
+  "Electronic",
+  "Reggae",
+  "Rock",
+  "HyperPop",
 ];
 
-const sort = [
-  'Price',
-  'Time',
-];
-
+const sort = ["Price", "Time"];
 
 function getStyles(name: string, personName: string[], theme: Theme) {
   return {
@@ -78,6 +75,7 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 const TrackList = () => {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
+  const [age, setAge] = React.useState<string[]>([]);
 
   const handleChange = (event: SelectChangeEvent<typeof personName>) => {
     const {
@@ -85,92 +83,126 @@ const TrackList = () => {
     } = event;
     setPersonName(
       // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
+      typeof value === "string" ? value.split(",") : value
     );
   };
 
-  const style = {
-    menuList: (base: any) => ({
-      ...base,
-  
-      "::-webkit-scrollbar": {
-        width: "4px",
-        height: "0px",
-      },
-      "::-webkit-scrollbar-track": {
-        background: "#f1f1f1"
-      },
-      "::-webkit-scrollbar-thumb": {
-        background: "#888"
-      },
-      "::-webkit-scrollbar-thumb:hover": {
-        background: "#555"
-      }
-    })
-  }
- 
+  const handleChange1 = (event: SelectChangeEvent<typeof age>) => {
+    const {
+      target: { value },
+    } = event;
+    setAge(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+  };
 
+  const useStyles = makeStyles(() => ({
+    quantityRoot: {
+      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: "none",
+      },
+
+    }
+  }));
+  const classes = useStyles();
 
   return (
     <>
       <h1 className={styles.shopAll}>SHOP ALL</h1>
-      <div style={{display:"flex",margin:"auto auto 100px 60%"}}>
-      <div className={styles.Select}>
-      <FormControl sx={{ m: 1, width: 140 , color: 'white' , textAlign:"center", height: 30, padding:0}} className={styles.forms} >
-        <InputLabel className={styles.input}  sx={{fontSize:14, color: 'white', textAlign:"center", paddingBottom:0, height:30,backgroundColor:"#d400b8",padding:0}} id="demo-multiple-name-label">All genres</InputLabel>
-        <Select className={styles.styledselect}
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" className={styles.input}/>}
-          MenuProps={MenuProps}
-          sx={{color: "white",backgroundColor:"#d400b8", padding:0}}
-          autoWidth={true}
-          IconComponent={() => (
-            <FiChevronDown className={styles.Icon}/>)}
-        >
-          {names.map((name) => (
-            <MenuItem 
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-              sx={{color: "white",backgroundColor:"#d400b8", fontSize:"15px"}}
-            
+      <div style={{ display: "flex", margin: "auto auto 100px 60%" }}>
+        <div className={styles.Select}>
+          <FormControl
+            sx={{
+              m: 1,
+              width: 140,
+              color: "white",
+              textAlign: "center",
+              height: 30,
+              padding: 0,
+              outline:"none"
+            }}
+            className={styles.forms}
+            classes={{
+              root: classes.quantityRoot
+            }}
+          >
+            <Select
+            classes={{
+              
+            }}
+              className={styles.styledselect}
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              value={age}
+              onChange={handleChange1}
+              MenuProps={MenuProps}
+              sx={{ color: "white", backgroundColor: "#d400b8", padding: 0 , fontSize: 12}}
+              autoWidth={true}
+              IconComponent={() => <FiChevronDown className={styles.Icon} />}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
             >
-              {name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 1, width: 140 , color: 'white' , textAlign:"center", height:30}} className={styles.forms} >
-        <InputLabel className={styles.input}  sx={{fontSize:14, color: 'white', textAlign:"center", paddingBottom:0,backgroundColor:"#d400b8"}} id="demo-multiple-name-label">Sort by</InputLabel>
-        <Select className={styles.styledselect}
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Name" className={styles.input}/>}
-          MenuProps={MenuProps}
-          sx={{color: "white", backgroundColor:"#d400b8", padding:0}}
-          IconComponent={() => (
-            <FiChevronDown className={styles.Icon}/>)}
-        >
-          {sort.map((sort) => (
-            <MenuItem 
-              key={sort}
-              value={sort}
-              style={getStyles(sort, personName, theme)}
-              sx={{color: "white",backgroundColor:"#d400b8"}}
+              <MenuItem value="">
+            <em>All genres</em>
+          </MenuItem>
+              {names.map((name) => (
+                <MenuItem
+                  key={name}
+                  value={name}
+                  style={getStyles(name, personName, theme)}
+                  sx={{
+                    color: "white",
+                    backgroundColor: "#d400b8",
+                    fontSize: "15px",
+                  }}
+                >
+                  {name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl
+            sx={{
+              m: 1,
+              width: 140,
+              color: "white",
+              textAlign: "center",
+              height: 30,
+            }}
+            className={styles.forms}
+            classes={{
+              root: classes.quantityRoot
+            }}
+          >
+            <Select
+              className={styles.styledselect}
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              value={personName}
+              onChange={handleChange}
+              MenuProps={MenuProps}
+              sx={{ color: "white", backgroundColor: "#d400b8", padding: 0, fontSize: 12 }}
+              IconComponent={() => <FiChevronDown className={styles.Icon} />}
+              displayEmpty
+              inputProps={{ "aria-label": "Without label" }}
             >
-              {sort}
-            </MenuItem >
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+              <MenuItem value="">
+            <em>Sort By</em>
+          </MenuItem>
+              {sort.map((sort) => (
+                <MenuItem
+                  key={sort}
+                  value={sort}
+                  style={getStyles(sort, personName, theme)}
+                  sx={{ color: "white", backgroundColor: "#d400b8" }}
+                >
+                  {sort}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
       </div>
       <input
         type="text"
@@ -178,30 +210,54 @@ const TrackList = () => {
         placeholder="What type of track are you looking for?"
       />
       <div className={styles.cointaner}>
-        <div className={styles.line} style={{display:"flex"}}>
-          <div style={{margin:"0 145px 0 110px"}} >Title</div><div>Time</div>
+        <div className={styles.line} style={{ display: "flex" }}>
+          <div style={{ margin: "0 145px 0 110px" }}>Title</div>
+          <div>Time</div>
         </div>
-        <ul className={styles.ulTracks}>
+        <ul className={styles.ulTracks} style={{paddingBottom:"200px" }}>
           {mp3List.map((e) => (
             <li style={{ display: "block" }}>
-              <div style={{ display: "flex" ,margin:"0px",padding:"0"}} className={styles.line}>
+              <div
+                style={{ display: "flex", margin: "0px", padding: "0", justifyContent:"space-between" }}
+                className={styles.line}
+              >
+                <div style={{ display: "flex"}}>
                 <img
                   src={e.picture}
                   alt=""
-                  style={{ width: "80px", height: "80px", margin: "20px 10px 20px 20px", objectFit:"cover" }}
+                  style={{
+                    width: "80px",
+                    height: "80px",
+                    margin: "20px 20px 20px 10px",
+                    objectFit: "cover",
+                  }}
                 />
-                <div style={{ margin: "50px 20px 20px 0px", width:"300px"}}>{e.name}</div>
+                <div style={{ margin: "50px 10px 20px 0px", width: "170px" }}>
+                  {e.name}
+                </div>
                 <div
-                  style={{ margin: "50px 250px 20px 20px", width: "90px", textAlign: "right" }}
+                  style={{
+                    margin: "50px 0px 20px 0px",
+                    width: "90px",
+                    textAlign: "left",
+                  }}
                 >
                   {e.time}
                 </div>
-                <div style={{ margin: "50px 5px 20px 0" }} className={styles.hashtag}>
+                <div
+                  style={{ margin: "50px 5px 20px 0" }}
+                  className={styles.hashtag}
+                >
                   {e.hashtag[0]}
                 </div>
-                <div style={{ margin: "50px 20px 20px 0" }} className={styles.hashtag}>
+                <div
+                  style={{ margin: "50px 0px 20px 0" }}
+                  className={styles.hashtag}
+                >
                   {e.hashtag[1]}
                 </div>
+                </div>
+                <div style={{ display: "flex"}}>
                 <button className={styles.download}>
                   <AiOutlineDownload />
                 </button>
@@ -209,6 +265,7 @@ const TrackList = () => {
                   ${e.price}
                   <AiFillShopping />
                 </button>
+                </div>
               </div>
             </li>
           ))}

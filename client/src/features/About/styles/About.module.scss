@@ -25,6 +25,7 @@
   text-align: center;
 }
 .gif{
+  display: block;
   width:400px;
   border: 3px solid white;
   border-radius: 50%;
@@ -32,6 +33,7 @@
   bottom: 400px;
   left:200px;
   z-index: 0;
+  margin:auto;
 }
 .trackslance{
   width:300px;
@@ -50,7 +52,7 @@
   width:40%;
 }
 .wrapper2{
-  width:60%;
+  width:auto;
 }
 @media(max-width:1000px){
   .container{
@@ -64,7 +66,9 @@
   .wrapper2{
     width:80%;
     margin:auto;
-    margin-right: 200px;
+  }
+  .gif{
+    left: 100px;
   }
   .trackslance{
     width:250px;
@@ -72,7 +76,7 @@
   line-height: 250px;
   position: relative;
   top:100px;
-  left:100px;
+  left:200px;
   }
 
 
@@ -86,21 +90,67 @@
 
   .gif{
     width:350px;
+    left:0px;
+    margin:auto;
+  }
+}
+
+
+@media(max-width:800px){
+  .wrapper1{
+    width:100%;
+    margin-bottom: 250px;
+    text-align:start;
+  }
+
+  .gif{
+    width:350px;
+    left:0px;
+    margin:auto;
   }
 
 }
+
+@media(max-width:900px){
+  .wrapper1{
+    width:100%;
+    margin-bottom: 250px;
+    text-align:start;
+  }
+
+  .gif{
+    width:350px;
+    left:0px;
+    margin:auto;
+  }
+
+}
+
+
+
 @media(max-width:600px){
+  .wrapper1{
+    margin-bottom: 0;
+  }
+  .wrapper2{
+    margin-top: 100px;
+  }
   .gif{
     width:300px;
+    position: relative;
+    margin:auto;
+    top:-180px;
+    left:0px;
   }
   .trackslance{
     font-size:20px;
     line-height: 200px;
     width:200px;
     height:200px;
-    top:50px;
-    left:200px;
+    top:260px;
+    left:40px;
     position: relative;
+    margin-top: 0;
   }
 
 }
