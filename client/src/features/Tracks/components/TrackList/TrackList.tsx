@@ -10,6 +10,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import { Select, SelectChangeEvent } from "@mui/material";
 import { FiChevronDown } from "react-icons/fi";
+import { makeStyles } from '@mui/styles';
 
 const mp3List = [
   {
@@ -39,13 +40,15 @@ const mp3List = [
 const MenuProps = {
   PaperProps: {
     style: {
-      width: 120,
+      width: 100,
       disableScrollLock: true,
       bgcolor: "#d400b8",
       padding: 0,
-      margin: 0,
+      
     },
+    
   },
+  disableScrollLock: true
 };
 
 const names = [
@@ -94,6 +97,16 @@ const TrackList = () => {
     );
   };
 
+  const useStyles = makeStyles(() => ({
+    quantityRoot: {
+      "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+        border: "none",
+      },
+
+    }
+  }));
+  const classes = useStyles();
+
   return (
     <>
       <h1 className={styles.shopAll}>SHOP ALL</h1>
@@ -107,16 +120,22 @@ const TrackList = () => {
               textAlign: "center",
               height: 30,
               padding: 0,
+              outline:"none"
             }}
             className={styles.forms}
+            classes={{
+              root: classes.quantityRoot
+            }}
           >
             <Select
+            classes={{
+              
+            }}
               className={styles.styledselect}
               labelId="demo-multiple-name-label"
               id="demo-multiple-name"
               value={age}
               onChange={handleChange1}
-              input={<OutlinedInput label="Name" className={styles.input} />}
               MenuProps={MenuProps}
               sx={{ color: "white", backgroundColor: "#d400b8", padding: 0 , fontSize: 12}}
               autoWidth={true}
@@ -152,6 +171,9 @@ const TrackList = () => {
               height: 30,
             }}
             className={styles.forms}
+            classes={{
+              root: classes.quantityRoot
+            }}
           >
             <Select
               className={styles.styledselect}
@@ -159,7 +181,6 @@ const TrackList = () => {
               id="demo-multiple-name"
               value={personName}
               onChange={handleChange}
-              input={<OutlinedInput label="Name" className={styles.input} />}
               MenuProps={MenuProps}
               sx={{ color: "white", backgroundColor: "#d400b8", padding: 0, fontSize: 12 }}
               IconComponent={() => <FiChevronDown className={styles.Icon} />}
@@ -193,13 +214,14 @@ const TrackList = () => {
           <div style={{ margin: "0 145px 0 110px" }}>Title</div>
           <div>Time</div>
         </div>
-        <ul className={styles.ulTracks}>
+        <ul className={styles.ulTracks} style={{paddingBottom:"200px" }}>
           {mp3List.map((e) => (
             <li style={{ display: "block" }}>
               <div
-                style={{ display: "flex", margin: "0px", padding: "0" }}
+                style={{ display: "flex", margin: "0px", padding: "0", justifyContent:"space-between" }}
                 className={styles.line}
               >
+                <div style={{ display: "flex"}}>
                 <img
                   src={e.picture}
                   alt=""
@@ -215,7 +237,7 @@ const TrackList = () => {
                 </div>
                 <div
                   style={{
-                    margin: "50px 100px 20px 0px",
+                    margin: "50px 0px 20px 0px",
                     width: "90px",
                     textAlign: "left",
                   }}
@@ -234,6 +256,8 @@ const TrackList = () => {
                 >
                   {e.hashtag[1]}
                 </div>
+                </div>
+                <div style={{ display: "flex"}}>
                 <button className={styles.download}>
                   <AiOutlineDownload />
                 </button>
@@ -241,6 +265,7 @@ const TrackList = () => {
                   ${e.price}
                   <AiFillShopping />
                 </button>
+                </div>
               </div>
             </li>
           ))}
