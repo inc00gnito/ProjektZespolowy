@@ -14,6 +14,7 @@ import Signup from "features/Auth/signup/Signup";
 import ResetPassword from "features/Auth/ResetPassword/ResetPassword";
 import Cart from "features/Cart/Cart";
 import Payment from "features/Payment/Payment";
+import Upload from "features/Upload/Upload";
 
 const AppRoutes = () => {
   const popUpComponent = (type: IAuthModalType) => {
@@ -45,6 +46,7 @@ const AppRoutes = () => {
           <Route path="/tracks" element={<Tracks />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
+          <Route path="/upload" element={<Upload />} />
         </Route>
         <Route path="/" element={<PublicRoute />}></Route>
       </Routes>
