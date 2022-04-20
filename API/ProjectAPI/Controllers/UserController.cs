@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Text;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 
 namespace ProjectAPI.Controllers
@@ -23,9 +25,13 @@ namespace ProjectAPI.Controllers
         {
             _db = db;
         }
-        [HttpDelete("deleteuser/{id}")]
-        public ActionResult DeleteUser([FromRoute] int id)
+        [HttpDelete("deleteuser/")]
+        public ActionResult DeleteUser([FromHeader] string token)
         {
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(r => r.Id == id);
             if (user == null)
             {
@@ -33,49 +39,78 @@ namespace ProjectAPI.Controllers
             }
             _db.UsersDbSet.Remove(user);
             _db.SaveChanges();
-            return NoContent();
+            return Ok();
         }
 
-       /* [HttpPut("changename/{id}")]
-        public ActionResult ChangeName([FromRoute] int id, [FromBody] ChangeName use)
+        [HttpPut("changename")]
+        public ActionResult ChangeName([FromHeader] string token, [FromBody] ChangeName use)
         {
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (user == null)
             {
                 return NotFound();
             }
-            user.FirstName = use.FirstName;
-            user.LastName = use.LastName;
+            if (_db.UsersDbSet.Any(u => u.Username == use.UserName))
+                return Conflict("Username already taken");
+            user.Username = use.UserName;
             _db.SaveChanges();
             return Ok();
-        }*/
+        }
 
-        [HttpPut("changeemail/{id}")]
-        public ActionResult ChangeEmail([FromBody] ChangeEmail use, [FromRoute] int id)
+        [HttpPut("changeemail")]
+        public ActionResult ChangeEmail([FromHeader] string token, [FromBody] ChangeEmail use)
         {
+            if (IsValidEmail(use.Email))
+            {
+                Session session = Authorization(token);
+                if (session == null)
+                    return NotFound();
+                int id = session.User.Id;
+                var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
+                if (user == null)
+                {
+                    return NotFound();
+                }
+                if (_db.UsersDbSet.Any(u => u.Email == use.Email))
+                    return Conflict("Email already taken");
+                user.Email = use.Email;
+                _db.SaveChanges();
+                return Ok();
+            }
+            Debug.Print("Email is incorrect");
+            return Conflict();
+        }
+        [HttpPut("changepassword")]
+        public ActionResult ChangePassword([FromHeader] string token, [FromBody] ChangePassw use)
+        {
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (user == null)
             {
                 return NotFound();
             }
-            user.Email = use.Email;
+
+            user.HashedPassword = Hash(use.Password, user.Salt);
             _db.SaveChanges();
             return Ok();
         }
-        /*
-        [HttpPut("changepassword/{id}")]
-        public ActionResult ChangePassword([FromBody] ChangePassw use, [FromRoute] int id)
-        {
-            var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            user.Password = use.Password;
-            _db.SaveChanges();
-            return Ok();
-        }
-*/
+
         private string Hash(string password, byte[] salt)
         {
             string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -113,7 +148,9 @@ namespace ProjectAPI.Controllers
 
         private Session Authorization(string token)
         {
-            return _db.SessionDbSet.FirstOrDefault(s => s.Token == token);
+            return _db.SessionDbSet
+                .Include(r => r.User)
+                .FirstOrDefault(s => s.Token == token);
         }
 
         [HttpPost("LogIn")]
@@ -164,6 +201,10 @@ namespace ProjectAPI.Controllers
         [HttpPost("SignUp")]
         public async Task<ActionResult> SignUp([FromForm] RegisterModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             byte[] newSalt = new byte[128 / 8];
 
             using (var rngCsp = new RNGCryptoServiceProvider())
@@ -199,6 +240,24 @@ namespace ProjectAPI.Controllers
 
             return Ok();
             
+        }
+        bool IsValidEmail(string email)
+        {
+            var trimmedEmail = email.Trim();
+
+            if (trimmedEmail.EndsWith("."))
+            {
+                return false; // suggested by @TK-421
+            }
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == trimmedEmail;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }
