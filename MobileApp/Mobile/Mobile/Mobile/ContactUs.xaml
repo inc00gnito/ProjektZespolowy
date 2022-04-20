@@ -18,35 +18,21 @@
 
                 <Label Text="YOUR NAME" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Entry x:Name="txtYourName" Placeholder="" TextColor="White" PlaceholderColor="black" HeightRequest="40" FontSize="16"  Margin="5,0,0,0" ></Entry>
-                <Line HeightRequest="2"
+                <!--<Line HeightRequest="2"
                     X1="10" Y1="0"
                     X2="240" Y2="0"
                     Stroke="White"
                     StrokeThickness="2"
-                      />
+                      />-->
 
                 <Label Text="USERNAME" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Entry x:Name="txtUsername" Placeholder="your name" PlaceholderColor="Black" TextColor="White"  HeightRequest="40" FontSize="16"  Margin="5,0,0,0" ></Entry>
-                <Line HeightRequest="2"
-                        X1="10" Y1="0"
-                        X2="240" Y2="0"
-                        Stroke="White"
-                        StrokeThickness="2"/>
 
                 <Label Text="E-MAIL ADRESS *" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Entry x:Name="txtEmail"  Keyboard="Email" Placeholder="" TextColor="White" PlaceholderColor="Black" HeightRequest="40" FontSize="16"  Margin="5,0,0,0"  ></Entry>
-                <Line HeightRequest="2"
-                           X1="10" Y1="0"
-                           X2="240" Y2="0"
-                           Stroke="White"
-                           StrokeThickness="2"/>
+                
                 <Label Text="MESSAGE" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Entry x:Name="txtMessage" Placeholder="" TextColor="White" PlaceholderColor="black" HeightRequest="40" FontSize="16"  Margin="5,0,0,0"   ></Entry>
-                <Line HeightRequest="2"
-                        X1="10" Y1="0"
-                        X2="240" Y2="0"
-                        Stroke="White"
-                        StrokeThickness="2"/>
 
                 <Button  Text="Send message" Margin="0,45,0,30" HorizontalOptions="Center" WidthRequest="180" FontSize="17" FontAttributes="Bold" CornerRadius="35"  TextColor="White"  BackgroundColor="#FF0DBF"/>
                 

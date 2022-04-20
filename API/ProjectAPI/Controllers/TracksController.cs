@@ -226,7 +226,7 @@ namespace ProjectAPI.Controllers
             }
             _db.TracksDbSet.Remove(track);
             _db.SaveChanges();
-            return NoContent();
+            return Ok();
         }
 
         #region Methods

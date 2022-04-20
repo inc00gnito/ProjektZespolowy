@@ -91,7 +91,7 @@
                     Grid.ColumnSpan="2"
                     
                 VerticalOptions="Center"
-                Clicked="btn_Clicked"
+                Clicked="ProceedCheckoutClicked"
                 Text="Proceed to checkout"
                 BackgroundColor="#FF0DBF" 
 />
@@ -549,7 +549,7 @@
                     Grid.ColumnSpan="2"
                     
                 VerticalOptions="Center"
-                Clicked="btn_Clicked"
+                Clicked="ProceedCheckoutClicked"
                 Text="Proceed to checkout"
                 BackgroundColor="#FF0DBF" 
 />
