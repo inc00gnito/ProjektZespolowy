@@ -6,15 +6,75 @@
     <ContentPage.Content>
         <StackLayout>
             <Image Source="track_lance.png"/>
-            <Button Text="Tracks" HorizontalOptions="Center" Margin="0,15,0,15"  TextColor="White" 
-                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="TracksClicked"/>
-            <Button Text="OnSale" HorizontalOptions="Center" Margin="0,15,0,15"  TextColor="White" 
-                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="OnSaleClicked"/>
-            <Button Text="About Us" HorizontalOptions="Center" Margin="0,15,0,15" TextColor="White" 
-                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="AboutUsClicked"/>
-            <Button Text="Contact US" HorizontalOptions="Center" Margin="0,15,0,15" TextColor="White" 
-                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="ContactUsClicked"/>
-            
+            <Button Text="Tracks" HorizontalOptions="Center" Margin="0,15,0,15"  
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="TracksClicked" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#FF0DBF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Button Text="OnSale" HorizontalOptions="Center" Margin="0,15,0,15"  
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="OnSaleClicked">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#FF0DBF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Button Text="About Us" HorizontalOptions="Center" Margin="0,15,0,15" 
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="AboutUsClicked">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#FF0DBF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+            <Button Text="Contact US" HorizontalOptions="Center" Margin="0,15,0,15"  
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="ContactUsClicked">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#FF0DBF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
         </StackLayout>
     </ContentPage.Content>
 
