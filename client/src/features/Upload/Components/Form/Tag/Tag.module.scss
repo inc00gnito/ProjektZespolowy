@@ -1,0 +1,31 @@
+@import "../../../../../app/styles/variables.scss";
+.tag {
+  width: fit-content;
+  min-width: 8rem;
+  height: 2.4rem;
+  padding: 0 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $primaryColor;
+  border-radius: 2rem;
+  cursor: pointer;
+  .text {
+    font-size: 0.95em;
+  }
+  &:not(:first-child) {
+    margin-left: 1em;
+  }
+  .delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .text {
+      margin-left: 0.5em;
+      font-size: 0.9em;
+    }
+    .icon {
+      font-size: 0.95em;
+    }
+  }
+}

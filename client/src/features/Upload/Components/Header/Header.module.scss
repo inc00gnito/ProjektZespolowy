@@ -1,0 +1,7 @@
+@import "../../../../app/styles/variables.scss";
+.title {
+  .text {
+    color: $primaryColor;
+    font-size: clamp(2.3rem, 3vw + 1rem, 3.5rem);
+  }
+}
