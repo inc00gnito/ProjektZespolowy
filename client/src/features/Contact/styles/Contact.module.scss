@@ -5,3 +5,54 @@
   background-color: black;
   color: white;
 }
+
+
+.header{
+  margin-left: 100px;
+  color:$primaryColor;
+  font-size: 70px;
+
+}
+.formHeader{
+  margin:auto;
+  text-align: center;
+  margin-top:70px;
+  font-size:47px;
+  margin-bottom: 100px;;
+}
+
+.formCointaner{
+  width:540px;
+  margin:auto;
+}
+
+.contact{
+ color:$primaryColor;
+ font-size:30px;
+ margin-bottom: 50px;
+ font-weight: 800;
+}
+.input{
+  border:none;
+  border-bottom: 2px solid white;
+  color:white;
+  background-color: black;
+  width:100%;
+  margin-top:50px;
+  margin-bottom:20px;
+  font-size:1.5rem;
+}
+.label{
+  margin-bottom: 30px;
+}
+
+.button{
+  background-color: $primaryColor;
+  color:white;
+  border:1px solid $primaryColor;
+  border-radius: 20px;
+  font-size:20px;
+  font-weight: 600;
+  padding:10px 15px;
+  margin-bottom: 100px;
+}
