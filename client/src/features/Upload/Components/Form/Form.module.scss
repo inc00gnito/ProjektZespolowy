@@ -1,0 +1,258 @@
+@import "../../../../app/styles/variables.scss";
+.form {
+  margin-top: 3em;
+  font-family: montserrat;
+  @media (max-width: 480px) {
+    margin-bottom: 2em;
+  }
+  .row {
+    .fileUploaderContainer {
+      width: 26em;
+      height: 12em;
+      margin: 0 auto;
+      @media (max-width: 480px) {
+        width: 100%;
+      }
+      .fileUploader {
+        padding: 0.5rem 0;
+
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 0.3em;
+
+        background-color: $primaryGrey;
+        .audioFile {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .fileIcon {
+            font-size: 2em;
+          }
+          .audioName {
+            font-size: 1.4em;
+            margin-left: 1em;
+          }
+        }
+        .icon {
+          display: block;
+          width: 8rem;
+          height: 7.2rem;
+          object-fit: cover;
+        }
+        .button {
+          display: flex;
+          .input {
+            visibility: hidden;
+            width: 0;
+          }
+          .label {
+            width: 15em;
+            height: 2.5em;
+            border-radius: 0.3em;
+            background-color: $primaryColor;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            &:hover {
+              background-color: $primaryColorDarker;
+            }
+          }
+        }
+      }
+      .fileUploaderError {
+        border: 1px solid red;
+      }
+    }
+    &:nth-child(2) {
+      display: flex;
+      @media (max-width: 480px) {
+        flex-direction: column;
+      }
+      justify-content: space-between;
+      margin-top: 2em;
+      .column:nth-child(1) {
+        width: 42%;
+        @media (max-width: 480px) {
+          width: 100%;
+        }
+        .field {
+          display: flex;
+          flex-direction: column;
+          .name {
+            font-weight: bold;
+            font-size: 1.1em;
+            padding-bottom: 0.3em;
+          }
+          .input {
+            width: 100%;
+            height: 3.2rem;
+            background-color: $primaryGrey;
+            border-radius: 0.4em;
+            border: none;
+            color: white;
+            padding-left: 0.5em;
+          }
+          .inputNumber {
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+
+            /* Firefox */
+            &[type="number"] {
+              -moz-appearance: textfield;
+            }
+          }
+          .inputError {
+            border: 1px solid red;
+          }
+          &:not(:first-child) {
+            margin-top: 1em;
+          }
+          .fieldRow {
+            display: flex;
+            align-items: center;
+            .button {
+              width: 11rem;
+              height: 2.7rem;
+              margin-left: 1em;
+              border-radius: 0.3em;
+              cursor: pointer;
+              background-color: $primaryColor;
+              border: none;
+              color: white;
+              font-size: 1.1em;
+              transition: background-color 0.2s;
+              font-family: montserrat;
+              &:hover {
+                background-color: $primaryColorDarker;
+              }
+            }
+          }
+        }
+        .tags {
+          height: 3.2rem;
+          display: flex;
+          padding-top: 0.8rem;
+        }
+      }
+      .column:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        @media (max-width: 480px) {
+          margin-top: 2em;
+        }
+        .imageUploadContainer {
+          .imageUpload {
+            background-color: $primaryGrey;
+            width: 18rem;
+            height: 13rem;
+            border-radius: 0.4rem;
+            padding: 0.5em 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            @media (max-width: 480px) {
+              width: 100%;
+            }
+            .icon {
+              width: 6rem;
+              .photo {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+            .iconUploaded {
+              width: 10rem;
+              max-height: 8rem;
+            }
+            .button {
+              display: flex;
+              .input {
+                visibility: hidden;
+                width: 0;
+                height: 0;
+              }
+              .label {
+                width: 13rem;
+                height: 2.2rem;
+                border-radius: 0.3rem;
+                font-size: 1.1em;
+                background-color: $primaryColor;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.2s;
+                &:hover {
+                  background-color: $primaryColorDarker;
+                }
+              }
+            }
+          }
+          .imageUploadError {
+            border: 1px solid red;
+          }
+        }
+        .trackType {
+          margin-top: 2rem;
+          display: flex;
+          flex-direction: column;
+          .name {
+            font-weight: bold;
+            font-size: 1.1em;
+          }
+          .select {
+            padding-top: 0.5em;
+          }
+        }
+      }
+    }
+    &:nth-child(3) {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4rem;
+      .publishButton {
+        width: 15rem;
+        height: 2.7rem;
+        border-radius: 0.4rem;
+        border: none;
+        background-color: $primaryColor;
+        color: white;
+        font-size: 1.1em;
+        font-family: montserrat;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        &:hover {
+          background-color: $primaryColorDarker;
+        }
+        &[disabled] {
+          background-color: $primaryColorLight;
+          cursor: default;
+          &:hover {
+            background-color: $primaryColorLight;
+          }
+        }
+      }
+    }
+  }
+  .error {
+    color: red;
+    font-size: 1em;
+    font-weight: bold;
+    padding-top: 0.2em;
+  }
+}
