@@ -39,18 +39,6 @@ namespace ProjectAPI.Migrations
                     b.ToTable("AuthorsDbSet");
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.Newsletter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NewslettersDbSet");
-                });
-
             modelBuilder.Entity("ProjectAPI.Models.NewsletterEmail", b =>
                 {
                     b.Property<int>("Id")
@@ -61,12 +49,7 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NewsletterId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("NewsletterId");
 
                     b.ToTable("NewsletterEmailsDbSet");
                 });
@@ -200,13 +183,6 @@ namespace ProjectAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.NewsletterEmail", b =>
-                {
-                    b.HasOne("ProjectAPI.Models.Newsletter", null)
-                        .WithMany("Emails")
-                        .HasForeignKey("NewsletterId");
-                });
-
             modelBuilder.Entity("ProjectAPI.Models.Order", b =>
                 {
                     b.HasOne("ProjectAPI.Models.User", null)
@@ -228,11 +204,6 @@ namespace ProjectAPI.Migrations
                     b.HasOne("ProjectAPI.Models.User", null)
                         .WithMany("Tracks")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Newsletter", b =>
-                {
-                    b.Navigation("Emails");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>

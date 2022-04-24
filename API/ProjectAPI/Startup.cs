@@ -43,12 +43,18 @@ namespace ProjectAPI
             var apiKey = Configuration.GetValue<string>("AccountSettings:ApiKey");
             var apiSecret = Configuration.GetValue<string>("AccountSettings:ApiSecret");
 
-            /*if (new[] {cloudName, apiSecret, apiKey}.Any(string.IsNullOrWhiteSpace))
+            if (new[] { cloudName, apiSecret, apiKey }.Any(string.IsNullOrWhiteSpace))
                 throw new ArgumentException("Specify Cloudinary account details");
-*/
+
+
             services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
-            services.AddDbContext<DataBaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("ola")));
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (env == "Development")
+                services.AddDbContext<DataBaseContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("kozak")));
+            if (env == "Production")
+                services.AddDbContext<DataBaseContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Production")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -62,9 +68,10 @@ namespace ProjectAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectAPI v1"));
+                
             }
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProjectAPI v1"));
             app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
 

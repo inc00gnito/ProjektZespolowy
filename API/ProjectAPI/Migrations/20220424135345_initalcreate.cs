@@ -3,35 +3,21 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectAPI.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initalcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AuthorsDbSet",
+                name: "NewsletterEmailsDbSet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StageName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorsDbSet", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NewslettersDbSet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NewslettersDbSet", x => x.Id);
+                    table.PrimaryKey("PK_NewsletterEmailsDbSet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,35 +26,14 @@ namespace ProjectAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HashedPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UsersDbSet", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NewsletterEmailsDbSet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NewsletterId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_NewsletterEmailsDbSet", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_NewsletterEmailsDbSet_NewslettersDbSet_NewsletterId",
-                        column: x => x.NewsletterId,
-                        principalTable: "NewslettersDbSet",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,6 +58,27 @@ namespace ProjectAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SessionDbSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SessionDbSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SessionDbSet_UsersDbSet_UserId",
+                        column: x => x.UserId,
+                        principalTable: "UsersDbSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TracksDbSet",
                 columns: table => new
                 {
@@ -101,10 +87,13 @@ namespace ProjectAPI.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<float>(type: "real", nullable: false),
                     Cost = table.Column<double>(type: "float", nullable: false),
-                    DiscountedCost = table.Column<double>(type: "float", nullable: false),
+                    DiscountedByUser = table.Column<double>(type: "float", nullable: false),
+                    DiscountedByShop = table.Column<double>(type: "float", nullable: false),
+                    Genre = table.Column<int>(type: "int", nullable: false),
                     AudioFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DemoFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImgFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimesSold = table.Column<int>(type: "int", nullable: false),
                     IsDiscounted = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -119,14 +108,39 @@ namespace ProjectAPI.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AuthorsDbSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrackId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuthorsDbSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AuthorsDbSet_TracksDbSet_TrackId",
+                        column: x => x.TrackId,
+                        principalTable: "TracksDbSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_NewsletterEmailsDbSet_NewsletterId",
-                table: "NewsletterEmailsDbSet",
-                column: "NewsletterId");
+                name: "IX_AuthorsDbSet_TrackId",
+                table: "AuthorsDbSet",
+                column: "TrackId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdersDbSet_UserId",
                 table: "OrdersDbSet",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SessionDbSet_UserId",
+                table: "SessionDbSet",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -147,10 +161,10 @@ namespace ProjectAPI.Migrations
                 name: "OrdersDbSet");
 
             migrationBuilder.DropTable(
-                name: "TracksDbSet");
+                name: "SessionDbSet");
 
             migrationBuilder.DropTable(
-                name: "NewslettersDbSet");
+                name: "TracksDbSet");
 
             migrationBuilder.DropTable(
                 name: "UsersDbSet");

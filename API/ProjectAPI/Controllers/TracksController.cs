@@ -35,7 +35,6 @@ namespace ProjectAPI.Controllers
         //TODO - to postTrack add UserId after authorization is done 
             
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm)
         {

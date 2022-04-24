@@ -10,8 +10,8 @@ using ProjectAPI.Data;
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220326212048_zmianaModelu")]
-    partial class zmianaModelu
+    [Migration("20220424135345_initalcreate")]
+    partial class initalcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,30 +28,17 @@ namespace ProjectAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("StageName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TrackId");
 
                     b.ToTable("AuthorsDbSet");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Newsletter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("NewslettersDbSet");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.NewsletterEmail", b =>
@@ -64,12 +51,7 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("NewsletterId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("NewsletterId");
 
                     b.ToTable("NewsletterEmailsDbSet");
                 });
@@ -95,6 +77,29 @@ namespace ProjectAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("OrdersDbSet");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SessionDbSet");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
@@ -157,14 +162,11 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("HashedPassword")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Salt")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
@@ -174,11 +176,13 @@ namespace ProjectAPI.Migrations
                     b.ToTable("UsersDbSet");
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.NewsletterEmail", b =>
+            modelBuilder.Entity("ProjectAPI.Models.Author", b =>
                 {
-                    b.HasOne("ProjectAPI.Models.Newsletter", null)
-                        .WithMany("Emails")
-                        .HasForeignKey("NewsletterId");
+                    b.HasOne("ProjectAPI.Models.Track", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Order", b =>
@@ -188,6 +192,15 @@ namespace ProjectAPI.Migrations
                         .HasForeignKey("UserId");
                 });
 
+            modelBuilder.Entity("ProjectAPI.Models.Session", b =>
+                {
+                    b.HasOne("ProjectAPI.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
                 {
                     b.HasOne("ProjectAPI.Models.User", null)
@@ -195,9 +208,9 @@ namespace ProjectAPI.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.Newsletter", b =>
+            modelBuilder.Entity("ProjectAPI.Models.Track", b =>
                 {
-                    b.Navigation("Emails");
+                    b.Navigation("Authors");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.User", b =>

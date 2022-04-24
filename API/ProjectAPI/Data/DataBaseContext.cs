@@ -28,7 +28,6 @@ namespace ProjectAPI.Data
         public DbSet<Order> OrdersDbSet { get; set; }
         public DbSet<User> UsersDbSet{ get; set; }
         public DbSet<NewsletterEmail> NewsletterEmailsDbSet { get; set; }
-        public DbSet<Newsletter> NewslettersDbSet { get; set; }
         public DbSet<Session> SessionDbSet { get; set; }
         
     }
