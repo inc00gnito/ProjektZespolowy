@@ -108,6 +108,15 @@
           }
         }
       }
+      .error {
+        font-weight: bold;
+        color: red;
+        padding-top: 0.3em;
+      }
+      .emailSent {
+        color: $primaryColor;
+        padding-top: 0.3em;
+      }
     }
   }
 }
