@@ -20,13 +20,13 @@ namespace ProjectAPI.Controllers
         }
         
 
-        [HttpPost("{email}")]
-        public IActionResult Subscribe([FromRoute]string email)
+        [HttpPost]
+        public IActionResult Subscribe([FromBody] NewsletterEmail email)
         {
-            if (IsValidEmail(email))
+            if (IsValidEmail(email.Email))
             {
-                var emailNewsletter = new NewsletterEmail { Email = email };
-                if (_db.NewsletterEmailsDbSet.Any(e => e.Email == email))
+                var emailNewsletter = new NewsletterEmail { Email = email.Email };
+                if (_db.NewsletterEmailsDbSet.Any(e => e.Email == email.Email))
                     return Conflict();
                 
                 _db.NewsletterEmailsDbSet.Add(emailNewsletter);
