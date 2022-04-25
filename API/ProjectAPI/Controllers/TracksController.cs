@@ -32,9 +32,9 @@ namespace ProjectAPI.Controllers
             _cloudinary = cloudinary;
         }
 
-        //TODO - to postTrack add UserId after authorization is done 
+         
             
-
+        //TODO - to postTrack add UserId after authorization is done
         [HttpPost]
         public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm)
         {
@@ -50,7 +50,7 @@ namespace ProjectAPI.Controllers
 
             };
              
-            if (trackFromForm.audioFormFile == null || trackFromForm.demoFormFile == null || trackFromForm.audioFormFile == null)
+            if (trackFromForm.audioFormFile == null || trackFromForm.demoFormFile == null || trackFromForm.imageFormFile == null)
                 return BadRequest("File cannot be empty");
             track.AudioFile = GetFileStringAndUpload(trackFromForm.audioFormFile).Result;
             track.DemoFile = GetFileStringAndUpload(trackFromForm.demoFormFile).Result;
@@ -60,19 +60,19 @@ namespace ProjectAPI.Controllers
             _db.TracksDbSet.Add(track);
             await _db.SaveChangesAsync();
 
-            foreach (var author in track.Authors.ToList())
-            {
-                if (author.StageName != null)
-                {
-                    var newAuthor = new Author
-                    {
-                        StageName = author.StageName,
-                        TrackId = track.Id,
-                    };
-                    _db.AuthorsDbSet.Add(newAuthor);
-                }
+            //foreach (var author in track.Authors.ToList())
+            //{
+            //    if (author.StageName != null)
+            //    {
+            //        var newAuthor = new Author
+            //        {
+            //            StageName = author.StageName,
+            //            TrackId = track.Id,
+            //        };
+            //        _db.AuthorsDbSet.Add(newAuthor);
+            //    }
 
-            }
+            //}
 
             //await _db.SaveChangesAsync();
             return Ok();
@@ -116,68 +116,7 @@ namespace ProjectAPI.Controllers
             return Ok(Tracks);
         }
 
-/*
-        // cost = cost - miscountedbyuser
-        [HttpGet("sortbycostlowtohigh")] // nie testowane 
-        public ActionResult<List<Track>> SortByCostLowToHigh()
-        {
-            var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y)
-            {
-                return (x.Cost - x.DiscountedByUser).CompareTo(y.Cost - y.DiscountedByUser);
-            });
 
-            return Ok(Tracks);
-        }
-
-        [HttpGet("sortbycosthightolow")]
-        public ActionResult<List<Track>> SortByCostHighToLow()
-        {
-            var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y)
-            {
-                return (y.Cost - y.DiscountedByUser).CompareTo(x.Cost - x.DiscountedByUser);
-            });
-
-            return Ok(Tracks);
-        }
-
-        [HttpGet("sortbytimessold")]
-        public ActionResult<List<Track>> SortByTimesSold()
-        {
-            var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y) { return y.TimesSold.CompareTo(x.TimesSold); });
-
-            return Ok(Tracks);
-        }
-
-
-        [HttpGet("sortbydiscountedlowtohigh")]
-        public ActionResult<List<Track>> SortByDiscountedLowToHigh()
-        {
-            var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y)
-            {
-                return x.DiscountedByUser
-                    .CompareTo(y.DiscountedByUser);
-            });
-
-            return Ok(Tracks);
-        }
-
-        [HttpGet("sortbydiscountedhightolow")]
-        public ActionResult<List<Track>> SortByDiscountedHighToLow()
-        {
-            var Tracks = _db.TracksDbSet.ToList();
-            Tracks.Sort(delegate(Track x, Track y)
-            {
-                return y.DiscountedByUser
-                    .CompareTo(x.DiscountedByUser);
-            });
-
-            return Ok(Tracks);
-        }
-*/
         [HttpGet("sort")]
         public ActionResult<List<Track>> Sort([FromQuery] SortBy key)
         {
@@ -192,7 +131,7 @@ namespace ProjectAPI.Controllers
                 return Ok(Tracks.OrderBy(x => (x.TimesSold)).Reverse());
             else if (key == SortBy.DiscountedLowToHigh)
                 return Ok(Tracks.OrderBy(x => (x.DiscountedByUser)));
-            else if (key == SortBy.DiscountedLowToHigh)
+            else if (key == SortBy.DiscountedHighToLow)
                 return Ok(Tracks.OrderBy(x => (x.DiscountedByUser)).Reverse());
 
             return Ok(Tracks);
