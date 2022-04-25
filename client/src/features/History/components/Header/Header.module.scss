@@ -1,0 +1,31 @@
+.container {
+  .profile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .info {
+      display: flex;
+      align-items: center;
+      .picture {
+        width: 85px;
+        height: 85px;
+        background-color: rgb(0, 77, 64);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3.2em;
+      }
+      .name {
+        margin-left: 0.8em;
+        font-size: 1.3em;
+      }
+    }
+    .menu {
+      .icon {
+        font-size: 1.3em;
+      }
+    }
+  }
+}
