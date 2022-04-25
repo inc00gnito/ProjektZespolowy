@@ -20,7 +20,7 @@ namespace ProjectAPI.Controllers
         }
         
 
-        [HttpPost("{email}")]
+        [HttpPost]
         public IActionResult Subscribe([FromBody] NewsletterEmail email)
         {
             if (IsValidEmail(email.Email))
