@@ -19,6 +19,9 @@
     <Compile Update="CartPage.xaml.cs">
       <DependentUpon>CartPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="MyOrders.xaml.cs">
+      <DependentUpon>MyOrders.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>

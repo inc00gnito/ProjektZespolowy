@@ -1,0 +1,534 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Mobile"
+             x:Class="Mobile.MyOrders"
+             xmlns:myViews="clr-namespace:Mobile"
+             >
+    <ScrollView BackgroundColor="Black">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="20"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="90"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Image Source="user_avatar.jpg" VerticalOptions="Start" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1"  Aspect="AspectFit"/>    
+            <Label 
+            Grid.Row="0" 
+            Grid.Column="2"
+            Grid.ColumnSpan="2"
+            Text="Aleksandra Janusz" 
+            FontSize="18" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center" 
+            TextColor="White"
+            ></Label>
+
+            <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" BackgroundColor="#FF0DBF"></Frame>
+            <Label 
+            Grid.Row="2" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="My orders" 
+            FontSize="18" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center" 
+            TextColor="White"
+            
+            ></Label>
+
+            <Label 
+            Grid.Row="3" 
+            Grid.Column="1"
+            Grid.ColumnSpan="4" 
+            Text="My Orders" 
+            FontAttributes="Bold" 
+            FontSize="32" 
+            Margin="0,20,0,0"
+            HorizontalOptions="Start" 
+            VerticalOptions="Start" 
+            TextColor="White"
+            ></Label>
+            
+            <Label 
+            Grid.Row="3" 
+            Grid.Column="1"
+            Grid.ColumnSpan="4" 
+            Text="View your order history" 
+            FontSize="16" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center" 
+            Margin="0,46,0,0"
+            TextColor="#FF0DBF"
+            ></Label>
+            
+                <Label Grid.Row="4" 
+                       Grid.Column="1"  
+                       Text="Date" 
+                       VerticalOptions="End" 
+                       TextColor="White"
+                       FontSize="18" 
+                       FontAttributes="Bold"
+
+                       ></Label>
+            <Label Grid.Row="4" 
+                       Grid.Column="3"  
+                       Text="Order" 
+                       VerticalOptions="End" 
+                       TextColor="White"
+                       FontSize="18" 
+                       FontAttributes="Bold"
+
+                       ></Label>
+            <StackLayout 
+                Grid.Column="1"
+                Grid.Row="5"
+                Grid.ColumnSpan="4"
+                >
+               
+                <!--pierwsze zamówienie-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="145"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Line 
+            Grid.ColumnSpan="2"
+            HeightRequest="2"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="2"
+                      />
+                    <Label Grid.Row="0" 
+                       Grid.Column="0"  
+                       Text="09-05-2022" 
+                       FontAttributes="Bold,Italic"
+                       TextColor="#FF0DBF"
+                        FontSize="16" 
+                           VerticalOptions="End"
+
+                       ></Label>
+                    <Label Grid.Row="0" 
+                       Grid.Column="1"  
+                       Text="#1002801" 
+                       FontAttributes="Bold,Italic"
+                       TextColor="#FF0DBF"
+                        FontSize="16" 
+                        VerticalOptions="End"
+                       ></Label>
+                    <Label Grid.Row="1" 
+                       Grid.Column="0"  
+                       Text="Status:" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <Label Grid.Row="1" 
+                       Grid.Column="1"  
+                       Text="Confirmed" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <Label Grid.Row="2" 
+                       Grid.Column="0"  
+                       Text="Sum:" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <Label Grid.Row="2" 
+                       Grid.Column="1"  
+                       Text="$100.00" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <!--single track-->
+                    <StackLayout Grid.Row="3" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition >
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="80">
+                                </ColumnDefinition>
+                                <ColumnDefinition>
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image 
+                        Grid.Column="0"
+                        Grid.RowSpan="4"
+                        Source="cover_2.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                            </Image>
+
+                           
+                            <Label Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Sample track name" 
+                               FontAttributes="Bold"
+                           TextColor="White"></Label>
+
+                            <Label Grid.Column="1" 
+                               Grid.Row="1"
+                           FontSize="14" 
+                           Text="SKU:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="122345" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="1" 
+                               Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Price:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="$45.00" 
+                           TextColor="#BBBBBB"></Label>
+                            <Line 
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="Start"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition >
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="80">
+                                </ColumnDefinition>
+                                <ColumnDefinition>
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image 
+                        Grid.Column="0"
+                        Grid.RowSpan="4"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                            </Image>
+
+                           
+                            <Label Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Another name" 
+                               FontAttributes="Bold"
+                           TextColor="White"></Label>
+
+                            <Label Grid.Column="1" 
+                               Grid.Row="1"
+                           FontSize="14" 
+                           Text="SKU:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="572345" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="1" 
+                               Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Price:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="$55.00" 
+                           TextColor="#BBBBBB"></Label>
+                            <Line 
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="Start"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+                        </Grid>
+                    </StackLayout>
+                    
+
+                </Grid>
+                <!--drugie zamówienie-->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition Height="20"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="145"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Line 
+            Grid.ColumnSpan="2"
+            HeightRequest="2"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="2"
+                      />
+                    <Label Grid.Row="0" 
+                       Grid.Column="0"  
+                       Text="03-05-2022" 
+                       FontAttributes="Bold,Italic"
+                       TextColor="#FF0DBF"
+                        FontSize="16" 
+                           VerticalOptions="End"
+
+                       ></Label>
+                    <Label Grid.Row="0" 
+                       Grid.Column="1"  
+                       Text="#1342991" 
+                       FontAttributes="Bold,Italic"
+                       TextColor="#FF0DBF"
+                        FontSize="16" 
+                        VerticalOptions="End"
+                       ></Label>
+                    <Label Grid.Row="1" 
+                       Grid.Column="0"  
+                       Text="Status:" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <Label Grid.Row="1" 
+                       Grid.Column="1"  
+                       Text="Confirmed" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <Label Grid.Row="2" 
+                       Grid.Column="0"  
+                       Text="Sum:" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <Label Grid.Row="2" 
+                       Grid.Column="1"  
+                       Text="$490.00" 
+                       TextColor="White"
+                        FontSize="15" 
+
+                       ></Label>
+                    <!--single track-->
+                    <StackLayout Grid.Row="3" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition >
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="80">
+                                </ColumnDefinition>
+                                <ColumnDefinition>
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image 
+                        Grid.Column="0"
+                        Grid.RowSpan="4"
+                        Source="cover_2.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                            </Image>
+
+
+                            <Label Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Sample track name" 
+                               FontAttributes="Bold"
+                           TextColor="White"></Label>
+
+                            <Label Grid.Column="1" 
+                               Grid.Row="1"
+                           FontSize="14" 
+                           Text="SKU:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="66634" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="1" 
+                               Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Price:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="$135.00" 
+                           TextColor="#BBBBBB"></Label>
+                            <Line 
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="Start"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+                        </Grid>
+                        <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition >
+                                </ColumnDefinition>
+                                <ColumnDefinition Width="80">
+                                </ColumnDefinition>
+                                <ColumnDefinition>
+                                </ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                                <RowDefinition Height="16"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Image 
+                        Grid.Column="0"
+                        Grid.RowSpan="4"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Start"
+                        HorizontalOptions="Start"
+                        >
+
+                            </Image>
+
+
+                            <Label Grid.Column="1" 
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Another name" 
+                               FontAttributes="Bold"
+                           TextColor="White"></Label>
+
+                            <Label Grid.Column="1" 
+                               Grid.Row="1"
+                           FontSize="14" 
+                           Text="SKU:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="898345" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="1" 
+                               Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="Price:" 
+                           TextColor="#BBBBBB"></Label>
+                            <Label Grid.Column="2" 
+                               
+                                   Grid.Row="2"
+                           Grid.ColumnSpan="2"
+                           FontSize="14" 
+                           Text="$355.00" 
+                           TextColor="#BBBBBB"></Label>
+                            <Line 
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="4"
+            HeightRequest="1"
+            VerticalOptions="Start"
+                    X1="0" Y1="0"
+                    X2="400" Y2="0"
+                    Stroke="White"
+                    StrokeThickness="1"
+                      />
+                        </Grid>
+                    </StackLayout>
+
+
+                </Grid>
+
+
+
+
+            </StackLayout>
+            
+            
+            
+        </Grid>
+       
+
+    </ScrollView>
+   
+   
+</ContentPage>

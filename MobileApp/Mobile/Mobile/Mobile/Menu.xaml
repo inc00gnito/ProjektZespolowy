@@ -75,6 +75,24 @@
                 </VisualStateManager.VisualStateGroups>
             </Button>
 
+            <Button Text="My Orders" HorizontalOptions="Center" Margin="0,15,0,15" 
+                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="MyOrdersClicked">
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#FF0DBF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
+
         </StackLayout>
     </ContentPage.Content>
 

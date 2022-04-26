@@ -29,6 +29,12 @@ namespace Mobile
            
             Navigation.PushAsync(new Tracks());
         }
+        private void MyOrdersClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+           
+            Navigation.PushAsync(new MyOrders());
+        }
         private void OnSaleClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;

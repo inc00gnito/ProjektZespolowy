@@ -8,7 +8,6 @@ namespace Mobile
     {
         List<string> Items1 = new List<string>();
         List<string> Items2 = new List<string>();
-        bool IsItem1 = true;
 
         public Tracks()
         {
