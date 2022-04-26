@@ -1,0 +1,88 @@
+@import "../../../../../app/styles/variables.scss";
+.container {
+  .select {
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button {
+      width: 100%;
+      display: flex;
+      height: 100%;
+      background-color: $primaryColor;
+      .name {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        border-right: 1px solid black;
+        .text {
+          padding-left: 1em;
+        }
+      }
+
+      .iconButton {
+        height: 100%;
+        border: none;
+        border-left: 2px solid black;
+        width: 3.5rem;
+        border-radius: 0.2em;
+        color: white;
+        font-family: montserrat;
+        font-size: 1em;
+        border: none;
+        background-color: $primaryColor;
+      }
+    }
+
+    .icon {
+      margin-left: 0.2em;
+    }
+    .options {
+      position: absolute;
+      top: 101%;
+      max-height: 100px;
+      overflow: hidden;
+      overflow-y: scroll;
+      left: 0;
+      right: 0;
+      scrollbar-color: $primaryColorDark $primaryColorDarker;
+      scrollbar-width: thin;
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+      &::-webkit-scrollbar-track {
+        background-color: $primaryColor;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $primaryColorDark;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: $primaryColorExtraDark;
+      }
+      .list {
+        .item {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          list-style-type: none;
+          padding: 0.5rem 0;
+          transition: background 0.3;
+          background-color: $primaryColor;
+          cursor: pointer;
+          &:hover {
+            background-color: $primaryColorDarker;
+          }
+        }
+      }
+    }
+  }
+  .selectActive {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
