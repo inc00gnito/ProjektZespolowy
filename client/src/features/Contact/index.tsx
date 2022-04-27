@@ -11,13 +11,13 @@ const Contact = () => {
         <div className={styles.formCointaner}>
           <p className={styles.contact}>Contact us</p>
           <form>
-            <div style={{display:"flex"}}>
-              <div style={{marginRight:"20px",width:"50%"}}>
+            <div  className={styles.firstLine}>
+              <div  className={styles.line} style={{marginRight:"20px"}}>
                 <label className={styles.label}>YOUR NAME</label>
                 <br />
                 <input id="html" name="fav_language" className={styles.input}/>
               </div>
-              <div style={{width:"50%"}}>
+              <div className={styles.line}>
                 <label className={styles.label}>USERNAME</label>
                 <br />
                 <input id="css" name="fav_language" className={styles.input} />

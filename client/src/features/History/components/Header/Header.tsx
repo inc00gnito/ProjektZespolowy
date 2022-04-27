@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Header.module.scss";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import Select from "./Select/Select";
 
 const Header = () => {
   return (
@@ -14,7 +15,9 @@ const Header = () => {
           <BsThreeDotsVertical className={styles.icon} />
         </div>
       </div>
-      <div className={styles.tabs}></div>
+      <div className={styles.tabs}>
+        <Select />
+      </div>
     </div>
   );
 };
