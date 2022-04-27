@@ -15,6 +15,7 @@ using CloudinaryDotNet;
 using Microsoft.EntityFrameworkCore;
 using MimeKit.Encodings;
 using ProjectAPI.Data;
+using AutoMapper;
 
 namespace ProjectAPI
 {
@@ -51,7 +52,7 @@ namespace ProjectAPI
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             if (env == "Development")
                 services.AddDbContext<DataBaseContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("kozak")));
+                    options.UseSqlServer(Configuration.GetConnectionString("robert")));
             if (env == "Production")
                 services.AddDbContext<DataBaseContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Production")));
@@ -60,6 +61,7 @@ namespace ProjectAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectAPI", Version = "v1" });
             });
+            services.AddAutoMapper(this.GetType().Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,7 +80,7 @@ namespace ProjectAPI
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

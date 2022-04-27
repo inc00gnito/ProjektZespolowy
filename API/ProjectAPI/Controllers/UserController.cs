@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using AutoMapper;
 
 
 namespace ProjectAPI.Controllers
@@ -20,13 +21,15 @@ namespace ProjectAPI.Controllers
     public class UserController : ControllerBase
     {
         public readonly DataBaseContext _db;
+        private readonly IMapper _mapper;
 
-        public UserController(DataBaseContext db)
+        public UserController(DataBaseContext db, IMapper mapper)
         {
             _db = db;
+            _mapper = mapper;
         }
-        [HttpDelete("deleteuser/")]
-        public ActionResult DeleteUser([FromHeader] string token)
+        [HttpGet("getuser/")]
+        public ActionResult<User> GetUser([FromHeader] string token)
         {
             Session session = Authorization(token);
             if (session == null)
@@ -36,6 +39,52 @@ namespace ProjectAPI.Controllers
             if (user == null)
             {
                 return NotFound();
+            }
+            var getuser = _mapper.Map<GetUser>(user);
+            return Ok(getuser);
+
+        }
+        [HttpGet("getorderhistory/")]
+        public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string token)
+        {
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
+            var user = _db.UsersDbSet
+                .Include(r=>r.Orders)
+                .FirstOrDefault(r => r.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            List<Order> orders = new List<Order>();
+            orders = user.Orders.ToList();
+            return Ok(orders);
+
+        }
+        [HttpDelete("deleteuser/")]
+        public ActionResult DeleteUser([FromHeader] string token)
+        {
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
+            var user = _db.UsersDbSet
+                .Include(r=>r.Tracks)
+                .FirstOrDefault(r => r.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            if (user.Tracks.Count() > 0)
+            {
+                for (int i = 0; i < user.Tracks.Count(); i++)
+                {
+                    int trackid = user.Tracks[i].Id;
+                    var track = _db.TracksDbSet.FirstOrDefault(t => t.Id == trackid);
+                    _db.TracksDbSet.Remove(track);
+                }
             }
             _db.UsersDbSet.Remove(user);
             _db.SaveChanges();
