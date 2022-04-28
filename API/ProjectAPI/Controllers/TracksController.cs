@@ -111,7 +111,7 @@ namespace ProjectAPI.Controllers
             return Ok(Discounted);
         }
 
-        [HttpGet("filterbygenerer")]
+        [HttpGet("filterbygenre")]
         public ActionResult<List<Track>> FilterByGernes([FromQuery] params Genre[] genre)
         {
             Debug.Print(genre.Count().ToString());
