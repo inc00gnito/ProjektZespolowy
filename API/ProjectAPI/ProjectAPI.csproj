@@ -5,6 +5,14 @@
     <UserSecretsId>933c4f25-3291-4fce-81a6-375c713c96a4</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="CloudinaryDotNet" Version="1.17.0" />
     <PackageReference Include="MailKit" Version="3.2.0" />

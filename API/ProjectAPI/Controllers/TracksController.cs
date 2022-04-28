@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
@@ -36,8 +37,12 @@ namespace ProjectAPI.Controllers
             
         //TODO - to postTrack add UserId after authorization is done
         [HttpPost]
-        public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm)
+        public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
         {
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
 
             var track = new Track
             {
@@ -46,7 +51,7 @@ namespace ProjectAPI.Controllers
                 Authors = trackFromForm.Authors,
                 Cost = trackFromForm.Cost,
                 Genre = trackFromForm.Genre,
-
+                UserId = id
 
             };
              
@@ -223,7 +228,12 @@ namespace ProjectAPI.Controllers
             return uploadResult.Url.ToString();
         }
 
-       
+        private Session Authorization(string token)
+        {
+            return _db.SessionDbSet
+                .Include(r => r.User)
+                .FirstOrDefault(s => s.Token == token);
+        }
 
         #endregion
     }

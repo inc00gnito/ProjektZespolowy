@@ -11,6 +11,7 @@ namespace ProjectAPI.Models
         public string Title { get; set; }
         public float Time { get; set; }
         public double Cost { get; set; }
+        public int UserId { get; set; }
 
         public double DiscountedByUser {get; set; } // w PLN
         public double DiscountedByShop {get; set; } // w %
