@@ -39,6 +39,7 @@ namespace ProjectAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
         {
+            Debug.Print(trackFromForm.Title);
             Session session = Authorization(token);
             if (session == null)
                 return NotFound();
@@ -48,13 +49,14 @@ namespace ProjectAPI.Controllers
             {
                 Title = trackFromForm.Title,
                 Time = trackFromForm.Time,
-                Authors = trackFromForm.Authors,
                 Cost = trackFromForm.Cost,
                 Genre = trackFromForm.Genre,
-                UserId = id
+                Authors = trackFromForm.Authors,
+                Tags = trackFromForm.Tags,
+                UserId = id,
 
             };
-             
+
             if (trackFromForm.audioFormFile == null || trackFromForm.demoFormFile == null || trackFromForm.imageFormFile == null)
                 return BadRequest("File cannot be empty");
             track.AudioFile = GetFileStringAndUpload(trackFromForm.audioFormFile).Result;
@@ -63,25 +65,16 @@ namespace ProjectAPI.Controllers
 
 
             _db.TracksDbSet.Add(track);
-            await _db.SaveChangesAsync();
+            _db.SaveChanges();
+            CreateTags(track);
 
-            //foreach (var author in track.Authors.ToList())
-            //{
-            //    if (author.StageName != null)
-            //    {
-            //        var newAuthor = new Author
-            //        {
-            //            StageName = author.StageName,
-            //            TrackId = track.Id,
-            //        };
-            //        _db.AuthorsDbSet.Add(newAuthor);
-            //    }
-
-            //}
-
-            //await _db.SaveChangesAsync();
+            CreateAuthors(track);
+            _db.SaveChanges();
+           
             return Ok();
         }
+
+       
 
         [HttpGet]
         public ActionResult<List<Track>> GetTracks()
@@ -107,7 +100,7 @@ namespace ProjectAPI.Controllers
         public ActionResult<List<Track>> GetDiscounted()
         {
             var Discounted = _db.TracksDbSet.ToList().Where(x => x.IsDiscounted);
-            ;
+            
             return Ok(Discounted);
         }
 
@@ -173,6 +166,47 @@ namespace ProjectAPI.Controllers
         }
 
         #region Methods
+
+        private async void CreateAuthors(Track track)
+        {
+            foreach (var author in track.Authors)
+            {
+                if (author.StageName != null)
+                {
+                    var newAuthor = new Author
+                    {
+                        StageName = author.StageName,
+                        TrackId = track.Id,
+                    };
+                    _db.AuthorsDbSet.Add(newAuthor);
+                }
+
+            }
+
+            await _db.SaveChangesAsync();
+
+        }
+
+        private async void CreateTags(Track track)
+        {
+            foreach (var tag in track.Tags)
+            {
+                Debug.Print(tag);
+                if (tag != string.Empty)
+                {
+                    var newTag = new Tag
+                    {
+                        Description = tag,
+                        TrackId = track.Id
+
+                    };
+                    _db.TagsDbSet.Add(newTag);
+                }
+
+            }
+
+            await _db.SaveChangesAsync();
+        }
 
         private void SendMail(List<NewsletterEmail> newsletterEmails)
         {

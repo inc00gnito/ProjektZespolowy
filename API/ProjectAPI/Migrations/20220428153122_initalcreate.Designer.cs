@@ -10,7 +10,7 @@ using ProjectAPI.Data;
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220424135345_initalcreate")]
+    [Migration("20220428153122_initalcreate")]
     partial class initalcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -142,7 +142,7 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -205,7 +205,9 @@ namespace ProjectAPI.Migrations
                 {
                     b.HasOne("ProjectAPI.Models.User", null)
                         .WithMany("Tracks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
