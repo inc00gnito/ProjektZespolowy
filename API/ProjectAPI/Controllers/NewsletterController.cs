@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using MailKit.Net.Smtp;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using ProjectAPI.Data;
@@ -84,7 +83,7 @@ namespace ProjectAPI.Controllers
             msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
             msg.To.Add(new MailboxAddress("", email));
             msg.Subject = "Newsletter!";
-
+            
             msg.Body = new TextPart("plain")
             {
                 Text = @"Testing put changes  in fucking api"
