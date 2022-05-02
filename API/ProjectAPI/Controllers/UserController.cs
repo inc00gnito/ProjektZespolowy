@@ -203,7 +203,7 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpPost("LogIn")]
-        public async Task<ActionResult> LogIn([FromForm] LogInModel model)
+        public async Task<ActionResult> LogIn([FromBody] LogInModel model)
         {
             
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Username == model.Login || u.Email == model.Login );
@@ -248,7 +248,7 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpPost("SignUp")]
-        public async Task<ActionResult> SignUp([FromForm] RegisterModel model)
+        public async Task<ActionResult> SignUp([FromBody] RegisterModel model)
         {
             if (!ModelState.IsValid)
             {
