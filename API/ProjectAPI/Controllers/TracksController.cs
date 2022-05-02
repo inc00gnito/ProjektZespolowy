@@ -17,7 +17,9 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto.Utilities;
 
 namespace ProjectAPI.Controllers
 {
@@ -37,7 +39,7 @@ namespace ProjectAPI.Controllers
             
         //TODO - to postTrack add UserId after authorization is done
         [HttpPost]
-        public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
+        public ActionResult AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
         {
             Debug.Print(trackFromForm.Title);
             Session session = Authorization(token);
@@ -51,8 +53,8 @@ namespace ProjectAPI.Controllers
                 Time = trackFromForm.Time,
                 Cost = trackFromForm.Cost,
                 Genre = trackFromForm.Genre,
-                Authors = trackFromForm.Authors,
                 Tags = trackFromForm.Tags,
+                Authors = trackFromForm.Authors,
                 UserId = id,
 
             };
@@ -66,11 +68,10 @@ namespace ProjectAPI.Controllers
 
             _db.TracksDbSet.Add(track);
             _db.SaveChanges();
-            CreateTags(track);
+            CreateTags(track, trackFromForm.Tags);
+            //_db.SaveChanges();
+            //CreateAuthors(track);
 
-            CreateAuthors(track);
-            _db.SaveChanges();
-           
             return Ok();
         }
 
@@ -167,7 +168,7 @@ namespace ProjectAPI.Controllers
 
         #region Methods
 
-        private async void CreateAuthors(Track track)
+        private void CreateAuthors(Track track)
         {
             foreach (var author in track.Authors)
             {
@@ -179,33 +180,30 @@ namespace ProjectAPI.Controllers
                         TrackId = track.Id,
                     };
                     _db.AuthorsDbSet.Add(newAuthor);
+                    _db.SaveChanges();
                 }
 
             }
-
-            await _db.SaveChangesAsync();
 
         }
 
-        private async void CreateTags(Track track)
+        private void CreateTags(Track track, List<string> tags)
         {
-            foreach (var tag in track.Tags)
-            {
-                Debug.Print(tag);
-                if (tag != string.Empty)
-                {
-                    var newTag = new Tag
-                    {
-                        Description = tag,
-                        TrackId = track.Id
 
+            for (int i = 0; i < tags.Count; i++)
+            {
+                if (tags[i] != string.Empty)
+                {
+                    var newTag = new Tag()
+                    {
+                        Description = tags[i],
+                        TrackId = track.Id
                     };
                     _db.TagsDbSet.Add(newTag);
+                    _db.SaveChanges();
                 }
-
             }
-
-            await _db.SaveChangesAsync();
+            
         }
 
         private void SendMail(List<NewsletterEmail> newsletterEmails)
