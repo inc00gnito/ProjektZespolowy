@@ -69,9 +69,7 @@ namespace ProjectAPI.Controllers
             _db.TracksDbSet.Add(track);
             _db.SaveChanges();
             CreateTags(track, trackFromForm.Tags);
-            //_db.SaveChanges();
-            //CreateAuthors(track);
-
+           
             return Ok();
         }
 
@@ -167,25 +165,6 @@ namespace ProjectAPI.Controllers
         }
 
         #region Methods
-
-        private void CreateAuthors(Track track)
-        {
-            foreach (var author in track.Authors)
-            {
-                if (author.StageName != null)
-                {
-                    var newAuthor = new Author
-                    {
-                        StageName = author.StageName,
-                        TrackId = track.Id,
-                    };
-                    _db.AuthorsDbSet.Add(newAuthor);
-                    _db.SaveChanges();
-                }
-
-            }
-
-        }
 
         private void CreateTags(Track track, List<string> tags)
         {
