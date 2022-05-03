@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectAPI.Migrations
 {
-    public partial class initalcreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,6 +18,20 @@ namespace ProjectAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NewsletterEmailsDbSet", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TagsDbSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrackId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TagsDbSet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -162,6 +176,9 @@ namespace ProjectAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "SessionDbSet");
+
+            migrationBuilder.DropTable(
+                name: "TagsDbSet");
 
             migrationBuilder.DropTable(
                 name: "TracksDbSet");

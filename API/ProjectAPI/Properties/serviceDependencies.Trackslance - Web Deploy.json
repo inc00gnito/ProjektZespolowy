@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/trackslancedbserver/databases/Trackslance_db",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/trackslancedbserver/databases/Trackslance_db",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:Production"
     }
