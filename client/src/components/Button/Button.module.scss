@@ -1,0 +1,33 @@
+@import "../../app/styles/variables.scss";
+.button {
+  width: 100%;
+  border: none;
+  background-color: $primaryColor;
+  transition: 0.3 background-color;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: montserrat;
+  &:hover {
+    background-color: $primaryColorDarker;
+  }
+  &.small {
+    height: 30px;
+    font-size: 14px;
+  }
+  &.medium {
+    height: 44px;
+    font-size: 15px;
+  }
+  &.big {
+    height: 65px;
+    font-size: 17px;
+  }
+  &[disabled] {
+    background-color: $primaryColorLight;
+    cursor: default;
+    &:hover {
+      background-color: $primaryColorLight;
+    }
+  }
+}

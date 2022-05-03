@@ -24,6 +24,8 @@ const OrderlistItem: React.FC<IProps> = ({ item, active, setActive }) => {
       <div className={styles.header}>
         <div className={styles.column}>26 Jan 2022</div>
         <div className={styles.column}>#10075</div>
+        <div className={styles.column}>#10075</div>
+        <div className={styles.column}>#10075</div>
         <div className={styles.column}>
           <button className={styles.button} onClick={onHandleDropdown}>
             {isActive ? (
@@ -63,6 +65,9 @@ const OrderlistItem: React.FC<IProps> = ({ item, active, setActive }) => {
                 <span className={styles.name}>Track name</span>
                 <span className={styles.infoItem}>Price: 100.00$</span>
               </div>
+              <div className={styles.price}>
+                <span>100.00$ </span>
+              </div>
             </div>
             <div className={styles.item}>
               <div className={styles.photo}>
@@ -71,6 +76,9 @@ const OrderlistItem: React.FC<IProps> = ({ item, active, setActive }) => {
               <div className={styles.info}>
                 <span className={styles.name}>Track name</span>
                 <span className={styles.infoItem}>Price: 100.00$</span>
+              </div>
+              <div className={styles.price}>
+                <span>100.00$ </span>
               </div>
             </div>
           </div>

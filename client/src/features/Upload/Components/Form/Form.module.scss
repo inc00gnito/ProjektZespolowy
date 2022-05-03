@@ -83,59 +83,12 @@
           width: 100%;
         }
         .field {
-          display: flex;
-          flex-direction: column;
-          .name {
-            font-weight: bold;
-            font-size: 1.1em;
-            padding-bottom: 0.3em;
-          }
-          .input {
-            width: 100%;
-            height: 3.2rem;
-            background-color: $primaryGrey;
-            border-radius: 0.4em;
-            border: none;
-            color: white;
-            padding-left: 0.5em;
-          }
-          .inputNumber {
-            &::-webkit-outer-spin-button,
-            &::-webkit-inner-spin-button {
-              -webkit-appearance: none;
-              margin: 0;
-            }
-
-            /* Firefox */
-            &[type="number"] {
-              -moz-appearance: textfield;
-            }
-          }
-          .inputError {
-            border: 1px solid red;
-          }
-          &:not(:first-child) {
+          &:nth-of-type(2) {
             margin-top: 1em;
           }
           .fieldRow {
             display: flex;
-            align-items: center;
-            .button {
-              width: 11rem;
-              height: 2.7rem;
-              margin-left: 1em;
-              border-radius: 0.3em;
-              cursor: pointer;
-              background-color: $primaryColor;
-              border: none;
-              color: white;
-              font-size: 1.1em;
-              transition: background-color 0.2s;
-              font-family: montserrat;
-              &:hover {
-                background-color: $primaryColorDarker;
-              }
-            }
+            align-items: flex-end;
           }
         }
         .tags {
@@ -225,27 +178,8 @@
       display: flex;
       justify-content: flex-end;
       margin-top: 4rem;
-      .publishButton {
+      .button {
         width: 15rem;
-        height: 2.7rem;
-        border-radius: 0.4rem;
-        border: none;
-        background-color: $primaryColor;
-        color: white;
-        font-size: 1.1em;
-        font-family: montserrat;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        &:hover {
-          background-color: $primaryColorDarker;
-        }
-        &[disabled] {
-          background-color: $primaryColorLight;
-          cursor: default;
-          &:hover {
-            background-color: $primaryColorLight;
-          }
-        }
       }
     }
   }

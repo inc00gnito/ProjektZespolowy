@@ -3,15 +3,17 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import styles from "./Carousel.module.scss";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
+import { ITrack } from "app/model/Track";
+import { createCloudinaryDownLink } from "app/utils/Link";
 
 interface IProps {
-  photos: any[];
+  items: ITrack[];
   desktopView: number;
   mobileView: number;
 }
 
-const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
-  const photosLength = photos.length;
+const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
+  const photosLength = items.length;
   const [elements, setElements] = useState(desktopView);
   const [sliderElements, setSliderElements] = useState(desktopView + 4);
   const [width, setWidth] = useState(0);
@@ -113,6 +115,8 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
       tempIndex -= 1;
       if (tempPhotoIndex < 0) tempPhotoIndex = photosLength - 1;
       if (tempIndex < 0) tempIndex = sliderElements - 1;
+      console.log("temo");
+      console.log(tempPhotoIndex);
       indexArr[tempIndex] = tempPhotoIndex;
     }
 
@@ -152,7 +156,7 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
   useEffect(() => {
     setBoxPos();
     setCardPos();
-  }, [index]);
+  }, [index, items]);
 
   useEffect(() => {
     window.addEventListener("resize", onWindowResize);
@@ -161,6 +165,8 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
       window.removeEventListener("resize", onWindowResize);
     };
   });
+
+  console.log(cards);
 
   return (
     <div className={styles.container}>
@@ -183,6 +189,9 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
           const firstCardIndex = posArr.indexOf(Math.min(...posArr));
           const isFirstOrLast =
             item === lastCardIndex || item === firstCardIndex;
+          const downloadLink = createCloudinaryDownLink(
+            items[cards[item]]?.audioFile
+          );
           return (
             <div
               key={item}
@@ -199,7 +208,7 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
               <div className={styles.item}>
                 <div className={styles.content}>
                   <img
-                    src={photos[cards[item]]?.photo}
+                    src={items[cards[item]]?.imgFile}
                     alt="track"
                     className={styles.image}
                   />
@@ -212,7 +221,9 @@ const Carousel: React.FC<IProps> = ({ photos, desktopView, mobileView }) => {
                   </button>
                 </div>
                 <div className={styles.download}>
-                  <HiDownload className={styles.icon} />
+                  <a href={downloadLink} className={styles.link} download>
+                    <HiDownload className={styles.icon} />
+                  </a>
                 </div>
               </div>
             </div>

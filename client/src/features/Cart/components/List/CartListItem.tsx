@@ -1,4 +1,4 @@
-import { ICartItemDetails } from "app/model/Cart";
+import { ICartItem } from "app/model/Cart";
 import { useCartStore } from "app/provider/Provider";
 import React from "react";
 import styles from "./CartListItem.module.scss";
@@ -6,7 +6,7 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { IoCloseOutline } from "react-icons/io5";
 
 interface IProps {
-  cartItem: ICartItemDetails;
+  cartItem: ICartItem;
 }
 
 const CartListItem: React.FC<IProps> = ({ cartItem }) => {
@@ -16,13 +16,13 @@ const CartListItem: React.FC<IProps> = ({ cartItem }) => {
     <li className={styles.item}>
       <div className={styles.track}>
         <div className={styles.image}>
-          <img src={cartItem.image} alt="track" className={styles.img} />
+          <img src={cartItem.imgFile} alt="track" className={styles.img} />
         </div>
       </div>
       <div className={styles.details}>
         <div className={styles.info}>
-          <span className={styles.name}>{cartItem.name}</span>
-          <span className={styles.price}>{cartItem.price}.00$</span>
+          <span className={styles.name}>{cartItem.title}</span>
+          <span className={styles.price}>{cartItem.cost}.00$</span>
         </div>
         <div className={styles.gap} />
         <div className={styles.summary}>
@@ -43,7 +43,7 @@ const CartListItem: React.FC<IProps> = ({ cartItem }) => {
           </div>
           <div className={styles.price}>
             <span className={styles.text}>
-              {cartItem.quantity * cartItem.price}.00$
+              {cartItem.quantity * cartItem.cost}.00$
             </span>
           </div>
           <div className={styles.delete}>

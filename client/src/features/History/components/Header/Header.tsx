@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./Header.module.scss";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import Select from "./Select/Select";
+import Tabs from "./Tabs/Tabs";
 
 const Header = () => {
   return (
@@ -16,7 +17,12 @@ const Header = () => {
         </div>
       </div>
       <div className={styles.tabs}>
-        <Select />
+        <div className={styles.select}>
+          <Select />
+        </div>
+        <div className={styles.nav}>
+          <Tabs />
+        </div>
       </div>
     </div>
   );

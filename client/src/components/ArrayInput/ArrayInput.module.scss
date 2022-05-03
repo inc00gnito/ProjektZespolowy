@@ -1,0 +1,67 @@
+@import "../../app/styles/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .name {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding-bottom: 0.3em;
+  }
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button {
+      width: 11rem;
+      height: 2.7rem;
+      margin-left: 1em;
+      margin-bottom: 0.2em;
+      border-radius: 0.3em;
+      cursor: pointer;
+      background-color: $primaryColor;
+      border: none;
+      color: white;
+      font-size: 1.1em;
+      transition: background-color 0.2s;
+      font-family: montserrat;
+      &:hover {
+        background-color: $primaryColorDarker;
+      }
+    }
+  }
+  .input {
+    width: 100%;
+    height: 3.2rem;
+    background-color: $primaryGrey;
+    border-radius: 0.4em;
+    border: none;
+    color: white;
+    padding-left: 0.5em;
+  }
+  .inputNumber {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+  }
+  .inputError {
+    border: 1px solid red;
+  }
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
+  .error {
+    color: red;
+    font-size: 1em;
+    font-weight: bold;
+    padding-top: 0.2em;
+  }
+}

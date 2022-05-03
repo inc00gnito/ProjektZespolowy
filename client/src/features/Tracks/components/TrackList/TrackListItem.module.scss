@@ -1,0 +1,138 @@
+@import "../../../../app/styles/variables.scss";
+.container {
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid white;
+  .column {
+    display: flex;
+    align-items: center;
+    &:nth-of-type(1) {
+      width: 12%;
+    }
+    &:nth-of-type(2) {
+      width: 25%;
+    }
+    &:nth-of-type(3) {
+      width: 10%;
+    }
+    &:nth-of-type(4) {
+      flex-grow: 1;
+    }
+    &:nth-of-type(5) {
+      width: 20%;
+    }
+
+    @media (max-width: 480px) {
+      &:nth-of-type(1) {
+        width: 20%;
+      }
+      &:nth-of-type(2) {
+        width: 50%;
+      }
+      &:nth-of-type(3) {
+        display: none;
+        width: 0%;
+      }
+      &:nth-of-type(4) {
+        display: none;
+        flex-grow: 0;
+      }
+      &:nth-of-type(5) {
+        width: 30%;
+      }
+    }
+    .picture {
+      width: 5rem;
+      height: 5rem;
+      margin: 0 auto;
+      .img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+      }
+    }
+    .title {
+      width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      .text {
+      }
+    }
+    .tagsList {
+      display: flex;
+      overflow: auto;
+      .tag {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em 1em;
+        min-width: 6rem;
+        max-width: 10rem;
+        border-radius: 4em;
+        border: 2px solid $primaryColor;
+        &:not(:first-child) {
+          margin-left: 1em;
+        }
+        .text {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: center;
+          font-size: 0.9em;
+        }
+      }
+    }
+    &:nth-of-type(5) {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .download {
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: $primaryColor;
+      border-radius: 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s;
+      cursor: pointer;
+      @media (max-width: 480px) {
+        display: none;
+      }
+      &:hover {
+        background-color: $primaryColorDarker;
+      }
+      .icon {
+        font-size: 1.2em;
+      }
+    }
+    .shop {
+      margin-left: 1em;
+      height: 2.5rem;
+      width: 7rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $primaryColor;
+      border-radius: 3px;
+      transition: background 0.3s;
+      cursor: pointer;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      &:hover {
+        background-color: $primaryColorDarker;
+      }
+      .price {
+        font-size: 0.9em;
+        padding-right: 0.5em;
+      }
+      .icon {
+        font-size: 1.1em;
+      }
+    }
+  }
+}

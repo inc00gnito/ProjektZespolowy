@@ -1,0 +1,45 @@
+@import "../../app/styles/variables.scss";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  .name {
+    font-weight: bold;
+    font-size: 1.1em;
+    padding-bottom: 0.3em;
+  }
+  .input {
+    width: 100%;
+    height: 3.2rem;
+    background-color: $primaryGrey;
+    border-radius: 0.4em;
+    border: none;
+    color: white;
+    padding-left: 0.5em;
+  }
+  .inputNumber {
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    &[type="number"] {
+      -moz-appearance: textfield;
+    }
+  }
+  .inputError {
+    border: 1px solid red;
+  }
+  &:not(:first-child) {
+    margin-top: 1em;
+  }
+  .error {
+    color: red;
+    font-size: 1em;
+    font-weight: bold;
+    padding-top: 0.2em;
+  }
+}
