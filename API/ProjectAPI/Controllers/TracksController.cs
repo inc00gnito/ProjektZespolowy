@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +18,10 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Crypto.Utilities;
+using ProjectAPI.Models.DTOs;
 
 namespace ProjectAPI.Controllers
 {
@@ -26,30 +31,39 @@ namespace ProjectAPI.Controllers
     {
         public readonly DataBaseContext _db;
         private readonly Cloudinary _cloudinary;
-        public TracksController(DataBaseContext db, Cloudinary cloudinary)
+        private readonly IMapper _mapper;
+
+        public TracksController(DataBaseContext db, Cloudinary cloudinary, IMapper mapper)
         {
             _db = db;
             _cloudinary = cloudinary;
+            _mapper = mapper;
         }
 
          
             
         //TODO - to postTrack add UserId after authorization is done
         [HttpPost]
-        public async Task<ActionResult> AddTrack([FromForm] Track trackFromForm)
+        public ActionResult AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
         {
+            Debug.Print(trackFromForm.Title);
+            Session session = Authorization(token);
+            if (session == null)
+                return NotFound();
+            int id = session.User.Id;
 
             var track = new Track
             {
                 Title = trackFromForm.Title,
                 Time = trackFromForm.Time,
-                Authors = trackFromForm.Authors,
                 Cost = trackFromForm.Cost,
                 Genre = trackFromForm.Genre,
-
+                Tags = trackFromForm.Tags,
+                Authors = trackFromForm.Authors,
+                UserId = id,
 
             };
-             
+
             if (trackFromForm.audioFormFile == null || trackFromForm.demoFormFile == null || trackFromForm.imageFormFile == null)
                 return BadRequest("File cannot be empty");
             track.AudioFile = GetFileStringAndUpload(trackFromForm.audioFormFile).Result;
@@ -58,30 +72,27 @@ namespace ProjectAPI.Controllers
 
 
             _db.TracksDbSet.Add(track);
-            await _db.SaveChangesAsync();
-
-            //foreach (var author in track.Authors.ToList())
-            //{
-            //    if (author.StageName != null)
-            //    {
-            //        var newAuthor = new Author
-            //        {
-            //            StageName = author.StageName,
-            //            TrackId = track.Id,
-            //        };
-            //        _db.AuthorsDbSet.Add(newAuthor);
-            //    }
-
-            //}
-
-            //await _db.SaveChangesAsync();
+            _db.SaveChanges();
+            CreateTags(track, trackFromForm.Tags);
+           
             return Ok();
         }
 
         [HttpGet]
         public ActionResult<List<Track>> GetTracks()
         {
-            var Tracks = _db.TracksDbSet.ToList();
+           
+            var Tracks = _db.TracksDbSet
+                .Include(t => t.Authors)
+                .ToList()
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).Select(track => track.AsDto());
+
             return Ok(Tracks);
         }
 
@@ -102,11 +113,11 @@ namespace ProjectAPI.Controllers
         public ActionResult<List<Track>> GetDiscounted()
         {
             var Discounted = _db.TracksDbSet.ToList().Where(x => x.IsDiscounted);
-            ;
+            
             return Ok(Discounted);
         }
 
-        [HttpGet("filterbygenerer")]
+        [HttpGet("filterbygenre")]
         public ActionResult<List<Track>> FilterByGernes([FromQuery] params Genre[] genre)
         {
             Debug.Print(genre.Count().ToString());
@@ -169,6 +180,25 @@ namespace ProjectAPI.Controllers
 
         #region Methods
 
+        private void CreateTags(Track track, List<string> tags)
+        {
+
+            for (int i = 0; i < tags.Count; i++)
+            {
+                if (tags[i] != string.Empty)
+                {
+                    var newTag = new Tag()
+                    {
+                        Description = tags[i],
+                        TrackId = track.Id
+                    };
+                    _db.TagsDbSet.Add(newTag);
+                    _db.SaveChanges();
+                }
+            }
+            
+        }
+
         private void SendMail(List<NewsletterEmail> newsletterEmails)
         {
             var client = new SmtpClient();
@@ -223,7 +253,12 @@ namespace ProjectAPI.Controllers
             return uploadResult.Url.ToString();
         }
 
-       
+        private Session Authorization(string token)
+        {
+            return _db.SessionDbSet
+                .Include(r => r.User)
+                .FirstOrDefault(s => s.Token == token);
+        }
 
         #endregion
     }

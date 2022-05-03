@@ -6,6 +6,7 @@ import track2 from "assets/discount2.webp";
 import track3 from "assets/discount3.webp";
 import { useInView } from "react-intersection-observer";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Discounts = () => {
   const [render, setRender] = useState(false);
@@ -65,7 +66,9 @@ const Discounts = () => {
               <h2 className={styles.subTitle}>of all tracks</h2>
             </div>
 
-            <button className={styles.button}>Shop Now</button>
+            <Link to="/tracks" className={styles.button}>
+              Shop Now
+            </Link>
           </motion.div>
           <motion.div
             className={styles.tracks}

@@ -1,5 +1,5 @@
-import { ITrackDetails } from "./Track";
+import { ITrack } from "./Track";
 
-export interface ICartItemDetails extends ITrackDetails {
+export interface ICartItem extends ITrack {
   quantity: number;
 }

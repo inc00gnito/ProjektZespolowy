@@ -1,0 +1,51 @@
+.container {
+  .row {
+    &:nth-child(1) {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: flex-end;
+      @media (max-width: 480px) {
+        justify-content: space-between;
+      }
+    }
+    &:nth-child(2) {
+      margin-top: 3rem;
+      .search {
+        position: relative;
+        width: 75%;
+        height: 3rem;
+        margin: 0 auto;
+        @media (max-width: 480px) {
+          width: 100%;
+        }
+        .input {
+          background-color: rgb(17, 17, 17);
+          border: none;
+          height: 100%;
+          width: 100%;
+          color: white;
+          padding-left: 3em;
+        }
+        .iconContainer {
+          position: absolute;
+          top: 50%;
+          left: 1%;
+          transform: translateY(-50%);
+          border: none;
+          background: none;
+          color: white;
+          cursor: pointer;
+          .icon {
+            font-size: 1.3em;
+          }
+        }
+      }
+    }
+    .filter {
+      width: 10.5rem;
+      &:nth-child(2) {
+        margin-left: 1em;
+      }
+    }
+  }
+}

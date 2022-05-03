@@ -1,6 +1,8 @@
-import { IAuthModalType } from "app/model/authentication";
+import agent from "app/api/agent";
+import { IAuthModalType, ISignup } from "app/model/authentication";
 import { makeAutoObservable } from "mobx";
 import React from "react";
+import axios from "axios";
 
 export default class AuthenticationStore {
   constructor() {
@@ -9,7 +11,6 @@ export default class AuthenticationStore {
 
   isAuthenticated = true;
   authPopUp: IAuthModalType = null;
-  authenticationPopup = "signin";
 
   authFunc = (callback: () => void) => {
     if (this.isAuthenticated) callback();
@@ -21,5 +22,17 @@ export default class AuthenticationStore {
 
   closePopUp = () => {
     this.authPopUp = null;
+  };
+
+  signIn = () => {};
+
+  signUp = async (signinValues: ISignup) => {
+    try {
+      const res = await agent.Authentication.signup(signinValues);
+      console.log(res);
+    } catch (err) {
+      if (axios.isAxiosError(err)) return console.log("fds");
+      console.log("server error");
+    }
   };
 }

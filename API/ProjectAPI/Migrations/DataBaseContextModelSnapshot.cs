@@ -100,6 +100,24 @@ namespace ProjectAPI.Migrations
                     b.ToTable("SessionDbSet");
                 });
 
+            modelBuilder.Entity("ProjectAPI.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TagsDbSet");
+                });
+
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
                 {
                     b.Property<int>("Id")
@@ -140,7 +158,7 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -203,7 +221,9 @@ namespace ProjectAPI.Migrations
                 {
                     b.HasOne("ProjectAPI.Models.User", null)
                         .WithMany("Tracks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>

@@ -1,3 +1,4 @@
+@import "../../../../app/styles/variables.scss";
 .container {
   .profile {
     display: flex;
@@ -30,5 +31,16 @@
   }
   .tabs {
     padding-top: 2rem;
+    .nav {
+      display: none;
+    }
+    @media (min-width: 481px) {
+      .select {
+        display: none;
+      }
+      .nav {
+        display: flex;
+      }
+    }
   }
 }

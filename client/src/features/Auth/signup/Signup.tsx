@@ -6,25 +6,43 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuthenticationStore } from "app/provider/Provider";
+import { ISignup } from "app/model/authentication";
+
+interface IFormValues extends ISignup {
+  confirmPassword: String;
+}
 
 const schema = yup.object({
-  email: yup.string().required("To pole jest wymagane"),
-  password: yup.string().required("To pole jest wymagane"),
+  email: yup
+    .string()
+    .required("This field is requried")
+    .email("Email is invalid"),
+  username: yup.string().required("This field is required"),
+  password: yup.string().required("This field is requried"),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Hasła są różne"),
+    .oneOf([yup.ref("password"), null], "Passwords don't match"),
 });
 
 const Signup = () => {
-  const { openPopUp } = useAuthenticationStore();
+  const { openPopUp, signUp } = useAuthenticationStore();
   const {
     handleSubmit,
     formState: { errors },
     register,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      email: "",
+      username: "",
+      confirmPassword: "",
+      password: "",
+    },
+  });
 
-  const onSubmit = () => {
-    console.log("submit");
+  const onSubmit = (values: IFormValues) => {
+    const { confirmPassword, ...signupValues } = values;
+    signUp(signupValues);
   };
   return (
     <AuthenticationLayout>
@@ -36,14 +54,22 @@ const Signup = () => {
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.field}>
             <AuthInput
-              label="E-mail or username"
+              label="E-mail"
               inputProps={register("email")}
               error={errors.email?.message}
             />
           </div>
           <div className={styles.field}>
             <AuthInput
+              label="Username"
+              inputProps={register("username")}
+              error={errors.username?.message}
+            />
+          </div>
+          <div className={styles.field}>
+            <AuthInput
               label="Password"
+              type="password"
               inputProps={register("password")}
               error={errors.password?.message}
             />
@@ -51,6 +77,7 @@ const Signup = () => {
           <div className={styles.field}>
             <AuthInput
               label="Confirm Password"
+              type="password"
               inputProps={register("confirmPassword")}
               error={errors.confirmPassword?.message}
             />

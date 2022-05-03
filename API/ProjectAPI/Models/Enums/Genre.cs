@@ -5,6 +5,7 @@ namespace ProjectAPI.Models.Enums
 {
     public enum Genre
     {
+        [Display(Name = "Rock")]
         Rock= 0,
         Pop=1,
         PopRock=2,

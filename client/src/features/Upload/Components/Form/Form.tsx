@@ -9,6 +9,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import cx from "classnames";
 import { FaRegFileAudio } from "react-icons/fa";
 import Tag from "./Tag/Tag";
+import PrimaryInput from "components/Input/Input";
+import PrimaryArrayInput from "components/ArrayInput/ArrayInput";
+import Button from "components/Button/Button";
 
 const AUDIO_FILE_FORMATS_LIST = [
   "audio/wav",
@@ -42,7 +45,7 @@ const schema = yup.object({
   tags: yup.array().min(1, "Please enter a tag"),
   price: yup
     .number()
-    .typeError("Podaj poprawną cenę")
+    .typeError("Invalid price")
     .required("Please enter a price"),
   imageFile: yup
     .mixed()
@@ -152,78 +155,36 @@ const Form = () => {
       <div className={styles.row}>
         <div className={styles.column}>
           <div className={styles.field}>
-            <label htmlFor="title" className={styles.name}>
-              TITLE*
-            </label>
-
-            <input
-              id="title"
-              type="text"
-              className={cx(styles.input, {
-                [styles.inputError]: !!errors.title,
-              })}
-              {...register("title")}
-              aria-describedby="titleError"
+            <PrimaryInput
+              label="TITLE*"
+              inputProps={register("title")}
+              error={errors?.title?.message}
             />
-            {errors.title ? (
-              <p className={styles.error} id="titleError" role="alert">
-                {errors.title.message}
-              </p>
-            ) : null}
           </div>
-          <div className={styles.field}>
-            <label htmlFor="title" className={styles.name}>
-              TAGS*
-            </label>
-            <div className={styles.fieldRow}>
-              <input
-                id="title"
-                type="text"
-                className={cx(styles.input, {
-                  [styles.inputError]: !!errors.tags,
-                })}
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-                aria-describedby="tagsError"
-              />
-              <button
-                className={styles.button}
-                type="button"
-                onClick={handleAddTag}
-              >
-                Add Tag +
-              </button>
-            </div>
-            {errors.tags ? (
-              <p className={styles.error} id="tagsError" role="alert">
-                {errors.tags.message}
-              </p>
-            ) : null}
-          </div>
+          <PrimaryArrayInput
+            label="TAGS*"
+            inputProps={{
+              onChange: (e) => {
+                console.log("on change");
+                setTag(e.target.value);
+              },
+              value: tag,
+            }}
+            buttonText="Add tag +"
+            onButtonClick={handleAddTag}
+            error={errors?.tags?.message}
+          />
           <div className={styles.tags}>
             {fields.map((item: any, key: number) => {
               return <Tag item={item} remove={() => remove(key)} />;
             })}
           </div>
-          <div className={styles.field}>
-            <label htmlFor="price" className={styles.name}>
-              PRICE*
-            </label>
-            <input
-              id="price"
-              type="number"
-              className={cx(styles.input, styles.inputNumber, {
-                [styles.inputError]: !!errors.price,
-              })}
-              {...register("price")}
-              aria-describedby="priceError"
-            />
-            {errors.price ? (
-              <p className={styles.error} id="priceError" role="alert">
-                {errors.price.message}
-              </p>
-            ) : null}
-          </div>
+          <PrimaryInput
+            label="PRICE*"
+            type="number"
+            inputProps={register("price")}
+            error={errors?.price?.message}
+          />
         </div>
         <div className={styles.column}>
           <div className={styles.imageUploadContainer}>
@@ -287,15 +248,18 @@ const Form = () => {
         </div>
       </div>
       <div className={styles.row}>
-        <button
-          className={styles.publishButton}
-          disabled={!(isDirty && isValid)}
-          title={
-            !(isDirty && isValid) ? "Form is invalid or incomplete" : undefined
-          }
-        >
-          Publish
-        </button>
+        <div className={styles.button}>
+          <Button
+            disabled={!(isDirty && isValid)}
+            title={
+              !(isDirty && isValid)
+                ? "Form is invalid or incomplete"
+                : undefined
+            }
+          >
+            Publish
+          </Button>
+        </div>
       </div>
     </form>
   );
