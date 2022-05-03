@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto.Utilities;
+using ProjectAPI.Models.DTOs;
 
 namespace ProjectAPI.Controllers
 {
@@ -29,10 +31,13 @@ namespace ProjectAPI.Controllers
     {
         public readonly DataBaseContext _db;
         private readonly Cloudinary _cloudinary;
-        public TracksController(DataBaseContext db, Cloudinary cloudinary)
+        private readonly IMapper _mapper;
+
+        public TracksController(DataBaseContext db, Cloudinary cloudinary, IMapper mapper)
         {
             _db = db;
             _cloudinary = cloudinary;
+            _mapper = mapper;
         }
 
          
@@ -73,12 +78,21 @@ namespace ProjectAPI.Controllers
             return Ok();
         }
 
-       
-
         [HttpGet]
         public ActionResult<List<Track>> GetTracks()
         {
-            var Tracks = _db.TracksDbSet.ToList();
+           
+            var Tracks = _db.TracksDbSet
+                .Include(t => t.Authors)
+                .ToList()
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).Select(track => track.AsDto());
+
             return Ok(Tracks);
         }
 

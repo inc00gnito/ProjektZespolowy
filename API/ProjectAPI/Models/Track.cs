@@ -17,6 +17,7 @@ namespace ProjectAPI.Models
         public double DiscountedByShop {get; set; } // w %
         public Genre Genre { get; set; }
         public List<string> Tags { get; set; }
+
         public List<Author> Authors { get; set; }
         public string AudioFile { get; set; }
         public string DemoFile { get; set; }

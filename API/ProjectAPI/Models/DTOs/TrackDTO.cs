@@ -14,7 +14,7 @@ namespace ProjectAPI.Models.DTOs
         public int UserId { get; set; }
         public double DiscountedByUser { get; set; } // w PLN
         public double DiscountedByShop { get; set; } // w %
-        public Genre Genre { get; set; }
+        public string Genre { get; set; }
         public List<string> Tags { get; set; }
         public List<Author> Authors { get; set; }
         public string AudioFile { get; set; }
