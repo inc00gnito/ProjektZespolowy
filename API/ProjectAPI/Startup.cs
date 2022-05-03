@@ -34,7 +34,7 @@ namespace ProjectAPI
 
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
-                builder.WithOrigins("http://localhost:3000")
+                builder.WithOrigins("http://localhost:3000", "https://trackslance.azurewebsites.net")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
                     .AllowCredentials();
