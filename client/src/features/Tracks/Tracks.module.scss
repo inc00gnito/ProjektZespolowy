@@ -1,6 +1,22 @@
 @import "../../app/styles/variables.scss";
 .container {
   background-color: black;
+  display: flex;
+  justify-content: center;
+  color: white;
   height: 100%;
   height: calc(100vh - $navbarHeight);
+
+  .content {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    @media (max-width: 480px) {
+      width: 90%;
+    }
+    .trackList {
+      padding-top: 2em;
+    }
+  }
 }

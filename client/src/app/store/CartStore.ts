@@ -1,40 +1,90 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, observe } from "mobx";
 import trackImage1 from "assets/track1.webp";
-import { ICartItemDetails } from "app/model/Cart";
+import { ICartItem } from "app/model/Cart";
+import { ITrack } from "app/model/Track";
 
 export default class CartStore {
   constructor() {
     makeAutoObservable(this);
     this.initalize();
   }
-  shoppingList = new Map<string, ICartItemDetails>();
+  shoppingList = new Map<number, ICartItem>();
+  isPopup = false;
   initalize = () => {
-    this.shoppingList.set("1", {
-      id: "1",
-      image: trackImage1,
-      name: "Lorem Ipsum",
-      price: 10,
+    this.shoppingList.set(1, {
+      id: 1,
+      imgFile: trackImage1,
+      title: "Lorem Ipsum",
+      cost: 10,
       quantity: 2,
+      time: 10,
+      genre: 0,
+      discountedByShop: 0,
+      discountedByUser: 0,
+      isDiscounted: false,
+      timesSold: 0,
+      tags: [],
+      authors: [],
+      audioFile: "",
+      demoFile: "",
     });
 
-    this.shoppingList.set("2", {
-      id: "2",
-      image: trackImage1,
-      name: "Lorem Ipsum121",
-      price: 40,
+    this.shoppingList.set(2, {
+      id: 2,
+      imgFile: trackImage1,
+      title: "Lorem Ipsum121",
+      cost: 40,
       quantity: 1,
+      time: 10,
+      genre: 0,
+      discountedByShop: 0,
+      discountedByUser: 0,
+      isDiscounted: false,
+      timesSold: 0,
+      tags: [],
+      authors: [],
+      audioFile: "",
+      demoFile: "",
     });
 
-    this.shoppingList.set("3", {
-      id: "3",
-      image: trackImage1,
-      name: "Lorem Ipsum121dsa",
-      price: 10,
+    this.shoppingList.set(3, {
+      id: 3,
+      imgFile: trackImage1,
+      title: "Lorem Ipsum121dsa",
+      cost: 10,
       quantity: 5,
+      time: 10,
+      genre: 0,
+      discountedByShop: 0,
+      discountedByUser: 0,
+      isDiscounted: false,
+      timesSold: 0,
+      tags: [],
+      authors: [],
+      audioFile: "",
+      demoFile: "",
     });
   };
 
-  cartItemIncreaseQuantity = (id: string) => {
+  closePopup = () => {
+    this.isPopup = false;
+  };
+
+  openPopup = () => {
+    this.isPopup = true;
+  };
+
+  addCartItem = (track: ITrack) => {
+    const newCartItem: ICartItem = {
+      ...track,
+      quantity: 1,
+    };
+    this.shoppingList.set(newCartItem.id, newCartItem);
+
+    this.openPopup();
+  };
+
+  cartItemIncreaseQuantity = (id: number) => {
     const item = this.shoppingList.get(id);
     if (!item) throw new Error("itme not found");
 
@@ -42,7 +92,7 @@ export default class CartStore {
     this.shoppingList.set(id, item);
   };
 
-  cartItemDecreaseQuantity = (id: string) => {
+  cartItemDecreaseQuantity = (id: number) => {
     const item = this.shoppingList.get(id);
     if (!item) throw new Error("itme not found");
     if (item.quantity === 1) throw new Error("Can't decrease quantity");
@@ -50,7 +100,7 @@ export default class CartStore {
     this.shoppingList.set(id, item);
   };
 
-  cartItemDelete = (id: string) => {
+  cartItemDelete = (id: number) => {
     this.shoppingList.delete(id);
   };
 }

@@ -9,11 +9,13 @@ interface IProps {
 const Authentication: React.FC<IProps> = ({ children }) => {
   const { closePopUp } = useAuthenticationStore();
   return (
-    <section className={styles.container}>
-      <button className={styles.button} onClick={closePopUp}>
-        <AiOutlineClose className={styles.icon} />
-      </button>
-      <div className={styles.content}>{children}</div>
+    <section className={styles.container} onClick={closePopUp}>
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
+        <button className={styles.button} onClick={closePopUp}>
+          <AiOutlineClose className={styles.icon} />
+        </button>
+        <div className={styles.children}>{children}</div>
+      </div>
     </section>
   );
 };

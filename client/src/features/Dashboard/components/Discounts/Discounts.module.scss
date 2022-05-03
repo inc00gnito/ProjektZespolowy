@@ -76,7 +76,7 @@
       .button {
         margin-top: 2vh;
         background-color: $primaryColor;
-        font-size: 0.7vw;
+        font-size: 0.8vw;
         border: 0.12vw solid white;
         width: 7.5vw;
         height: 2.2vw;
@@ -85,7 +85,11 @@
         font-family: roboto;
         color: white;
         cursor: pointer;
+        text-decoration: none;
         transition: background-color 0.3s, color 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &:hover {
           background-color: white;
           color: $primaryColor;

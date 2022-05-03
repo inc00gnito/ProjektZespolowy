@@ -5,14 +5,21 @@ import { motion, useCycle } from "framer-motion";
 import { MenuToggle } from "./components/MenuToggle/MenuToggle";
 import user from "assets/user.png";
 import { Link } from "react-router-dom";
-import { useAuthenticationStore } from "app/provider/Provider";
+import { useAuthenticationStore, useCartStore } from "app/provider/Provider";
 import { GiShoppingBag } from "react-icons/gi";
+import Popup from "./components/Popup/Popup";
+import { observer } from "mobx-react-lite";
+import cx from "classnames";
 
 interface IProps {
   children: React.ReactNode | React.ReactNode[];
 }
 
 const Home: React.FC<IProps> = ({ children }) => {
+  const { isPopup, shoppingList } = useCartStore();
+  const { authPopUp } = useAuthenticationStore();
+  const shoppingListLength = shoppingList.size;
+
   const [isOpen, toggleOpen] = useCycle(false, true);
   const [mobileVisiblity, setMobileVisibility] = useState("visible");
 
@@ -33,9 +40,15 @@ const Home: React.FC<IProps> = ({ children }) => {
 
   return (
     <div className={styles.container}>
+      {authPopUp && <div className={styles.overlay} />}
+
       <nav className={styles.nav}>
         <div className={styles.title}>
-          <h1 className={styles.heading}>TRACKSLANCE.</h1>
+          <h1 className={styles.heading}>
+            <Link to="/" className={styles.link}>
+              TRACKSLANCE.
+            </Link>
+          </h1>
         </div>
 
         <div className={styles.mobileIcons}>
@@ -116,8 +129,8 @@ const Home: React.FC<IProps> = ({ children }) => {
               </Link>
             </li>
             <li className={styles.item}>
-              <Link to="/sale" className={styles.link}>
-                On Sale
+              <Link to="/upload" className={styles.link}>
+                Upload
               </Link>
             </li>
             <li className={styles.item}>
@@ -134,8 +147,11 @@ const Home: React.FC<IProps> = ({ children }) => {
           <div className={styles.cart}>
             <Link to="/cart" className={styles.link}>
               <GiShoppingBag className={styles.icon} />
-              <div className={styles.badge}>2</div>
+              {shoppingListLength ? (
+                <div className={styles.badge}>{shoppingListLength}</div>
+              ) : null}
             </Link>
+            {isPopup ? <Popup /> : null}
           </div>
           <div className={styles.search}>
             <BiSearch className={styles.icon} />
@@ -151,4 +167,4 @@ const Home: React.FC<IProps> = ({ children }) => {
   );
 };
 
-export default Home;
+export default observer(Home);

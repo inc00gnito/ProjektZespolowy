@@ -29,6 +29,12 @@ const OrderList = () => {
           <div className={styles.column}>
             <span>Order</span>
           </div>
+          <div className={styles.column}>
+            <span>Status</span>
+          </div>
+          <div className={styles.column}>
+            <span>Sum</span>
+          </div>
         </div>
         <div className={styles.list}>
           {items.map((item) => {
