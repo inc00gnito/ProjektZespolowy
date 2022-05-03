@@ -52,7 +52,7 @@ namespace ProjectAPI
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             if (env == "Development")
                 services.AddDbContext<DataBaseContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("robert")));
+                    options.UseSqlServer(Configuration.GetConnectionString("Production")));
             if (env == "Production")
                 services.AddDbContext<DataBaseContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Production")));
