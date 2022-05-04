@@ -28,7 +28,7 @@ namespace ProjectAPI.Controllers
             _db = db;
             _mapper = mapper;
         }
-        [HttpGet("getuser/")]
+        [HttpGet]
         public ActionResult<User> GetUser([FromHeader] string token)
         {
             Session session = Authorization(token);
@@ -44,7 +44,7 @@ namespace ProjectAPI.Controllers
             return Ok(getuser);
 
         }
-        [HttpGet("getorderhistory/")]
+        [HttpGet("Orders")]
         public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string token)
         {
             Session session = Authorization(token);
@@ -63,7 +63,7 @@ namespace ProjectAPI.Controllers
             return Ok(orders);
 
         }
-        [HttpDelete("deleteuser/")]
+        [HttpDelete("Delete")]
         public ActionResult DeleteUser([FromHeader] string token)
         {
             Session session = Authorization(token);
@@ -91,7 +91,7 @@ namespace ProjectAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("changename")]
+        [HttpPut("ChangeName")]
         public ActionResult ChangeName([FromHeader] string token, [FromBody] ChangeName use)
         {
             Session session = Authorization(token);
@@ -114,7 +114,7 @@ namespace ProjectAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("changeemail")]
+        [HttpPut("ChangeEmail")]
         public ActionResult ChangeEmail([FromHeader] string token, [FromBody] ChangeEmail use)
         {
             if (IsValidEmail(use.Email))
@@ -137,7 +137,7 @@ namespace ProjectAPI.Controllers
             Debug.Print("Email is incorrect");
             return Conflict();
         }
-        [HttpPut("changepassword")]
+        [HttpPut("ChangePassword")]
         public ActionResult ChangePassword([FromHeader] string token, [FromBody] ChangePassw use)
         {
             Session session = Authorization(token);
