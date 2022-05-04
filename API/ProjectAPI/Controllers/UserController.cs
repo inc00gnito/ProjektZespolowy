@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using AutoMapper;
+using ProjectAPI.Models.DTOs;
 
 
 namespace ProjectAPI.Controllers
@@ -231,9 +232,16 @@ namespace ProjectAPI.Controllers
             _db.SessionDbSet.Add(session);            
             await _db.SaveChangesAsync();
 
-            var getuser = _mapper.Map<GetUser>(session.User);
+            var getUser = _mapper.Map<GetUser>(session.User);
 
-            return Ok(new Tuple<string, GetUser>(session.Token, getuser));            
+            var response = new UserDTO
+            {
+                User = getUser,
+                Token = session.Token
+
+            };
+
+            return Ok(response);
         }
 
         [HttpPost("LogOut")]
@@ -262,7 +270,7 @@ namespace ProjectAPI.Controllers
             {
                 rngCsp.GetNonZeroBytes(newSalt);
             }
-
+            
             string hashed = Hash(model.Password, newSalt); 
 
             var newUser = new User 
@@ -305,9 +313,16 @@ namespace ProjectAPI.Controllers
             _db.SessionDbSet.Add(session);            
             await _db.SaveChangesAsync();
 
-            var getuser = _mapper.Map<GetUser>(session.User);
+            var getUser = _mapper.Map<GetUser>(session.User);
 
-            return Ok(new Tuple<string, GetUser>(session.Token, getuser));  
+            var response = new UserDTO
+            {
+                User = getUser,
+                Token = session.Token
+
+            };
+
+            return Ok(response);  
             
         }
         bool IsValidEmail(string email)
