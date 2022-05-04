@@ -39,7 +39,7 @@ namespace ProjectAPI.Controllers
             _cloudinary = cloudinary;
             _mapper = mapper;
         }
-
+         
          
             
         //TODO - to postTrack add UserId after authorization is done
@@ -100,13 +100,22 @@ namespace ProjectAPI.Controllers
         [HttpGet("bestSellers")]
         public ActionResult<List<Track>> GetBestSellers()
         {
-            var Tracks = _db.TracksDbSet.ToList();
+            var Tracks = _db.TracksDbSet.Include(t => t.Authors)
+                .ToList()
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).ToList();
             Tracks.Sort(delegate(Track x, Track y) { return y.TimesSold.CompareTo(x.TimesSold); });
 
             var numberOfTrack = Math.Min(6, Tracks.Count());
-            var BestSellers = Tracks.GetRange(0, numberOfTrack);
+            var bestSellers = Tracks.GetRange(0, numberOfTrack).Select(t => t.AsDto());
 
-            return Ok(BestSellers);
+
+            return Ok(bestSellers);
         }
 
         [HttpGet("discounted")]
