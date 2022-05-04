@@ -30,9 +30,9 @@ namespace ProjectAPI.Controllers
             _mapper = mapper;
         }
         [HttpGet]
-        public ActionResult<User> GetUser([FromHeader] string token)
+        public ActionResult<User> GetUser([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -46,9 +46,9 @@ namespace ProjectAPI.Controllers
 
         }
         [HttpGet("Orders")]
-        public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string token)
+        public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -65,9 +65,9 @@ namespace ProjectAPI.Controllers
 
         }
         [HttpDelete("Delete")]
-        public ActionResult DeleteUser([FromHeader] string token)
+        public ActionResult DeleteUser([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -93,9 +93,9 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpPut("ChangeName")]
-        public ActionResult ChangeName([FromHeader] string token, [FromBody] ChangeName use)
+        public ActionResult ChangeName([FromHeader] string authorization, [FromBody] ChangeName use)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -116,11 +116,11 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpPut("ChangeEmail")]
-        public ActionResult ChangeEmail([FromHeader] string token, [FromBody] ChangeEmail use)
+        public ActionResult ChangeEmail([FromHeader] string authorization, [FromBody] ChangeEmail use)
         {
             if (IsValidEmail(use.Email))
             {
-                Session session = Authorization(token);
+                Session session = Authorization(authorization);
                 if (session == null)
                     return NotFound();
                 int id = session.User.Id;
@@ -139,9 +139,9 @@ namespace ProjectAPI.Controllers
             return Conflict();
         }
         [HttpPut("ChangePassword")]
-        public ActionResult ChangePassword([FromHeader] string token, [FromBody] ChangePassw use)
+        public ActionResult ChangePassword([FromHeader] string authorization, [FromBody] ChangePassw use)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -244,14 +244,15 @@ namespace ProjectAPI.Controllers
             return Ok(response);
         }
 
-        [HttpPost("LogOut")]
-        public async Task<ActionResult> LogOut([FromHeader] string token)
+        [HttpGet("LogOut")]
+        public async Task<ActionResult> LogOut([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
 
-            if( session == null)
+            Session session = Authorization(authorization);
+
+            if (session == null)
                 return new UnauthorizedResult();
-            
+
             _db.SessionDbSet.Remove(session);
             await _db.SaveChangesAsync();
             return Ok();

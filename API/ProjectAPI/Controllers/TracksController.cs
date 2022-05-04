@@ -44,10 +44,10 @@ namespace ProjectAPI.Controllers
             
         //TODO - to postTrack add UserId after authorization is done
         [HttpPost]
-        public ActionResult AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
+        public ActionResult AddTrack([FromForm] Track trackFromForm, [FromHeader] string authorization)
         {
             Debug.Print(trackFromForm.Title);
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
