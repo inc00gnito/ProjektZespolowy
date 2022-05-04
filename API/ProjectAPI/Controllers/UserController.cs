@@ -231,7 +231,9 @@ namespace ProjectAPI.Controllers
             _db.SessionDbSet.Add(session);            
             await _db.SaveChangesAsync();
 
-            return Ok(new Tuple<string, User>(session.Token, session.User));            
+            var getuser = _mapper.Map<GetUser>(session.User);
+
+            return Ok(new Tuple<string, GetUser>(session.Token, getuser));            
         }
 
         [HttpPost("LogOut")]
@@ -302,8 +304,10 @@ namespace ProjectAPI.Controllers
 
             _db.SessionDbSet.Add(session);            
             await _db.SaveChangesAsync();
-            
-            return Ok(new Tuple<string, User>(session.Token, session.User));  
+
+            var getuser = _mapper.Map<GetUser>(session.User);
+
+            return Ok(new Tuple<string, GetUser>(session.Token, getuser));  
             
         }
         bool IsValidEmail(string email)
