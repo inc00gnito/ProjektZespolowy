@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.SingleTrackPlay">
+    <ContentPage.Content>
+        <Grid BackgroundColor="Black">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="65"></RowDefinition>
+                <RowDefinition Height="120"></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40">
+                </ColumnDefinition>
+
+                <ColumnDefinition>
+                </ColumnDefinition>
+
+                <ColumnDefinition Width="40">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            
+
+            <Image 
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Source="cover_1.jpg" 
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Aspect="AspectFill">
+            </Image>
+
+            
+            <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
+                <Grid.ColumnDefinitions>
+                    
+                    <ColumnDefinition>
+                    </ColumnDefinition>
+                    
+                    <ColumnDefinition>
+                    </ColumnDefinition>
+                    
+                    <ColumnDefinition>
+                    </ColumnDefinition>
+
+                    <ColumnDefinition>
+                    </ColumnDefinition>
+
+                    
+
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20">
+                    </RowDefinition>
+
+                    <RowDefinition Height="20">
+                    </RowDefinition>
+
+                    <RowDefinition Height="45">
+                    </RowDefinition>
+                    <RowDefinition>
+                    </RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Label 
+                       TextColor="White"
+                       FontSize="18"
+                    FontAttributes="Bold"
+                       Text="Track name sample text"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="4"
+                       ></Label>
+                <Button 
+                    Grid.Column="5"
+                    Grid.RowSpan="2"
+                    BackgroundColor="DeepPink" 
+                    Text="BUY"
+                    FontSize="7"
+                    TextColor="Black">
+                    
+                </Button>
+                <!--<Label BackgroundColor="blue" 
+                       TextColor="White"
+                       FontSize="15"
+                       Text="Track name sample text"
+                       Grid.Row="1"
+                       Grid.ColumnSpan="5"
+                       ></Label>-->
+                <Label Grid.Row="1" 
+                       TextColor="White"
+                        Grid.ColumnSpan="5">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Author name" FontAttributes="Bold"/>
+                            <Span Text="   •   " FontSize="Micro" />
+                            <Span Text="$40,99" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+              
+
+                <Label Grid.Row="2" 
+                       Grid.ColumnSpan="6"
+                       Text=" . . . . . . . . . . . . . . . slider . . . . . . . . . . . . . . . . " 
+                       TextColor="white"
+                       VerticalOptions="Center"
+                       ></Label>
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalOptions="Start">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        
+                    </Grid.RowDefinitions>
+                    
+                    <Button 
+                    Text="Play" 
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.Column="0"
+                    ></Button>
+
+                    <Button 
+                    Text="Forward" 
+                    Grid.Row="0"
+                        Grid.RowSpan="3"
+                    Grid.Column="1"
+                    ></Button>
+                    <Button 
+                    Text="Forward" 
+                    Grid.Row="0"
+                    Grid.RowSpan="3"
+                    Grid.Column="2"
+                    ></Button>
+                    <Button 
+                    Text="Forward" 
+                        Grid.Row="0"
+                    Grid.RowSpan="3"
+                        Grid.Column="3"
+                    ></Button>
+                    <Button 
+                    Text="Forward" 
+
+                    Grid.Column="4"
+                        Grid.Row="1"
+                    ></Button>
+            
+
+                </Grid>
+
+                
+            </Grid>
+            
+
+        </Grid>
+        
+    </ContentPage.Content>
+    
+</ContentPage>
