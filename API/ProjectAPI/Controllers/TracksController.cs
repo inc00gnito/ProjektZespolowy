@@ -39,15 +39,15 @@ namespace ProjectAPI.Controllers
             _cloudinary = cloudinary;
             _mapper = mapper;
         }
-
+         
          
             
         //TODO - to postTrack add UserId after authorization is done
         [HttpPost]
-        public ActionResult AddTrack([FromForm] Track trackFromForm, [FromHeader] string token)
+        public ActionResult AddTrack([FromForm] Track trackFromForm, [FromHeader] string authorization)
         {
             Debug.Print(trackFromForm.Title);
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -100,30 +100,60 @@ namespace ProjectAPI.Controllers
         [HttpGet("bestSellers")]
         public ActionResult<List<Track>> GetBestSellers()
         {
-            var Tracks = _db.TracksDbSet.ToList();
+            var Tracks = _db.TracksDbSet
+                .Include(t => t.Authors)
+                .ToList()
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).ToList();
             Tracks.Sort(delegate(Track x, Track y) { return y.TimesSold.CompareTo(x.TimesSold); });
 
             var numberOfTrack = Math.Min(6, Tracks.Count());
-            var BestSellers = Tracks.GetRange(0, numberOfTrack);
+            var bestSellers = Tracks.GetRange(0, numberOfTrack).Select(t => t.AsDto());
 
-            return Ok(BestSellers);
+
+            return Ok(bestSellers);
         }
 
         [HttpGet("discounted")]
         public ActionResult<List<Track>> GetDiscounted()
         {
-            var Discounted = _db.TracksDbSet.ToList().Where(x => x.IsDiscounted);
+            var Discounted = _db.TracksDbSet
+                .Include(t => t.Authors)
+                .ToList()
+                .Where(x => x.IsDiscounted)
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).Select(t => t.AsDto()).ToList();
             
             return Ok(Discounted);
         }
 
         [HttpGet("filterbygenre")]
-        public ActionResult<List<Track>> FilterByGernes([FromQuery] params Genre[] genre)
+        public ActionResult<List<Track>> FilterByGenre([FromQuery] params Genre[] genre)
         {
+            
             Debug.Print(genre.Count().ToString());
 
 
-            var Tracks = _db.TracksDbSet.ToList().Where(x => genre.Contains(x.Genre));
+            var Tracks = _db.TracksDbSet.Include(t => t.Authors)
+                .ToList()
+                .Where(x => genre.Contains(x.Genre))
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).Select(t => t.AsDto()).ToList();
             return Ok(Tracks);
         }
 
@@ -132,8 +162,16 @@ namespace ProjectAPI.Controllers
         public ActionResult<List<Track>> Sort([FromQuery] SortBy key)
         {
             
-            var Tracks = _db.TracksDbSet.ToList();
-            
+            var Tracks = _db.TracksDbSet
+                .Include(t => t.Authors).ToList()
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).Select(t => t.AsDto()).ToList();
+
             if (key == SortBy.CostLowToHigh)
                 return Ok(Tracks.OrderBy(x => (x.Cost - x.DiscountedByUser)));
             else if (key == SortBy.CostHighToLow)

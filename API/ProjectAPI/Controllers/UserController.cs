@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using AutoMapper;
+using ProjectAPI.Models.DTOs;
 
 
 namespace ProjectAPI.Controllers
@@ -28,10 +29,10 @@ namespace ProjectAPI.Controllers
             _db = db;
             _mapper = mapper;
         }
-        [HttpGet("getuser/")]
-        public ActionResult<User> GetUser([FromHeader] string token)
+        [HttpGet]
+        public ActionResult<User> GetUser([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -44,10 +45,10 @@ namespace ProjectAPI.Controllers
             return Ok(getuser);
 
         }
-        [HttpGet("getorderhistory/")]
-        public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string token)
+        [HttpGet("Orders")]
+        public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -63,10 +64,10 @@ namespace ProjectAPI.Controllers
             return Ok(orders);
 
         }
-        [HttpDelete("deleteuser/")]
-        public ActionResult DeleteUser([FromHeader] string token)
+        [HttpDelete("Delete")]
+        public ActionResult DeleteUser([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -87,14 +88,15 @@ namespace ProjectAPI.Controllers
                 }
             }
             _db.UsersDbSet.Remove(user);
+            _db.SessionDbSet.Remove(session);
             _db.SaveChanges();
             return Ok();
         }
 
-        [HttpPut("changename")]
-        public ActionResult ChangeName([FromHeader] string token, [FromBody] ChangeName use)
+        [HttpPut("ChangeName")]
+        public ActionResult ChangeName([FromHeader] string authorization, [FromBody] ChangeName use)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -114,12 +116,12 @@ namespace ProjectAPI.Controllers
             return Ok();
         }
 
-        [HttpPut("changeemail")]
-        public ActionResult ChangeEmail([FromHeader] string token, [FromBody] ChangeEmail use)
+        [HttpPut("ChangeEmail")]
+        public ActionResult ChangeEmail([FromHeader] string authorization, [FromBody] ChangeEmail use)
         {
             if (IsValidEmail(use.Email))
             {
-                Session session = Authorization(token);
+                Session session = Authorization(authorization);
                 if (session == null)
                     return NotFound();
                 int id = session.User.Id;
@@ -137,10 +139,10 @@ namespace ProjectAPI.Controllers
             Debug.Print("Email is incorrect");
             return Conflict();
         }
-        [HttpPut("changepassword")]
-        public ActionResult ChangePassword([FromHeader] string token, [FromBody] ChangePassw use)
+        [HttpPut("ChangePassword")]
+        public ActionResult ChangePassword([FromHeader] string authorization, [FromBody] ChangePassw use)
         {
-            Session session = Authorization(token);
+            Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
             int id = session.User.Id;
@@ -231,17 +233,27 @@ namespace ProjectAPI.Controllers
             _db.SessionDbSet.Add(session);            
             await _db.SaveChangesAsync();
 
-            return Ok(session.Token);            
+            var getUser = _mapper.Map<GetUser>(session.User);
+
+            var response = new UserDTO
+            {
+                User = getUser,
+                Token = session.Token
+
+            };
+
+            return Ok(response);
         }
 
-        [HttpPost("LogOut")]
-        public async Task<ActionResult> LogOut([FromHeader] string token)
+        [HttpGet("LogOut")]
+        public async Task<ActionResult> LogOut([FromHeader] string authorization)
         {
-            Session session = Authorization(token);
 
-            if( session == null)
+            Session session = Authorization(authorization);
+
+            if (session == null)
                 return new UnauthorizedResult();
-            
+
             _db.SessionDbSet.Remove(session);
             await _db.SaveChangesAsync();
             return Ok();
@@ -260,7 +272,7 @@ namespace ProjectAPI.Controllers
             {
                 rngCsp.GetNonZeroBytes(newSalt);
             }
-
+            
             string hashed = Hash(model.Password, newSalt); 
 
             var newUser = new User 
@@ -287,7 +299,32 @@ namespace ProjectAPI.Controllers
             _db.UsersDbSet.Add(newUser);
             await _db.SaveChangesAsync();
 
-            return Ok();
+            string token = CreateToken(); 
+
+            while(_db.SessionDbSet.Any(s => s.Token == token))
+            {
+                token = CreateToken();
+            }
+
+            var session = new Session{
+                Token = token,
+                Expiration = DateTime.Now.AddHours(3),
+                User = newUser
+            };
+
+            _db.SessionDbSet.Add(session);            
+            await _db.SaveChangesAsync();
+
+            var getUser = _mapper.Map<GetUser>(session.User);
+
+            var response = new UserDTO
+            {
+                User = getUser,
+                Token = session.Token
+
+            };
+
+            return Ok(response);  
             
         }
         bool IsValidEmail(string email)
