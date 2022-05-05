@@ -553,6 +553,17 @@
                 Text="Proceed to checkout"
                 BackgroundColor="#FF0DBF" 
 />
+            <Button
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    
+                VerticalOptions="End"
+                Clicked="PlayTrack"
+                Text="Play one song only"
+                BackgroundColor="#FF0DBF" 
+/>
+
         </Grid>
     </ScrollView>
 </ContentPage>

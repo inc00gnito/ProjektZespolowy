@@ -10,12 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Mobile
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Testowy : ContentPage
+    public partial class SingleTrackPlay : ContentPage
     {
-        public Testowy()
+        public SingleTrackPlay()
         {
             InitializeComponent();
-
         }
     }
 }

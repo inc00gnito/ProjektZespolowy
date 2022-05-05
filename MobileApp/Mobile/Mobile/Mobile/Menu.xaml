@@ -4,6 +4,8 @@
              x:Class="Mobile.Menu"
              BackgroundColor="Black">
     <ContentPage.Content>
+        <ScrollView>
+            
         <StackLayout>
             <Image Source="track_lance.png"/>
             <Button Text="Tracks" HorizontalOptions="Center" Margin="0,15,0,15"  
@@ -111,6 +113,8 @@
             </Button>
 
         </StackLayout>
+        </ScrollView>
+
     </ContentPage.Content>
 
 </ContentPage>
