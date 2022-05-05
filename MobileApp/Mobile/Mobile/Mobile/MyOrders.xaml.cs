@@ -11,9 +11,9 @@ namespace Mobile
         public MyOrders()
         {
             InitializeComponent();
-
+            
         }
-
+      
 
     }
 }

@@ -47,5 +47,11 @@ namespace Mobile
            
             Navigation.PushAsync(new ContactUs());
         }
+        private void TestowankoClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            Navigation.PushAsync(new Testowy());
+        }
     }
 }
