@@ -88,6 +88,7 @@ namespace ProjectAPI.Controllers
                 }
             }
             _db.UsersDbSet.Remove(user);
+            _db.SessionDbSet.Remove(session);
             _db.SaveChanges();
             return Ok();
         }
