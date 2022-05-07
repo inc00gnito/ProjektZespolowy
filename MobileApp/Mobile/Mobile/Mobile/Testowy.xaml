@@ -1,13 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:Mobile.Models"
+             xmlns:viewmodel="clr-namespace:Mobile.Services"
              x:Class="Mobile.Testowy"
              Title="Tracks">
-    <ContentPage.Content>
-        <StackLayout>
-            <ListView ItemsSource="{Binding }">
-                
-            </ListView>
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout>
+        <ListView x:Name="TracksList"  HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            
+                        <Label Text="{Binding Title}"
+                                HorizontalTextAlignment="Start"
+                                Margin="20,0,0,0"/>
+                        <Label Text="{Binding Id}"
+                               HorizontalTextAlignment="Start"
+                                Margin="20,0,0,0"/>
+                        <Image
+                                Source="{Binding ImgFile}"
+                                Margin="20,0,0,0"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </StackLayout>
 </ContentPage>
