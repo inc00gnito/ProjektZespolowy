@@ -40,6 +40,7 @@ namespace Mobile
         public Testowy()
         {
             InitializeComponent();
+<<<<<<< HEAD
             LoadData();
         }
         public async void LoadData()
@@ -53,6 +54,9 @@ namespace Mobile
             content = await response.Content.ReadAsStringAsync();
             var Items = JsonConvert.DeserializeObject<List<Track>>(content);
             TracksList.ItemsSource = Items;
+=======
+
+>>>>>>> 6ca8682f091a052385c3adc2bd3da7ebb84cae11
         }
     }
 }

@@ -64,7 +64,7 @@ namespace ProjectAPI.Controllers
             return Ok(orders);
 
         }
-        [HttpDelete("Delete")]
+        [HttpDelete]
         public ActionResult DeleteUser([FromHeader] string authorization)
         {
             Session session = Authorization(authorization);

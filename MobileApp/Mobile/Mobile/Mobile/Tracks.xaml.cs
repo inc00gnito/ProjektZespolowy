@@ -50,5 +50,12 @@ namespace Mobile
             //dropdown.SelectedIndex = IsItem1 ? 5 : 1;
             //IsItem1 = !IsItem1;
         }
+        private void PlayTrack(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+
+            Navigation.PushAsync(new SingleTrackPlay());
+        }
     }
 }
