@@ -10,7 +10,7 @@ using ProjectAPI.Models;
 
 namespace ProjectAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class NewsletterController : ControllerBase
     {
@@ -20,8 +20,8 @@ namespace ProjectAPI.Controllers
         {
             _db = db;
         }
-        
 
+        [Route("Newsletter")]
         [HttpPost]
         public IActionResult Subscribe([FromBody] NewsletterEmail email)
         {
@@ -29,17 +29,30 @@ namespace ProjectAPI.Controllers
             {
                 var emailNewsletter = new NewsletterEmail { Email = email.Email };
                 if (_db.NewsletterEmailsDbSet.Any(e => e.Email == email.Email))
-                    return Conflict();
+                    return Conflict("You have already subscribed");
                 
                 _db.NewsletterEmailsDbSet.Add(emailNewsletter);
                 _db.SaveChanges();
-                List<NewsletterEmail> list = new List<NewsletterEmail> {emailNewsletter};
-                SendMail(list);
+                SendMail(emailNewsletter.Email);
                 return Ok();
             }
             Debug.Print("Email is incorrect");
-            return Conflict();
+            return Conflict("Provide correct email address");
 
+        }
+
+        [Route("contact")]
+        [HttpPost]
+        public IActionResult Contact([FromBody] Contact contact)
+        {
+            var sendMessage = new Contact
+            {
+                Email = contact.Email, FirstName = contact.FirstName, LastName = contact.LastName,
+                Message = contact.Message
+            };
+
+            ContactUs(sendMessage);
+            return Ok();
         }
 
         #region Methods
@@ -62,32 +75,59 @@ namespace ProjectAPI.Controllers
             }
         }
 
-        private void SendMail(List<NewsletterEmail> newsletterEmails)
+        private void SendMail(string newsletterEmail)
         {
             var client = new SmtpClient();
             client.Connect("smtp.gmail.com", 587, false);
             client.Authenticate("trackslance@gmail.com", "Trackslance1!"); // later hide password somehow
 
-            foreach (var newsletterEmail in newsletterEmails)
-            {
-                var msg = CreateMessage(newsletterEmail.Email);
+                var msg = CreateMessage();
+                msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
+                msg.To.Add(new MailboxAddress("", newsletterEmail));
                 client.Send(msg);
-            }
-
+            
             client.Disconnect(true);
         }
 
-        private MimeMessage CreateMessage(string email)
+        private void ContactUs(Contact contact)
+        {
+            var client = new SmtpClient();
+            client.Connect("smtp.gmail.com", 587, false);
+            client.Authenticate("trackslance@gmail.com", "Trackslance1!"); // later hide password somehow
+            string name = contact.FirstName + " " + contact.LastName;
+            var msg = CreateMessage(contact.Message);
+            msg.To.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
+            msg.From.Add(new MailboxAddress(name, contact.Email));
+            client.Send(msg);
+          
+
+            client.Disconnect(true);
+
+        }
+
+        private MimeMessage CreateMessage(string message = null)
         {
             var msg = new MimeMessage();
-            msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
-            msg.To.Add(new MailboxAddress("", email));
-            msg.Subject = "Newsletter!";
             
-            msg.Body = new TextPart("plain")
+            
+            if (message == null)
             {
-                Text = @"Testing put changes  in fucking api"
+                msg.Subject = "Newsletter!";
+                msg.Body = new TextPart("plain")
+                {
+                    Text = @"Testing"
+                };
+            }
+            else 
+            {
+                msg.Subject = "Help";
+                msg.Body = new TextPart("plain")
+            {
+                Text = message
             };
+
+            }
+
 
             return msg;
         }
