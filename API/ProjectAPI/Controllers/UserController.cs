@@ -35,7 +35,7 @@ namespace ProjectAPI.Controllers
             Session session = Authorization(authorization);
             if (session == null)
                 return NotFound();
-            int id = session.User.Id;
+            int id =session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(r => r.Id == id);
             if (user == null)
             {
@@ -44,26 +44,8 @@ namespace ProjectAPI.Controllers
             var getuser = _mapper.Map<GetUser>(user);
             return Ok(getuser);
 
-        }
-        [HttpGet("Orders")]
-        public ActionResult<IEnumerable<Order>> GetOrderHistory([FromHeader] string authorization)
-        {
-            Session session = Authorization(authorization);
-            if (session == null)
-                return NotFound();
-            int id = session.User.Id;
-            var user = _db.UsersDbSet
-                .Include(r=>r.Orders)
-                .FirstOrDefault(r => r.Id == id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            List<Order> orders = new List<Order>();
-            orders = user.Orders.ToList();
-            return Ok(orders);
-
-        }
+        }   
+        
         [HttpDelete]
         public ActionResult DeleteUser([FromHeader] string authorization)
         {

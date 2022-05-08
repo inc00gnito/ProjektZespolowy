@@ -9,6 +9,6 @@ namespace ProjectAPI.Models.Enums
         CostHighToLow = 1,
         TimesSold = 2,
         DiscountedLowToHigh = 3,
-        DiscountedHighToLow = 4,
+        DiscountedHighToLow = 4
     }
 }
