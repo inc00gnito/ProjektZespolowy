@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectAPI.Data;
 
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220507113818_changeOrder")]
+    partial class changeOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,21 +28,13 @@ namespace ProjectAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OrderedTrackId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OrderedTracksId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrackId")
+                    b.Property<int>("TrackId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderedTracksId");
 
                     b.HasIndex("TrackId");
 
@@ -85,7 +79,48 @@ namespace ProjectAPI.Migrations
                     b.ToTable("OrdersDbSet");
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.OrderedTracks", b =>
+            modelBuilder.Entity("ProjectAPI.Models.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("SessionDbSet");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TrackId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TagsDbSet");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.Track", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,98 +170,6 @@ namespace ProjectAPI.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderedTracksDbSet");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Session", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Expiration")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Token")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SessionDbSet");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OrderedTrackId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TrackId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TagsDbSet");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.Track", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AudioFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Cost")
-                        .HasColumnType("real");
-
-                    b.Property<string>("DemoFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("DiscountedByShop")
-                        .HasColumnType("real");
-
-                    b.Property<float>("DiscountedByUser")
-                        .HasColumnType("real");
-
-                    b.Property<int>("Genre")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImgFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDiscounted")
-                        .HasColumnType("bit");
-
-                    b.Property<float>("Time")
-                        .HasColumnType("real");
-
-                    b.Property<int>("TimesSold")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("TracksDbSet");
@@ -258,13 +201,11 @@ namespace ProjectAPI.Migrations
 
             modelBuilder.Entity("ProjectAPI.Models.Author", b =>
                 {
-                    b.HasOne("ProjectAPI.Models.OrderedTracks", null)
-                        .WithMany("Authors")
-                        .HasForeignKey("OrderedTracksId");
-
                     b.HasOne("ProjectAPI.Models.Track", null)
                         .WithMany("Authors")
-                        .HasForeignKey("TrackId");
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Order", b =>
@@ -274,13 +215,6 @@ namespace ProjectAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.OrderedTracks", b =>
-                {
-                    b.HasOne("ProjectAPI.Models.Order", null)
-                        .WithMany("Tracks")
-                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Session", b =>
@@ -294,6 +228,10 @@ namespace ProjectAPI.Migrations
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>
                 {
+                    b.HasOne("ProjectAPI.Models.Order", null)
+                        .WithMany("Tracks")
+                        .HasForeignKey("OrderId");
+
                     b.HasOne("ProjectAPI.Models.User", null)
                         .WithMany("Tracks")
                         .HasForeignKey("UserId")
@@ -304,11 +242,6 @@ namespace ProjectAPI.Migrations
             modelBuilder.Entity("ProjectAPI.Models.Order", b =>
                 {
                     b.Navigation("Tracks");
-                });
-
-            modelBuilder.Entity("ProjectAPI.Models.OrderedTracks", b =>
-                {
-                    b.Navigation("Authors");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>

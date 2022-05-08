@@ -6,8 +6,10 @@ namespace ProjectAPI.Models
     public class Order
     {
         public int Id { get; set; }
-        private List<Track> Tracks { get; set; }
+        public List<OrderedTracks> Tracks { get; set; }
         public float Price { get; set; }
         public DateTime DateOfPurchase { get; set; }
+
+        public int UserId { get; set; }
     }
 }

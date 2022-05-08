@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProjectAPI.Models;
+using ProjectAPI.Models.DTOs;
 
 namespace ProjectAPI
 {

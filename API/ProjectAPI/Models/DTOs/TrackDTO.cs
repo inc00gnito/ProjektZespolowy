@@ -10,10 +10,10 @@ namespace ProjectAPI.Models.DTOs
         public int Id { get; set; }
         public string Title { get; set; }
         public float Time { get; set; }
-        public double Cost { get; set; }
-        public int UserId { get; set; }
-        public double DiscountedByUser { get; set; } // w PLN
-        public double DiscountedByShop { get; set; } // w %
+        public float Cost { get; set; }
+        public int UserId { get; set; } 
+        public float DiscountedByUser { get; set; } // w PLN
+        public float DiscountedByShop { get; set; } // w %
         public string Genre { get; set; }
         public List<string> Tags { get; set; }
         public List<Author> Authors { get; set; }
@@ -22,5 +22,6 @@ namespace ProjectAPI.Models.DTOs
         public string ImgFile { get; set; }
         public int TimesSold { get; set; }
         public bool IsDiscounted { get; set; }
+
     }
 }

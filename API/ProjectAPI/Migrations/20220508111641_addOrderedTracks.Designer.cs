@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjectAPI.Data;
 
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220508111641_addOrderedTracks")]
+    partial class addOrderedTracks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,16 +28,13 @@ namespace ProjectAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OrderedTrackId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("OrderedTracksId")
                         .HasColumnType("int");
 
                     b.Property<string>("StageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TrackId")
+                    b.Property<int>("TrackId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -264,7 +263,9 @@ namespace ProjectAPI.Migrations
 
                     b.HasOne("ProjectAPI.Models.Track", null)
                         .WithMany("Authors")
-                        .HasForeignKey("TrackId");
+                        .HasForeignKey("TrackId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Order", b =>

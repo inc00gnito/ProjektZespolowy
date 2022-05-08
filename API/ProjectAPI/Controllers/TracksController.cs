@@ -79,9 +79,10 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Track>> GetTracks()
+        public ActionResult<List<Track>> GetTracks([FromQuery]SieveModel conditions)
         {
-           
+            if(conditions == null)
+            {
             var Tracks = _db.TracksDbSet
                 .Include(t => t.Authors)
                 .ToList()
@@ -94,6 +95,9 @@ namespace ProjectAPI.Controllers
                 }).Select(track => track.AsDto());
 
             return Ok(Tracks);
+            }
+
+            return Ok(Sieve(conditions));
         }
 
 
@@ -155,8 +159,7 @@ namespace ProjectAPI.Controllers
                     return track;
                 }).Select(t => t.AsDto()).ToList();
             return Ok(Tracks);
-        }
-
+        }    
 
         [HttpGet("sort")]
         public ActionResult<List<Track>> Sort([FromQuery] SortBy key)
@@ -187,7 +190,7 @@ namespace ProjectAPI.Controllers
         }
 
         [HttpPut("[action]/{trackId}")]
-        public ActionResult DiscountTrackByUser(int trackId, double discountedPrice)
+        public ActionResult DiscountTrackByUser(int trackId, float discountedPrice)
         {
             var track = _db.TracksDbSet.FirstOrDefault(x => x.Id == trackId);
             if (track == null)
@@ -298,6 +301,67 @@ namespace ProjectAPI.Controllers
                 .FirstOrDefault(s => s.Token == token);
         }
 
+        private List<TrackDTO> Sieve(SieveModel conditions)
+        {
+            
+            var tracks = _db.TracksDbSet
+                .Include(t => t.Authors).ToList()
+                .Select(track =>
+                {
+                    track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                        .Select(tag => tag.Description)
+                        .ToList();
+                    return track;
+                }).Select(t => t.AsDto()).ToList();
+            
+            if(conditions.filter != null)
+                tracks = Filter(conditions.filter.Split(',').ToList(), tracks);
+            if(conditions.sort != null )
+                tracks = Sort(conditions.sort,tracks);
+            if(conditions.search != null )
+                tracks = Search(conditions.search,tracks);
+
+            return tracks;
+        }
+
+        private List<TrackDTO> Sort(SortBy? key, List<TrackDTO> tracks)
+        {
+            
+
+            if (key == SortBy.CostLowToHigh)
+                return tracks.OrderBy(x => (x.Cost - x.DiscountedByUser)).ToList();
+            else if (key == SortBy.CostHighToLow)
+                return tracks.OrderBy(x => (x.DiscountedByUser- x.Cost)).ToList();
+            else if (key == SortBy.TimesSold)
+                return tracks.OrderBy(x => (x.TimesSold)).Reverse().ToList();
+            else if (key == SortBy.DiscountedLowToHigh)
+                return tracks.OrderBy(x => (x.DiscountedByUser)).ToList();
+            else if (key == SortBy.DiscountedHighToLow)
+                return tracks.OrderBy(x => (x.DiscountedByUser)).Reverse().ToList();
+
+            return tracks;
+        }
+        
+
+        private List<TrackDTO> Filter(List<string> genre, List<TrackDTO> tracks)
+        {
+            return tracks.Where( x => genre.Contains(x.Genre))
+                        .Select(track => 
+                        {
+                            track.Tags = _db.TagsDbSet.Where(tag => tag.TrackId == track.Id)
+                                .Select(tag => tag.Description)
+                                .ToList();
+                            return track;
+                        }).ToList();
+        }
+
+        private List<TrackDTO> Search(string phrase, List<TrackDTO> tracks)
+        {
+            return tracks.Where(x => x.Title.Contains(phrase) || x.Authors.Any(a => a.StageName.Contains(phrase))).ToList();
+        }
+
+      
+      
         #endregion
     }
 }
