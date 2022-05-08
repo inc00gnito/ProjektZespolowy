@@ -4,7 +4,7 @@ import { RouteProps, Navigate, Outlet } from "react-router-dom";
 
 const AuthRoute: React.FC<RouteProps> = () => {
   const { isAuthenticated } = useAuthenticationStore();
-  if (!isAuthenticated) return <Navigate to="/signin" />;
+  if (!isAuthenticated) return <Navigate to="/" />;
   return <Outlet />;
 };
 

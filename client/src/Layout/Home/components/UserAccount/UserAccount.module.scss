@@ -1,0 +1,59 @@
+@import "../../../../app/styles/variables.scss";
+.profile {
+  position: relative;
+  .icon {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(0, 77, 64);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    .text {
+      font-weight: bold;
+    }
+  }
+  .menuContainer {
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    .menu {
+      position: absolute;
+      top: 110%;
+      right: 0;
+      background-color: $primaryGrey;
+      .options {
+        .item {
+          padding: 8px 18px;
+
+          list-style-type: none;
+          cursor: pointer;
+          transition: background-color 0.2s;
+          &:hover {
+            background-color: $primaryGreyBrighter;
+          }
+          .itemLink {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            .iconContainer {
+              .itemIcon {
+                font-size: 22px;
+              }
+            }
+            .itemName {
+              margin-left: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
