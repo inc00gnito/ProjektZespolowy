@@ -1,13 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-<<<<<<< HEAD
     <SelectedDevice>Xiaomi Redmi Note 8T</SelectedDevice>
     <ActiveDebugProfile>Xiaomi Redmi Note 8T</ActiveDebugProfile>
-=======
-    <SelectedDevice>Samsung SM-G950F</SelectedDevice>
-    <ActiveDebugProfile>Samsung SM-G950F</ActiveDebugProfile>
->>>>>>> 6ca8682f091a052385c3adc2bd3da7ebb84cae11
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
     <DefaultDevice>pixel_2_-_api_30</DefaultDevice>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
