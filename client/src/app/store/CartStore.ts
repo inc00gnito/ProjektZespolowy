@@ -2,6 +2,8 @@ import { makeAutoObservable, observe } from "mobx";
 import trackImage1 from "assets/track1.webp";
 import { ICartItem } from "app/model/Cart";
 import { ITrack } from "app/model/Track";
+import { stores } from "../provider/Provider";
+import { checkAuth } from "app/utils/Auth";
 
 export default class CartStore {
   constructor() {
@@ -74,7 +76,21 @@ export default class CartStore {
     this.isPopup = true;
   };
 
-  addCartItem = (track: ITrack) => {
+  // addCartItem = (track: ITrack) => {
+  //   stores.authenticationStore.authFunc(() => {
+  //     const newCartItem: ICartItem = {
+  //       ...track,
+  //       quantity: 1,
+  //     };
+  //     this.shoppingList.set(newCartItem.id, newCartItem);
+
+  //     this.openPopup();
+  //   });
+  // };
+
+  // authService = (arg: any) => stores.authenticationStore.authFunc(arg)
+
+  addCartItem = checkAuth((track: ITrack) => {
     const newCartItem: ICartItem = {
       ...track,
       quantity: 1,
@@ -82,7 +98,7 @@ export default class CartStore {
     this.shoppingList.set(newCartItem.id, newCartItem);
 
     this.openPopup();
-  };
+  });
 
   cartItemIncreaseQuantity = (id: number) => {
     const item = this.shoppingList.get(id);

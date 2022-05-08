@@ -1,19 +1,26 @@
 import agent from "app/api/agent";
-import { IAuthModalType, ISignup } from "app/model/authentication";
-import { makeAutoObservable } from "mobx";
+import { IAuthModalType, ICreds, ISignup } from "app/model/authentication";
+import { makeAutoObservable, runInAction } from "mobx";
 import React from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import { IUser } from "app/model/User";
+import { removeToken, saveToken } from "app/utils/Token";
 
 export default class AuthenticationStore {
   constructor() {
     makeAutoObservable(this);
+
+    this.verifyUser();
   }
 
-  isAuthenticated = true;
+  isAuthenticated = false;
   authPopUp: IAuthModalType = null;
+  user: IUser | null = null;
 
-  authFunc = (callback: () => void) => {
-    if (this.isAuthenticated) callback();
+  authFunc = () => {
+    if (this.isAuthenticated) return true;
+    this.openPopUp("signin");
+    return false;
   };
 
   openPopUp = (type: IAuthModalType) => {
@@ -24,15 +31,57 @@ export default class AuthenticationStore {
     this.authPopUp = null;
   };
 
-  signIn = () => {};
+  verifyUser = async () => {
+    try {
+      const { data } = await agent.User.details();
+      this.user = data;
+      this.isAuthenticated = true;
+    } catch (error) {
+      this.isAuthenticated = false;
+    }
+  };
+
+  signIn = async (creds: ICreds) => {
+    try {
+      const { data } = await agent.Authentication.signin(creds);
+      const { user, token } = data;
+      saveToken(token);
+      runInAction(() => {
+        this.user = user;
+        this.isAuthenticated = true;
+        this.closePopUp();
+      });
+    } catch (err) {
+      if (!axios.isAxiosError(err)) return;
+      const status = err.response?.status;
+      const response = err.response?.data;
+      if (status === 404 && response === "user doesnt exist")
+        // throw new Error({ type: "login", text: "User doesn't exist" });
+    }
+  };
 
   signUp = async (signinValues: ISignup) => {
     try {
       const res = await agent.Authentication.signup(signinValues);
-      console.log(res);
+      const { user, token } = res.data;
+      saveToken(token);
+      runInAction(() => {
+        this.user = user;
+        this.isAuthenticated = true;
+        this.closePopUp();
+      });
     } catch (err) {
       if (axios.isAxiosError(err)) return console.log("fds");
       console.log("server error");
     }
+  };
+
+  logout = async () => {
+    try {
+      await agent.Authentication.logout();
+    } catch (err) {}
+    removeToken();
+    this.user = null;
+    this.isAuthenticated = false;
   };
 }

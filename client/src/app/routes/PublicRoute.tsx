@@ -3,8 +3,8 @@ import React from "react";
 import { RouteProps, Navigate, Outlet } from "react-router-dom";
 
 const PublicRoute: React.FC<RouteProps> = () => {
-  const { isAuthenticated } = useAuthenticationStore();
-  if (isAuthenticated) return <Navigate to="/" />;
+  // const { isAuthenticated } = useAuthenticationStore();
+  // if (isAuthenticated) return <Navigate to="/" />;
   return <Outlet />;
 };
 

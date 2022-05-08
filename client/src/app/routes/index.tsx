@@ -17,6 +17,7 @@ import Payment from "features/Payment/Payment";
 import Upload from "features/Upload/Upload";
 import History from "features/History/History";
 import Settings from "features/Settings/Settings";
+import NotFound from "features/NotFound/NotFound";
 
 const AppRoutes = () => {
   const popUpComponent = (type: IAuthModalType) => {
@@ -41,18 +42,20 @@ const AppRoutes = () => {
       </Routes>
 
       <Routes>
-        <Route path="/" element={<AuthRoute />}>
+        <Route path="/" element={<PublicRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/tracks" element={<Tracks />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/" element={<AuthRoute />}>
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/orders" element={<History />} />
+          <Route path="/profile" element={<History />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
-        <Route path="/" element={<PublicRoute />}></Route>
       </Routes>
     </BrowserRouter>
   );

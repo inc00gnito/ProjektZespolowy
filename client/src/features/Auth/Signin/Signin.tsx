@@ -7,22 +7,29 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuthenticationStore } from "app/provider/Provider";
+import { ICreds } from "app/model/authentication";
 
 const schema = yup.object({
-  email: yup.string().required("To pole jest wymagane"),
+  login: yup.string().required("To pole jest wymagane"),
   password: yup.string().required("To pole jest wymagane"),
 });
 
 const Signin = () => {
-  const { openPopUp } = useAuthenticationStore();
+  const { openPopUp, signIn } = useAuthenticationStore();
   const {
     handleSubmit,
     formState: { errors },
     register,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      login: "",
+      password: "",
+    },
+  });
 
-  const onSubmit = () => {
-    console.log("submit");
+  const onSubmit = (values: ICreds) => {
+    signIn(values);
   };
   return (
     <AuthenticationLayout>
@@ -40,8 +47,8 @@ const Signin = () => {
           <div className={styles.field}>
             <AuthInput
               label="E-mail or username"
-              inputProps={register("email")}
-              error={errors.email?.message}
+              inputProps={register("login")}
+              error={errors.login?.message}
             />
           </div>
           <div className={styles.field}>

@@ -3,13 +3,14 @@ import styles from "./styles/Home.module.scss";
 import { BiSearch } from "react-icons/bi";
 import { motion, useCycle } from "framer-motion";
 import { MenuToggle } from "./components/MenuToggle/MenuToggle";
-import user from "assets/user.png";
+import userPicture from "assets/user.png";
 import { Link } from "react-router-dom";
 import { useAuthenticationStore, useCartStore } from "app/provider/Provider";
 import { GiShoppingBag } from "react-icons/gi";
 import Popup from "./components/Popup/Popup";
 import { observer } from "mobx-react-lite";
 import cx from "classnames";
+import UserAccount from "./components/UserAccount/UserAccount";
 
 interface IProps {
   children: React.ReactNode | React.ReactNode[];
@@ -17,7 +18,7 @@ interface IProps {
 
 const Home: React.FC<IProps> = ({ children }) => {
   const { isPopup, shoppingList } = useCartStore();
-  const { authPopUp } = useAuthenticationStore();
+  const { authPopUp, user } = useAuthenticationStore();
   const shoppingListLength = shoppingList.size;
 
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -86,7 +87,7 @@ const Home: React.FC<IProps> = ({ children }) => {
         >
           <div className={styles.header}>
             <div className={styles.user}>
-              <img src={user} alt="user" className={styles.image} />
+              <img src={userPicture} alt="user" className={styles.image} />
               <button
                 className={styles.login}
                 onClick={() => openPopUp("signin")}
@@ -128,11 +129,14 @@ const Home: React.FC<IProps> = ({ children }) => {
                 Tracks
               </Link>
             </li>
-            <li className={styles.item}>
-              <Link to="/upload" className={styles.link}>
-                Upload
-              </Link>
-            </li>
+            {user ? (
+              <li className={styles.item}>
+                <Link to="/upload" className={styles.link}>
+                  Upload
+                </Link>
+              </li>
+            ) : null}
+
             <li className={styles.item}>
               <Link to="/about" className={styles.link}>
                 About us
@@ -156,8 +160,14 @@ const Home: React.FC<IProps> = ({ children }) => {
           <div className={styles.search}>
             <BiSearch className={styles.icon} />
           </div>
-          <div className={styles.account} onClick={() => openPopUp("signin")}>
-            <span className={styles.item}>Log In</span>
+          <div className={styles.account}>
+            {user ? (
+              <UserAccount />
+            ) : (
+              <span className={styles.item} onClick={() => openPopUp("signin")}>
+                Log In
+              </span>
+            )}
           </div>
         </div>
       </nav>

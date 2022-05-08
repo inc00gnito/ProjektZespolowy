@@ -1,10 +1,20 @@
-import { ISignup } from "app/model/authentication";
+import { IAuthResponse, ICreds, ISignup } from "app/model/authentication";
 import { ITrack } from "app/model/Track";
-import axios from "axios";
+import { IUser } from "app/model/User";
+import { getToken } from "app/utils/Token";
+import axios, { AxiosRequestConfig } from "axios";
 import { request } from "http";
 
 axios.defaults.baseURL = "https://trackslance.azurewebsites.net/api/";
 axios.defaults.withCredentials = true;
+
+axios.interceptors.request.use((config: AxiosRequestConfig) => {
+  const token = getToken();
+  config.headers = {
+    Authorization: token,
+  };
+  return config;
+});
 
 const requests = {
   get: <T>(url: string) => axios.get<T>(url),
@@ -29,11 +39,17 @@ const Track = {
 
 const Authentication = {
   signup: (creds: ISignup) =>
-    requests.post("user/signup", {
+    requests.post<IAuthResponse>("user/signup", {
       Username: creds.username,
       Email: creds.email,
       Password: creds.password,
     }),
+  signin: (creds: ICreds) => requests.post<IAuthResponse>("user/login", creds),
+  logout: () => requests.get("user/logout"),
 };
 
-export default { Newsletter, Track, Authentication };
+const User = {
+  details: () => requests.get<IUser>("user"),
+};
+
+export default { Newsletter, Track, Authentication, User };

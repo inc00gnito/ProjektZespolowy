@@ -57,6 +57,8 @@
     }
     .menu {
       display: flex;
+      justify-content: center;
+      align-items: center;
       .menuItems {
         display: flex;
         .item {
@@ -78,7 +80,6 @@
       .cart {
         position: relative;
         margin-left: 1.5vw;
-
         .link {
           color: white;
           text-decoration: none;
