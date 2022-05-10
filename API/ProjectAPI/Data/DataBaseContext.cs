@@ -31,7 +31,7 @@ namespace ProjectAPI.Data
         public DbSet<Session> SessionDbSet { get; set; }
 
         public DbSet<Tag> TagsDbSet { get; set; }
-        public DbSet<OrderedTracks> OrderedTracksDbSet { get; set; }
+        public DbSet<OrderedTrack> OrderedTracksDbSet { get; set; }
 
     }
 }

@@ -10,8 +10,8 @@ using ProjectAPI.Data;
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220503090505_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20220510164454_initialCreate")]
+    partial class initialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,13 +28,18 @@ namespace ProjectAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("OrderedTrackId")
+                        .HasColumnType("int");
+
                     b.Property<string>("StageName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrackId")
+                    b.Property<int?>("TrackId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderedTrackId");
 
                     b.HasIndex("TrackId");
 
@@ -69,7 +74,7 @@ namespace ProjectAPI.Migrations
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -77,6 +82,59 @@ namespace ProjectAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("OrdersDbSet");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.OrderedTrack", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AudioFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
+
+                    b.Property<string>("DemoFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("DiscountedByShop")
+                        .HasColumnType("real");
+
+                    b.Property<float>("DiscountedByUser")
+                        .HasColumnType("real");
+
+                    b.Property<int>("Genre")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImgFile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDiscounted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Time")
+                        .HasColumnType("real");
+
+                    b.Property<int>("TimesSold")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderedTracksDbSet");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Session", b =>
@@ -112,7 +170,10 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrackId")
+                    b.Property<int?>("OrderedTrackId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TrackId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -130,17 +191,17 @@ namespace ProjectAPI.Migrations
                     b.Property<string>("AudioFile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Cost")
-                        .HasColumnType("float");
+                    b.Property<float>("Cost")
+                        .HasColumnType("real");
 
                     b.Property<string>("DemoFile")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("DiscountedByShop")
-                        .HasColumnType("float");
+                    b.Property<float>("DiscountedByShop")
+                        .HasColumnType("real");
 
-                    b.Property<double>("DiscountedByUser")
-                        .HasColumnType("float");
+                    b.Property<float>("DiscountedByUser")
+                        .HasColumnType("real");
 
                     b.Property<int>("Genre")
                         .HasColumnType("int");
@@ -196,18 +257,29 @@ namespace ProjectAPI.Migrations
 
             modelBuilder.Entity("ProjectAPI.Models.Author", b =>
                 {
+                    b.HasOne("ProjectAPI.Models.OrderedTrack", null)
+                        .WithMany("Authors")
+                        .HasForeignKey("OrderedTrackId");
+
                     b.HasOne("ProjectAPI.Models.Track", null)
                         .WithMany("Authors")
-                        .HasForeignKey("TrackId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TrackId");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Order", b =>
                 {
                     b.HasOne("ProjectAPI.Models.User", null)
                         .WithMany("Orders")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.OrderedTrack", b =>
+                {
+                    b.HasOne("ProjectAPI.Models.Order", null)
+                        .WithMany("Tracks")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Session", b =>
@@ -226,6 +298,16 @@ namespace ProjectAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.Order", b =>
+                {
+                    b.Navigation("Tracks");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.OrderedTrack", b =>
+                {
+                    b.Navigation("Authors");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Track", b =>

@@ -5,7 +5,7 @@ using ProjectAPI.Models.Enums;
 
 namespace ProjectAPI.Models
 {
-    public class OrderedTracks
+    public class OrderedTrack
     {
         public int Id { get; set; }
         public string Title { get; set; }

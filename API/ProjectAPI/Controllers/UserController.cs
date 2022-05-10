@@ -34,12 +34,12 @@ namespace ProjectAPI.Controllers
         {
             Session session = Authorization(authorization);
             if (session == null)
-                return NotFound();
-            int id =session.User.Id;
+                return Unauthorized("Session not found");
+            int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(r => r.Id == id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             var getuser = _mapper.Map<GetUser>(user);
             return Ok(getuser);
@@ -51,14 +51,14 @@ namespace ProjectAPI.Controllers
         {
             Session session = Authorization(authorization);
             if (session == null)
-                return NotFound();
+                return Unauthorized("Session not found");
             int id = session.User.Id;
             var user = _db.UsersDbSet
                 .Include(r=>r.Tracks)
                 .FirstOrDefault(r => r.Id == id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             if (user.Tracks.Count() > 0)
             {
@@ -80,7 +80,7 @@ namespace ProjectAPI.Controllers
         {
             Session session = Authorization(authorization);
             if (session == null)
-                return NotFound();
+                return Unauthorized("Session not found");
             int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
             if (!ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace ProjectAPI.Controllers
             }
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
             if (_db.UsersDbSet.Any(u => u.Username == use.UserName))
                 return Conflict("Username already taken");
@@ -105,12 +105,12 @@ namespace ProjectAPI.Controllers
             {
                 Session session = Authorization(authorization);
                 if (session == null)
-                    return NotFound();
+                    return Unauthorized("Session not found");
                 int id = session.User.Id;
                 var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound("User not found");
                 }
                 if (_db.UsersDbSet.Any(u => u.Email == use.Email))
                     return Conflict("Email already taken");
@@ -118,15 +118,14 @@ namespace ProjectAPI.Controllers
                 _db.SaveChanges();
                 return Ok();
             }
-            Debug.Print("Email is incorrect");
-            return Conflict();
+            return Conflict("Email is incorrect");
         }
         [HttpPut("ChangePassword")]
         public ActionResult ChangePassword([FromHeader] string authorization, [FromBody] ChangePassw use)
         {
             Session session = Authorization(authorization);
             if (session == null)
-                return NotFound();
+                return Unauthorized("Session not found");
             int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
 
@@ -136,54 +135,12 @@ namespace ProjectAPI.Controllers
             }
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User not found");
             }
 
             user.HashedPassword = Hash(use.Password, user.Salt);
             _db.SaveChanges();
             return Ok();
-        }
-
-        private string Hash(string password, byte[] salt)
-        {
-            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                            password: password,
-                            salt: salt,
-                            prf: KeyDerivationPrf.HMACSHA512,
-                            iterationCount: 100000,
-                            numBytesRequested: 256 / 8));
-            return hashed;
-        }
-
-        private string CreateToken()
-        {
-            char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray(); 
-            int size = 100;
-
-            byte[] data = new byte[4*size];
-            using (var crypto = RandomNumberGenerator.Create())
-            {
-                crypto.GetBytes(data);
-            }
-
-            StringBuilder token = new StringBuilder(size);
-            for (int i = 0; i < size; i++)
-            {
-                var rnd = BitConverter.ToUInt32(data, i * 4);
-                var idx = rnd % chars.Length;
-
-                token.Append(chars[idx]);
-            }
-
-            return token.ToString();
-
-        }
-
-        private Session Authorization(string token)
-        {
-            return _db.SessionDbSet
-                .Include(r => r.User)
-                .FirstOrDefault(s => s.Token == token);
         }
 
         [HttpPost("LogIn")]
@@ -234,7 +191,7 @@ namespace ProjectAPI.Controllers
             Session session = Authorization(authorization);
 
             if (session == null)
-                return new UnauthorizedResult();
+                return Unauthorized("Session not found");
 
             _db.SessionDbSet.Remove(session);
             await _db.SaveChangesAsync();
@@ -309,6 +266,8 @@ namespace ProjectAPI.Controllers
             return Ok(response);  
             
         }
+        
+        #region Methods
         bool IsValidEmail(string email)
         {
             var trimmedEmail = email.Trim();
@@ -328,5 +287,49 @@ namespace ProjectAPI.Controllers
             }
         }
 
+        private string Hash(string password, byte[] salt)
+        {
+            string hashed = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                            password: password,
+                            salt: salt,
+                            prf: KeyDerivationPrf.HMACSHA512,
+                            iterationCount: 100000,
+                            numBytesRequested: 256 / 8));
+            return hashed;
+        }
+
+        private string CreateToken()
+        {
+            char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray(); 
+            int size = 100;
+
+            byte[] data = new byte[4*size];
+            using (var crypto = RandomNumberGenerator.Create())
+            {
+                crypto.GetBytes(data);
+            }
+
+            StringBuilder token = new StringBuilder(size);
+            for (int i = 0; i < size; i++)
+            {
+                var rnd = BitConverter.ToUInt32(data, i * 4);
+                var idx = rnd % chars.Length;
+
+                token.Append(chars[idx]);
+            }
+
+            return token.ToString();
+
+        }
+
+        private Session Authorization(string token)
+        {
+            return _db.SessionDbSet
+                .Include(r => r.User)
+                .FirstOrDefault(s => s.Token == token);
+        }
+
+     
+        #endregion
     }
 }

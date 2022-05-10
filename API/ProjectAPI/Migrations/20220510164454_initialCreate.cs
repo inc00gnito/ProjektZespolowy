@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProjectAPI.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,8 @@ namespace ProjectAPI.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TrackId = table.Column<int>(type: "int", nullable: false)
+                    TrackId = table.Column<int>(type: "int", nullable: true),
+                    OrderedTrackId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,7 +59,7 @@ namespace ProjectAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<float>(type: "real", nullable: false),
                     DateOfPurchase = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,7 +69,7 @@ namespace ProjectAPI.Migrations
                         column: x => x.UserId,
                         principalTable: "UsersDbSet",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -100,10 +101,10 @@ namespace ProjectAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<float>(type: "real", nullable: false),
-                    Cost = table.Column<double>(type: "float", nullable: false),
+                    Cost = table.Column<float>(type: "real", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    DiscountedByUser = table.Column<double>(type: "float", nullable: false),
-                    DiscountedByShop = table.Column<double>(type: "float", nullable: false),
+                    DiscountedByUser = table.Column<float>(type: "real", nullable: false),
+                    DiscountedByShop = table.Column<float>(type: "real", nullable: false),
                     Genre = table.Column<int>(type: "int", nullable: false),
                     AudioFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DemoFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -123,29 +124,77 @@ namespace ProjectAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderedTracksDbSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Time = table.Column<float>(type: "real", nullable: false),
+                    Cost = table.Column<float>(type: "real", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    DiscountedByUser = table.Column<float>(type: "real", nullable: false),
+                    DiscountedByShop = table.Column<float>(type: "real", nullable: false),
+                    Genre = table.Column<int>(type: "int", nullable: false),
+                    AudioFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DemoFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimesSold = table.Column<int>(type: "int", nullable: false),
+                    IsDiscounted = table.Column<bool>(type: "bit", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderedTracksDbSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_OrderedTracksDbSet_OrdersDbSet_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "OrdersDbSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AuthorsDbSet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TrackId = table.Column<int>(type: "int", nullable: false)
+                    TrackId = table.Column<int>(type: "int", nullable: true),
+                    OrderedTrackId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuthorsDbSet", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_AuthorsDbSet_OrderedTracksDbSet_OrderedTrackId",
+                        column: x => x.OrderedTrackId,
+                        principalTable: "OrderedTracksDbSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_AuthorsDbSet_TracksDbSet_TrackId",
                         column: x => x.TrackId,
                         principalTable: "TracksDbSet",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuthorsDbSet_OrderedTrackId",
+                table: "AuthorsDbSet",
+                column: "OrderedTrackId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuthorsDbSet_TrackId",
                 table: "AuthorsDbSet",
                 column: "TrackId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderedTracksDbSet_OrderId",
+                table: "OrderedTracksDbSet",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrdersDbSet_UserId",
@@ -172,16 +221,19 @@ namespace ProjectAPI.Migrations
                 name: "NewsletterEmailsDbSet");
 
             migrationBuilder.DropTable(
-                name: "OrdersDbSet");
-
-            migrationBuilder.DropTable(
                 name: "SessionDbSet");
 
             migrationBuilder.DropTable(
                 name: "TagsDbSet");
 
             migrationBuilder.DropTable(
+                name: "OrderedTracksDbSet");
+
+            migrationBuilder.DropTable(
                 name: "TracksDbSet");
+
+            migrationBuilder.DropTable(
+                name: "OrdersDbSet");
 
             migrationBuilder.DropTable(
                 name: "UsersDbSet");

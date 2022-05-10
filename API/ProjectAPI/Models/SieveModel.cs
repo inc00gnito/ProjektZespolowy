@@ -8,9 +8,9 @@ namespace ProjectAPI.Models
 {
     public class SieveModel
     {
-        public string? filter{ get; set; }
+        public string filter{ get; set; }
         public SortBy? sort{ get; set; }
-        public string? search{ get; set; }
+        public string search{ get; set; }
 
     }
 }

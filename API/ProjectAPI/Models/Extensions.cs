@@ -30,7 +30,7 @@ namespace ProjectAPI.Models
             };
         }
 
-        public static OrderedTracks AsNormal(this TrackDTO track)
+        public static OrderedTrack AsOrderedTrack(this TrackDTO track)
         {
 
             List<Author> Authors = new List<Author>();
@@ -43,7 +43,7 @@ namespace ProjectAPI.Models
                 Authors.Add(newAutor);
             }
 
-            return new OrderedTracks()
+            return new OrderedTrack()
             {
                 Title = track.Title,
                 Time = track.Time,

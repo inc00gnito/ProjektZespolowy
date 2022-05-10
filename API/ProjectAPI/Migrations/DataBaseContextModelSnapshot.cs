@@ -29,9 +29,6 @@ namespace ProjectAPI.Migrations
                     b.Property<int?>("OrderedTrackId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OrderedTracksId")
-                        .HasColumnType("int");
-
                     b.Property<string>("StageName")
                         .HasColumnType("nvarchar(max)");
 
@@ -40,7 +37,7 @@ namespace ProjectAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderedTracksId");
+                    b.HasIndex("OrderedTrackId");
 
                     b.HasIndex("TrackId");
 
@@ -85,7 +82,7 @@ namespace ProjectAPI.Migrations
                     b.ToTable("OrdersDbSet");
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.OrderedTracks", b =>
+            modelBuilder.Entity("ProjectAPI.Models.OrderedTrack", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -258,9 +255,9 @@ namespace ProjectAPI.Migrations
 
             modelBuilder.Entity("ProjectAPI.Models.Author", b =>
                 {
-                    b.HasOne("ProjectAPI.Models.OrderedTracks", null)
+                    b.HasOne("ProjectAPI.Models.OrderedTrack", null)
                         .WithMany("Authors")
-                        .HasForeignKey("OrderedTracksId");
+                        .HasForeignKey("OrderedTrackId");
 
                     b.HasOne("ProjectAPI.Models.Track", null)
                         .WithMany("Authors")
@@ -276,7 +273,7 @@ namespace ProjectAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.OrderedTracks", b =>
+            modelBuilder.Entity("ProjectAPI.Models.OrderedTrack", b =>
                 {
                     b.HasOne("ProjectAPI.Models.Order", null)
                         .WithMany("Tracks")
@@ -306,7 +303,7 @@ namespace ProjectAPI.Migrations
                     b.Navigation("Tracks");
                 });
 
-            modelBuilder.Entity("ProjectAPI.Models.OrderedTracks", b =>
+            modelBuilder.Entity("ProjectAPI.Models.OrderedTrack", b =>
                 {
                     b.Navigation("Authors");
                 });
