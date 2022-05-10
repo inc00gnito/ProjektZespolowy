@@ -42,6 +42,7 @@ export default class AuthenticationStore {
   };
 
   signIn = async (creds: ICreds) => {
+    console.log("store?");
     try {
       const { data } = await agent.Authentication.signin(creds);
       const { user, token } = data;
@@ -55,8 +56,16 @@ export default class AuthenticationStore {
       if (!axios.isAxiosError(err)) return;
       const status = err.response?.status;
       const response = err.response?.data;
-      if (status === 404 && response === "user doesnt exist")
-        // throw new Error({ type: "login", text: "User doesn't exist" });
+      if (status === 404 && response === "user doesnt exist") {
+        console.log("user doesn't exist");
+        return {
+          error: {
+            type: "login" as "login" | "password",
+            message: "User doesn't exist",
+          },
+        };
+      }
+      // throw new Error({ type: "login", text: "User doesn't exist" });
     }
   };
 

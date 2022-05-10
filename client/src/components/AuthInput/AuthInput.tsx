@@ -28,7 +28,11 @@ const AuthInput: React.FC<IProps> = ({
           })}
         />
       </label>
-      {error ? <p className={styles.error}>{error}</p> : null}
+      {error ? (
+        <p className={styles.error} data-testid="error">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 };
