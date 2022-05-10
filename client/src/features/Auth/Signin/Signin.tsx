@@ -10,8 +10,12 @@ import { useAuthenticationStore } from "app/provider/Provider";
 import { ICreds } from "app/model/authentication";
 
 const schema = yup.object({
-  login: yup.string().required("To pole jest wymagane"),
-  password: yup.string().required("To pole jest wymagane"),
+  login: yup.string().required("This field is required"),
+  password: yup
+    .string()
+    .required("This field is required")
+    .min(6, "Password should contains at least 6 characters")
+    .max(20, "Password cannot be longer than 20 characters"),
 });
 
 const Signin = () => {
@@ -19,6 +23,7 @@ const Signin = () => {
   const {
     handleSubmit,
     formState: { errors },
+    setError,
     register,
   } = useForm({
     resolver: yupResolver(schema),
@@ -28,9 +33,15 @@ const Signin = () => {
     },
   });
 
-  const onSubmit = (values: ICreds) => {
-    signIn(values);
+  const onSubmit = async (values: ICreds) => {
+    const resp = await signIn(values);
+    if (!resp?.error) return;
+    const { type, message } = resp.error;
+    setError(type, {
+      message,
+    });
   };
+
   return (
     <AuthenticationLayout>
       <div className={styles.container}>
@@ -55,6 +66,7 @@ const Signin = () => {
             <AuthInput
               label="Password"
               inputProps={register("password")}
+              type="password"
               error={errors.password?.message}
             />
           </div>
@@ -65,7 +77,11 @@ const Signin = () => {
           >
             Forgot Password?
           </button>
-          <button type="submit" className={styles.button}>
+          <button
+            type="submit"
+            className={styles.button}
+            data-testid="submit_button"
+          >
             Sign In
           </button>
         </form>

@@ -15,7 +15,15 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "experimentalDecorators": true,
+    "sourceMap": true
   },
-  "include": ["src", "./declaration.d.ts", "cypress"]
+  "include": ["src", "./declaration.d.ts", "cypress"],
+  "exclude": ["**/*.test.*"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
