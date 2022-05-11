@@ -17,7 +17,10 @@ const schema = yup.object({
     .string()
     .required("This field is requried")
     .email("Email is invalid"),
-  username: yup.string().required("This field is required"),
+  username: yup
+    .string()
+    .required("This field is required")
+    .matches(/^[^@]*$/, "Username cannot contains @ char"),
   password: yup.string().required("This field is requried"),
   confirmPassword: yup
     .string()
@@ -29,6 +32,7 @@ const Signup = () => {
   const {
     handleSubmit,
     formState: { errors },
+    setError,
     register,
   } = useForm({
     resolver: yupResolver(schema),
@@ -40,9 +44,14 @@ const Signup = () => {
     },
   });
 
-  const onSubmit = (values: IFormValues) => {
+  const onSubmit = async (values: IFormValues) => {
     const { confirmPassword, ...signupValues } = values;
-    signUp(signupValues);
+    const resp = await signUp(signupValues);
+    if (!resp?.error) return;
+    const { type, message } = resp.error;
+    setError(type, {
+      message,
+    });
   };
   return (
     <AuthenticationLayout>
@@ -83,7 +92,11 @@ const Signup = () => {
             />
           </div>
 
-          <button type="submit" className={styles.button}>
+          <button
+            type="submit"
+            className={styles.button}
+            data-testid="submitButton"
+          >
             Sign Up
           </button>
         </form>

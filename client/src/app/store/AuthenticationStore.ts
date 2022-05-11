@@ -57,15 +57,20 @@ export default class AuthenticationStore {
       const status = err.response?.status;
       const response = err.response?.data;
       if (status === 404 && response === "user doesnt exist") {
-        console.log("user doesn't exist");
         return {
           error: {
             type: "login" as "login" | "password",
             message: "User doesn't exist",
           },
         };
+      } else if (status === 400 && response === "invalid password") {
+        return {
+          error: {
+            type: "password" as "login" | "password",
+            message: "Password is invalid",
+          },
+        };
       }
-      // throw new Error({ type: "login", text: "User doesn't exist" });
     }
   };
 
@@ -80,8 +85,24 @@ export default class AuthenticationStore {
         this.closePopUp();
       });
     } catch (err) {
-      if (axios.isAxiosError(err)) return console.log("fds");
-      console.log("server error");
+      if (!axios.isAxiosError(err)) return;
+      const status = err.response?.status;
+      const response = err.response?.data;
+      if (status === 409 && response === "Username already exists") {
+        return {
+          error: {
+            type: "username" as "email" | "password" | "username",
+            message: "User already exists",
+          },
+        };
+      } else if (status === 409 && response === "Email already exists") {
+        return {
+          error: {
+            type: "email" as "email" | "password" | "username",
+            message: "User already exists",
+          },
+        };
+      }
     }
   };
 
