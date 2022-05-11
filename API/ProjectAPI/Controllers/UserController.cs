@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using AutoMapper;
 using ProjectAPI.Models.DTOs;
-
+using Newtonsoft.Json;
 
 namespace ProjectAPI.Controllers
 {
@@ -85,14 +85,14 @@ namespace ProjectAPI.Controllers
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Username must be between 3 and 30, first sign must be a letter, it can contain only letter and number ");
             }
             if (user == null)
             {
                 return NotFound("User not found");
             }
             if (_db.UsersDbSet.Any(u => u.Username == use.UserName))
-                return Conflict("Username already taken");
+                return Conflict("Username already exists");
             user.Username = use.UserName;
             _db.SaveChanges();
             return Ok();
@@ -113,7 +113,7 @@ namespace ProjectAPI.Controllers
                     return NotFound("User not found");
                 }
                 if (_db.UsersDbSet.Any(u => u.Email == use.Email))
-                    return Conflict("Email already taken");
+                    return Conflict("Email already exists");
                 user.Email = use.Email;
                 _db.SaveChanges();
                 return Ok();
@@ -131,7 +131,7 @@ namespace ProjectAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Password must be between 6 and 20");
             }
             if (user == null)
             {
@@ -201,9 +201,13 @@ namespace ProjectAPI.Controllers
         [HttpPost("SignUp")]
         public async Task<ActionResult> SignUp([FromBody] RegisterModel model)
         {
+            var errors = JsonConvert.SerializeObject(ModelState.Values
+                    .SelectMany(state => state.Errors)
+                    .Select(error => error.ErrorMessage)
+                    .ToString());
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest(errors);
             }
             byte[] newSalt = new byte[128 / 8];
 
@@ -224,16 +228,16 @@ namespace ProjectAPI.Controllers
             
 
             if(_db.UsersDbSet.Any(u => u.Username == model.Username))
-                return Conflict("user already exists");
+                return Conflict("Username already exists");
             
             if(_db.UsersDbSet.Any(u => u.Username == model.Email))
-                return Conflict("user already exists");
+                return Conflict("Username already exists");
 
             if(_db.UsersDbSet.Any(u => u.Email == model.Username))
-                return Conflict("user already exists");
+                return Conflict("Email already exists");
 
             if(_db.UsersDbSet.Any(u => u.Email == model.Email))
-                return Conflict("user already exists");
+                return Conflict("Email already exists");
 
             _db.UsersDbSet.Add(newUser);
             await _db.SaveChangesAsync();

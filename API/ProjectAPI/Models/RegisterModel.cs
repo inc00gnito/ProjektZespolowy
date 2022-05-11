@@ -8,13 +8,13 @@ namespace ProjectAPI.Models
 {
     public class RegisterModel
     {
-        [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9]{3,29}$",
+        [RegularExpression(@"^[a-zA-Z][a-zA-Z0-9]{3,30}$",
             ErrorMessage = "Username must be between 3 and 30, " +
             "first sign must be a letter, " +
-            "it can contain only letter and number ")]
+            "it can contain only letters and numbers ")]
         public string Username { get; set; }
         public string Email { get; set; }
-        [RegularExpression(@"^.{6,19}$",
+        [RegularExpression(@"^.{6,20}$",
             ErrorMessage = "Password must be between 6 and 20 ")]
         public string Password { get; set; }
     }
