@@ -15,7 +15,7 @@ const dbUser = {
   password: "Test123!",
 };
 
-class TrackStore {
+class AuthenticationStore {
   signIn = async (creds: ICreds) => {
     console.log(creds);
     if (creds.login !== dbUser.login)
@@ -25,11 +25,18 @@ class TrackStore {
           message: "User doesn't exist",
         },
       };
+    if (creds.password !== dbUser.password)
+      return {
+        error: {
+          type: "password" as "login" | "password",
+          message: "Password is invalid",
+        },
+      };
   };
 }
 
 const stores = {
-  authenticationStore: new TrackStore(),
+  authenticationStore: new AuthenticationStore(),
 };
 const Context = createContext(stores);
 
@@ -54,7 +61,7 @@ describe("form tests", () => {
     button = screen.getByTestId("submit_button");
   });
 
-  it("user exists in db, expect login field error", async () => {
+  it("user doesn't exist in db, expect login field error", async () => {
     const fakeUser = {
       email: faker.internet.email(),
       password: faker.internet.password(),
@@ -122,6 +129,18 @@ describe("form tests", () => {
     expect(error.textContent).toBe(
       "Password cannot be longer than 20 characters"
     );
+  });
+
+  it("login with correct login and incorrect email, expect password field error", async () => {
+    fireEvent.change(emailInput, { target: { value: dbUser.login } });
+    fireEvent.change(passwordInput, { target: { value: "invalid password" } });
+    fireEvent.click(button);
+
+    await new Promise((r) => setTimeout(r, 100));
+
+    const error = screen.getByTestId("error");
+
+    expect(error.textContent).toBe("Password is invalid");
   });
 
   it("correct data, no errors", async () => {
