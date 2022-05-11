@@ -139,8 +139,27 @@ namespace ProjectAPI.Controllers
             }
 
             user.HashedPassword = Hash(use.Password, user.Salt);
+
+            _db.SessionDbSet.Remove(session);
+            string token = CreateToken();
+
+            while (_db.SessionDbSet.Any(s => s.Token == token))
+            {
+                token = CreateToken();
+            }
+
+            var newsession = new Session
+            {
+                Token = token,
+                Expiration = DateTime.Now.AddHours(3),
+                User = user
+            };
+
+            _db.SessionDbSet.Add(newsession);
             _db.SaveChanges();
-            return Ok();
+            var newtoken = newsession.Token;
+
+            return Ok(newtoken);
         }
 
         [HttpPost("LogIn")]
