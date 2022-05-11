@@ -16,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit.Encodings;
 using ProjectAPI.Data;
 using AutoMapper;
+using Newtonsoft.Json;
 
 namespace ProjectAPI
 {
@@ -62,6 +63,16 @@ namespace ProjectAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProjectAPI", Version = "v1" });
             });
             services.AddAutoMapper(this.GetType().Assembly);
+            services.Configure<ApiBehaviorOptions>(o =>
+            {
+                o.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    string messages = string.Join("; ", actionContext.ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                    return new BadRequestObjectResult(messages);
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

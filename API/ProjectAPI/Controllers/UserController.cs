@@ -85,7 +85,7 @@ namespace ProjectAPI.Controllers
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
             if (!ModelState.IsValid)
             {
-                return BadRequest("Username must be between 3 and 30, first sign must be a letter, it can contain only letter and number ");
+                return BadRequest(ModelState);
             }
             if (user == null)
             {
@@ -131,7 +131,7 @@ namespace ProjectAPI.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest("Password must be between 6 and 20");
+                return BadRequest(ModelState);
             }
             if (user == null)
             {
@@ -201,13 +201,9 @@ namespace ProjectAPI.Controllers
         [HttpPost("SignUp")]
         public async Task<ActionResult> SignUp([FromBody] RegisterModel model)
         {
-            var errors = JsonConvert.SerializeObject(ModelState.Values
-                    .SelectMany(state => state.Errors)
-                    .Select(error => error.ErrorMessage)
-                    .ToString());
             if (!ModelState.IsValid)
             {
-                return BadRequest(errors);
+                return BadRequest(ModelState);
             }
             byte[] newSalt = new byte[128 / 8];
 
