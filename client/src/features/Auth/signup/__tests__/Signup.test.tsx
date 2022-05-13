@@ -1,7 +1,9 @@
 import Signup from "../Signup";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { ISignup } from "app/model/authentication";
 import { createContext, useContext } from "react";
+import { act } from "react-dom/test-utils";
+import faker from "@faker-js/faker";
 
 const dbUser = {
   username: "test",
@@ -10,7 +12,24 @@ const dbUser = {
 };
 
 class AuthenticationStore {
-  signup = async (creds: ISignup) => {};
+  signUp = async (creds: ISignup) => {
+    if (creds.email === dbUser.email) {
+      return {
+        error: {
+          type: "email" as "email" | "password" | "username",
+          message: "User already exists",
+        },
+      };
+    }
+    if (creds.username === dbUser.username) {
+      return {
+        error: {
+          type: "username" as "email" | "password" | "username",
+          message: "User already exists",
+        },
+      };
+    }
+  };
 }
 
 const stores = {
@@ -40,6 +59,7 @@ describe("form test", () => {
 
   beforeEach(() => {
     render(<Signup />);
+
     emailInput = screen.getByLabelText("E-mail*");
     usernameInput = screen.getByLabelText("Username*");
     passwordInput = screen.getByLabelText("Password*");
@@ -48,20 +68,86 @@ describe("form test", () => {
   });
 
   it("empty form, expect email, username, password field errors", async () => {
-    const emptyUser = { email: "", username: "", password: "" };
-    fireEvent.change(emailInput, emptyUser.email);
-    fireEvent.change(usernameInput, emptyUser.username);
-    fireEvent.change(passwordInput, emptyUser.password);
-    fireEvent.change(confirmPasswordInput, emptyUser.password);
+    const newUser = { email: "", username: "", password: "" };
 
+    fireEvent.change(emailInput, { target: { value: newUser.email } });
+    fireEvent.change(usernameInput, { target: { value: newUser.username } });
+    fireEvent.change(passwordInput, { target: { value: newUser.password } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: newUser.password },
+    });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
-    const errors = screen.getAllByLabelText("error");
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
+    const errors = screen.getAllByTestId("error");
 
     expect(errors).toHaveLength(3);
     errors.map((error) =>
       expect(error.textContent).toBe("This field is required")
     );
+  });
+
+  it("username with @ character, invalid email, confirm password, expect email, username, confirm password field errors", async () => {
+    const newUser = {
+      email: "dsa",
+      username: "dfdd@ds",
+      password: "Test123!",
+      confirmPassword: "dfsfds",
+    };
+
+    fireEvent.change(emailInput, { target: { value: newUser.email } });
+    fireEvent.change(usernameInput, { target: { value: newUser.username } });
+    fireEvent.change(passwordInput, { target: { value: newUser.password } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: newUser.confirmPassword },
+    });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
+    const errors = screen.getAllByTestId("error");
+    expect(errors).toHaveLength(3);
+    const expectedErors = [
+      "Email is invalid",
+      "Username cannot contains @ char",
+      "Passwords don't match",
+    ];
+    errors.forEach((error, index) =>
+      expect(error.textContent).toBe(expectedErors[index])
+    );
+  });
+  it("signup with existing email, username data, expect email, username field errors", async () => {
+    const newUser = {
+      email: faker.internet.email(),
+      username: faker.internet.userName(),
+      password: "Test123!",
+    };
+
+    fireEvent.change(emailInput, { target: { value: dbUser.email } });
+    fireEvent.change(usernameInput, { target: { value: newUser.username } });
+    fireEvent.change(passwordInput, { target: { value: newUser.password } });
+    fireEvent.change(confirmPasswordInput, {
+      target: { value: newUser.password },
+    });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
+    let error = screen.getByTestId("error");
+    expect(error.textContent).toBe("User already exists");
+
+    fireEvent.change(emailInput, { target: { value: newUser.email } });
+    fireEvent.change(usernameInput, { target: { value: dbUser.username } });
+    fireEvent.click(button);
+
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
+    error = screen.getByTestId("error");
+    expect(error.textContent).toBe("User already exists");
   });
 });

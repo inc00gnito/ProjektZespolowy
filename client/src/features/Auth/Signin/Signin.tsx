@@ -49,9 +49,12 @@ const Signin = () => {
           <h1 className={styles.title}>Sign in</h1>
           <p className={styles.helper}>
             Don't have an account?{" "}
-            <a className={styles.link} onClick={() => openPopUp("signup")}>
+            <button
+              className={styles.changeForm}
+              onClick={() => openPopUp("signup")}
+            >
               Sign up
-            </a>
+            </button>
           </p>
         </div>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

@@ -11,11 +11,14 @@
     .helper {
       margin-top: 0.8rem;
       text-align: center;
-      .link {
+      .changeForm {
         color: white;
         text-decoration: underline;
         cursor: pointer;
         font-weight: bold;
+        border: none;
+        background-color: transparent;
+        font-size: 1em;
       }
     }
   }
