@@ -5,6 +5,7 @@ import {
   act,
   cleanup,
   screen,
+  waitFor,
 } from "@testing-library/react";
 import { faker } from "@faker-js/faker";
 import { createContext, useContext } from "react";
@@ -17,7 +18,6 @@ const dbUser = {
 
 class AuthenticationStore {
   signIn = async (creds: ICreds) => {
-    console.log(creds);
     if (creds.login !== dbUser.login)
       return {
         error: {
@@ -71,7 +71,9 @@ describe("form tests", () => {
     fireEvent.change(passwordInput, { target: { value: fakeUser.password } });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
 
     const error = screen.getByTestId("error");
 
@@ -88,7 +90,9 @@ describe("form tests", () => {
     fireEvent.change(passwordInput, { target: { value: fakeData.password } });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
     const error = screen.getAllByTestId("error");
 
     expect(error[0].textContent).toBe("This field is required");
@@ -105,7 +109,9 @@ describe("form tests", () => {
     fireEvent.change(passwordInput, { target: { value: fakeData.password } });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
     const error = screen.getByTestId("error");
 
     expect(error.textContent).toBe(
@@ -123,7 +129,9 @@ describe("form tests", () => {
     fireEvent.change(passwordInput, { target: { value: fakeData.password } });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
     const error = screen.getByTestId("error");
 
     expect(error.textContent).toBe(
@@ -136,7 +144,9 @@ describe("form tests", () => {
     fireEvent.change(passwordInput, { target: { value: "invalid password" } });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
 
     const error = screen.getByTestId("error");
 
@@ -148,7 +158,9 @@ describe("form tests", () => {
     fireEvent.change(passwordInput, { target: { value: dbUser.password } });
     fireEvent.click(button);
 
-    await new Promise((r) => setTimeout(r, 100));
+    await waitFor(() => {
+      new Promise((r) => setTimeout(r, 100));
+    });
 
     expect(screen.queryByTestId("error")).toBeNull();
   });

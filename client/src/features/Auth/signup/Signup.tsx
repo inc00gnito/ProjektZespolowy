@@ -15,13 +15,13 @@ interface IFormValues extends ISignup {
 const schema = yup.object({
   email: yup
     .string()
-    .required("This field is requried")
+    .required("This field is required")
     .email("Email is invalid"),
   username: yup
     .string()
     .required("This field is required")
     .matches(/^[^@]*$/, "Username cannot contains @ char"),
-  password: yup.string().required("This field is requried"),
+  password: yup.string().required("This field is required"),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords don't match"),
@@ -102,9 +102,12 @@ const Signup = () => {
         </form>
         <p className={styles.helper}>
           Already have an account?{" "}
-          <a className={styles.link} onClick={() => openPopUp("signin")}>
+          <button
+            className={styles.changeForm}
+            onClick={() => openPopUp("signin")}
+          >
             Sign In
-          </a>
+          </button>
         </p>
       </div>
     </AuthenticationLayout>
