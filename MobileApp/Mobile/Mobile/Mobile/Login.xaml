@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Mobile.Custom_Renderer"
              x:Class="Mobile.Login"
              BackgroundColor="Black"
              Title="Login">
@@ -38,7 +38,7 @@
             
             <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
                 <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                    <Entry Placeholder="E-mail or username" FontSize="25"/>
+                    <local:BorderlessEntry Placeholder="E-mail or username" FontSize="25"/>
                 </Frame>
             </Frame>
             <Label Text="Password *"
@@ -48,7 +48,7 @@
 
             <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
                 <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                    <Entry Placeholder="Password" FontSize="25" IsPassword="True"/>
+                    <local:BorderlessEntry Placeholder="Password" FontSize="25" IsPassword="True"/>
                 </Frame>
             </Frame>
 
@@ -67,10 +67,10 @@
                     CornerRadius="40"
                     Text="Sign in"
                     TextColor="White"
-                    FontAttributes="Bold"
                     FontSize="25"
                     Margin="30,30,30,0"
-                    Clicked="SignInClicked"/>
+                    Clicked="SignInClicked" 
+                    FontAttributes="Bold"/>
             
 
         </StackLayout>

@@ -8,7 +8,7 @@
         <ScrollView>
             
         <StackLayout>
-            <Button Text="Logowanko bzykanko" HorizontalOptions="Center" Margin="0,15,0,15"  
+            <Button Text="Logowanie" HorizontalOptions="Center" Margin="0,15,0,15"  
                 BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="LoginClicked" >
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">

@@ -7,6 +7,7 @@ using Mobile;
 using AndroidX.AppCompat.Widget;
 using Mobile.Droid;
 
+
 [assembly: ExportRenderer(typeof(Dropdown), typeof(DropdownRenderer))]
 namespace Mobile.Droid
 {
