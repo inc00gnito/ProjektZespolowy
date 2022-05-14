@@ -14,9 +14,11 @@
 
                         <StackLayout 
                                 Grid.Column="1"
-                                Grid.Row="1"
+                                Grid.Row="3"
                                 Grid.ColumnSpan="4"
-                                Margin="0,10,0,0">
+                                Margin="0,10,0,0"
+                                >
+                            
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition>

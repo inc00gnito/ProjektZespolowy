@@ -16,6 +16,13 @@ namespace Mobile
         {
             InitializeComponent();
         }
+        private void LoginClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+
+            Navigation.PushAsync(new Login());
+        }
         private void AboutUsClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;

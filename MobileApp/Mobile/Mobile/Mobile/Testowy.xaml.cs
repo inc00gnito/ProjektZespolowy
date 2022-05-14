@@ -43,6 +43,7 @@ namespace Mobile
 
             LoadData();
         }
+       
         public async void LoadData()
         {
             var content = "";

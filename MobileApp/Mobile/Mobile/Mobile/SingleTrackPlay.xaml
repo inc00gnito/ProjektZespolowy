@@ -23,7 +23,7 @@
                 </ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            
+
 
             <Image 
                         Grid.Row="2"
@@ -34,23 +34,23 @@
                         Aspect="AspectFill">
             </Image>
 
-            
+
             <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
-                    
+
                     <ColumnDefinition>
                     </ColumnDefinition>
-                    
-                    <ColumnDefinition>
-                    </ColumnDefinition>
-                    
+
                     <ColumnDefinition>
                     </ColumnDefinition>
 
                     <ColumnDefinition>
                     </ColumnDefinition>
 
-                    
+                    <ColumnDefinition>
+                    </ColumnDefinition>
+
+
 
                 </Grid.ColumnDefinitions>
 
@@ -82,7 +82,7 @@
                     Text="BUY"
                     FontSize="7"
                     TextColor="Black">
-                    
+
                 </Button>
                 <!--<Label BackgroundColor="blue" 
                        TextColor="White"
@@ -102,14 +102,13 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-              
 
-                <Label Grid.Row="2" 
+                
+                <Slider Grid.Row="2" 
                        Grid.ColumnSpan="6"
-                       Text=" . . . . . . . . . . . . . . . slider . . . . . . . . . . . . . . . . " 
-                       TextColor="white"
+                       MinimumTrackColor="White" MaximumTrackColor="Gray"
                        VerticalOptions="Center"
-                       ></Label>
+                       />
 
                 <Grid Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalOptions="Start">
                     <Grid.ColumnDefinitions>
@@ -122,50 +121,41 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
-                        
+
                     </Grid.RowDefinitions>
-                    
-                    <Button 
-                    Text="Play" 
-                    Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Grid.Column="0"
-                    ></Button>
 
                     <Button 
-                    Text="Forward" 
-                    Grid.Row="0"
-                        Grid.RowSpan="3"
-                    Grid.Column="1"
-                    ></Button>
-                    <Button 
-                    Text="Forward" 
-                    Grid.Row="0"
-                    Grid.RowSpan="3"
-                    Grid.Column="2"
-                    ></Button>
-                    <Button 
-                    Text="Forward" 
+                        Text="Play" 
                         Grid.Row="0"
-                    Grid.RowSpan="3"
-                        Grid.Column="3"
-                    ></Button>
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                    />
+
                     <Button 
-                    Text="Forward" 
-
-                    Grid.Column="4"
+                        Text="Forward" 
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="1"
+                    />
+                    <Button 
+                        Text="Forward" 
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="2"
+                    />
+                    <Button 
+                        Text="Forward" 
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="3"
+                    />
+                    <Button 
+                        Text="Forward" 
+                        Grid.Column="4"
                         Grid.Row="1"
-                    ></Button>
-            
-
+                    />
                 </Grid>
-
-                
             </Grid>
-            
-
         </Grid>
-        
     </ContentPage.Content>
-    
 </ContentPage>

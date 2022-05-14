@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Login"
+             BackgroundColor="Black"
+             Title="Login">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <Label Text="Sign in"
+                   TextColor="#FF0DBF"
+                   FontAttributes="Bold"
+                   FontSize="45"
+                   HorizontalOptions="CenterAndExpand"
+                   />
+
+            <Label Text="Dont't have an account?"
+                   TextColor="White"
+                   FontSize="25"
+                   HorizontalOptions="Center"/>
+
+            <Label Text="Sign up"
+                   TextColor="White"
+                   FontSize="25"
+                   HorizontalOptions="CenterAndExpand"
+                   TextDecorations="Underline" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SignUpClicked" />
+                    </Label.GestureRecognizers>
+
+            </Label>
+            
+
+            <Label Text="E-mail or username *"
+                   TextColor="White"
+                   FontSize="25"
+                   Margin="30,30,0,0"/>
+            
+            <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
+                <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
+                    <Entry Placeholder="E-mail or username" FontSize="25"/>
+                </Frame>
+            </Frame>
+            <Label Text="Password *"
+                   TextColor="White"
+                   FontSize="25"
+                   Margin="30,30,0,0"/>
+
+            <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
+                <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
+                    <Entry Placeholder="Password" FontSize="25" IsPassword="True"/>
+                </Frame>
+            </Frame>
+
+            <Label Text="Forgot Password?"
+                   TextColor="White"
+                   FontSize="20"
+                   HorizontalOptions="CenterAndExpand"
+                   TextDecorations="Underline" >
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ForgotPasswordClicked" />
+                    </Label.GestureRecognizers>
+
+            </Label>
+            
+            <Button BackgroundColor="#FF0DBF" 
+                    CornerRadius="40"
+                    Text="Sign in"
+                    TextColor="White"
+                    FontAttributes="Bold"
+                    FontSize="25"
+                    Margin="30,30,30,0"
+                    Clicked="SignInClicked"/>
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

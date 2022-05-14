@@ -2,12 +2,31 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mobile.Menu"
-             BackgroundColor="Black">
+             BackgroundColor="Black"
+             >
     <ContentPage.Content>
         <ScrollView>
             
         <StackLayout>
+            <Button Text="Logowanko bzykanko" HorizontalOptions="Center" Margin="0,15,0,15"  
+                BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="LoginClicked" >
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="White" />
+                            </VisualState.Setters>
+                    </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="TextColor" Value="#FF0DBF" />
+                            </VisualState.Setters>
+                        </VisualState>
+                     </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Button>
             <Image Source="track_lance.png"/>
+
             <Button Text="Tracks" HorizontalOptions="Center" Margin="0,15,0,15"  
                     BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="TracksClicked" >
                 <VisualStateManager.VisualStateGroups>
@@ -94,7 +113,7 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
             </Button>
-            <Button Text="Testowanko" HorizontalOptions="Center" Margin="0,15,0,15" 
+            <Button Text="Testowanko" HorizontalOptions="Center" Margin="0,15,0,40" 
                     BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="TestowankoClicked">
                 <VisualStateManager.VisualStateGroups>
                     <VisualStateGroup x:Name="CommonStates">
@@ -111,8 +130,8 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
             </Button>
-
-        </StackLayout>
+               
+            </StackLayout>
         </ScrollView>
 
     </ContentPage.Content>

@@ -90,9 +90,13 @@ namespace Mobile
         }
         private void PlayTrack(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+          
 
 
+            Navigation.PushAsync(new SingleTrackPlay());
+        }
+        private void traczekClicked(object sender, EventArgs e)
+        {
             Navigation.PushAsync(new SingleTrackPlay());
         }
     }
