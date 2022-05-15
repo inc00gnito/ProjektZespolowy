@@ -18,11 +18,11 @@ const TrackList = () => {
           <span className={styles.name}>TIME</span>
         </div>
       </div>
-      <div>
+      <ul data-testid="track_list">
         {tracks.map((track) => (
-          <TrackListItem track={track} />
+          <TrackListItem track={track} key={track.id} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

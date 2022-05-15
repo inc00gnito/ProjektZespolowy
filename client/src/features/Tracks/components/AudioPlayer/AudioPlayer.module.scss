@@ -71,7 +71,7 @@
         }
       }
       .info {
-        max-width: 7rem;
+        max-width: 9rem;
 
         @media (max-width: 480px) {
           & {
@@ -90,6 +90,7 @@
           font-weight: bold;
           font-size: 1rem;
           width: 100%;
+          width: 9rem;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
@@ -177,6 +178,8 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          border: none;
+          font-size: 1em;
           .icon {
             font-size: 1.2rem;
             color: black;

@@ -20,5 +20,7 @@ module.exports = {
       "<rootDir>/jest-addons/file-mock.js",
   },
   moduleDirectories: ["node_modules", "src"],
+  moduleFileExtensions: ["tsx"],
   resolver: "<rootDir>/jest-addons/resolver.js",
+  roots: ["<rootDir>/src"],
 };

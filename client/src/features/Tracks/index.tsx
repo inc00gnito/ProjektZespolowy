@@ -6,9 +6,10 @@ import TrackList from "./components/TrackList/TrackList";
 import Filters from "./components/Filters/Filters";
 import Header from "./components/Header/Header";
 import { useTrackStore } from "app/provider/Provider";
+import { observer } from "mobx-react-lite";
 
 const Tracks = () => {
-  const { loadTracks } = useTrackStore();
+  const { loadTracks, playerAudio } = useTrackStore();
 
   useEffect(() => {
     loadTracks();
@@ -26,13 +27,15 @@ const Tracks = () => {
           <div className={styles.trackList}>
             <TrackList />
           </div>
-          <div className={styles.audioPlayer}>
-            <AudioPlayer />
-          </div>
+          {playerAudio ? (
+            <div className={styles.audioPlayer}>
+              <AudioPlayer />
+            </div>
+          ) : null}
         </div>
       </div>
     </HomeLayout>
   );
 };
 
-export default Tracks;
+export default observer(Tracks);

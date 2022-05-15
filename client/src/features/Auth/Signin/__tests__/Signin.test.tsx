@@ -11,28 +11,8 @@ import { faker } from "@faker-js/faker";
 import { createContext, useContext } from "react";
 import { ICreds } from "app/model/authentication";
 
-const dbUser = {
-  login: "test",
-  password: "Test123!",
-};
-
 class AuthenticationStore {
-  signIn = async (creds: ICreds) => {
-    if (creds.login !== dbUser.login)
-      return {
-        error: {
-          type: "login" as "login" | "password",
-          message: "User doesn't exist",
-        },
-      };
-    if (creds.password !== dbUser.password)
-      return {
-        error: {
-          type: "password" as "login" | "password",
-          message: "Password is invalid",
-        },
-      };
-  };
+  signIn = async (creds: ICreds) => {};
 }
 
 const stores = {
@@ -59,25 +39,6 @@ describe("form tests", () => {
     emailInput = screen.getByLabelText(/e-mail or username*/i);
     passwordInput = screen.getByLabelText(/password/i);
     button = screen.getByTestId("submit_button");
-  });
-
-  it("user doesn't exist in db, expect login field error", async () => {
-    const fakeUser = {
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    };
-
-    fireEvent.change(emailInput, { target: { value: fakeUser.email } });
-    fireEvent.change(passwordInput, { target: { value: fakeUser.password } });
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      new Promise((r) => setTimeout(r, 100));
-    });
-
-    const error = screen.getByTestId("error");
-
-    expect(error.textContent).toBe("User doesn't exist");
   });
 
   it("empty form, expect login, password field errors", async () => {
@@ -139,23 +100,11 @@ describe("form tests", () => {
     );
   });
 
-  it("login with correct login and incorrect email, expect password field error", async () => {
-    fireEvent.change(emailInput, { target: { value: dbUser.login } });
-    fireEvent.change(passwordInput, { target: { value: "invalid password" } });
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      new Promise((r) => setTimeout(r, 100));
-    });
-
-    const error = screen.getByTestId("error");
-
-    expect(error.textContent).toBe("Password is invalid");
-  });
-
   it("correct data, no errors", async () => {
-    fireEvent.change(emailInput, { target: { value: dbUser.login } });
-    fireEvent.change(passwordInput, { target: { value: dbUser.password } });
+    fireEvent.change(emailInput, { target: { value: faker.internet.email() } });
+    fireEvent.change(passwordInput, {
+      target: { value: faker.internet.password() },
+    });
     fireEvent.click(button);
 
     await waitFor(() => {
