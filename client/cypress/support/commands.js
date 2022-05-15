@@ -27,8 +27,27 @@ import { faker } from "@faker-js/faker";
 
 Cypress.Commands.add("generateFixture", () => {
   cy.writeFile("cypress/fixtures/user.json", {
-    username: faker.random.word(10).slice(0, 13),
+    username: faker.name.firstName().slice(0, 13),
     email: faker.internet.email(),
     password: "Test123!",
   });
+});
+
+Cypress.Commands.add("login", () => {
+  const user = {
+    login: "test",
+    password: "Test123!",
+  };
+  cy.viewport(1920, 1080);
+  cy.visit("http://localhost:3000/");
+
+  cy.get("nav").contains("log in", { matchCase: false }).click();
+  cy.get("section[aria-labelledby=authDialog]").should("exist");
+  cy.get("section[aria-labelledby=authDialog]")
+    .find("input[name=login]")
+    .type(user.login);
+  cy.get("section[aria-labelledby=authDialog]")
+    .find("input[name=password]")
+    .type(user.password);
+  cy.get("form").first().submit();
 });

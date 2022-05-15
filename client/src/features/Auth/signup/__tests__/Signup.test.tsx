@@ -5,31 +5,8 @@ import { createContext, useContext } from "react";
 import { act } from "react-dom/test-utils";
 import faker from "@faker-js/faker";
 
-const dbUser = {
-  username: "test",
-  email: "test@gmail.com",
-  password: "Test123!",
-};
-
 class AuthenticationStore {
-  signUp = async (creds: ISignup) => {
-    if (creds.email === dbUser.email) {
-      return {
-        error: {
-          type: "email" as "email" | "password" | "username",
-          message: "User already exists",
-        },
-      };
-    }
-    if (creds.username === dbUser.username) {
-      return {
-        error: {
-          type: "username" as "email" | "password" | "username",
-          message: "User already exists",
-        },
-      };
-    }
-  };
+  signUp = async (creds: ISignup) => {};
 }
 
 const stores = {
@@ -119,14 +96,14 @@ describe("form test", () => {
       expect(error.textContent).toBe(expectedErors[index])
     );
   });
-  it("signup with existing email, username data, expect email, username field errors", async () => {
+  it("valid form, expect no error", async () => {
     const newUser = {
       email: faker.internet.email(),
       username: faker.internet.userName(),
       password: "Test123!",
     };
 
-    fireEvent.change(emailInput, { target: { value: dbUser.email } });
+    fireEvent.change(emailInput, { target: { value: newUser.email } });
     fireEvent.change(usernameInput, { target: { value: newUser.username } });
     fireEvent.change(passwordInput, { target: { value: newUser.password } });
     fireEvent.change(confirmPasswordInput, {
@@ -137,17 +114,7 @@ describe("form test", () => {
     await waitFor(() => {
       new Promise((r) => setTimeout(r, 100));
     });
-    let error = screen.getByTestId("error");
-    expect(error.textContent).toBe("User already exists");
-
-    fireEvent.change(emailInput, { target: { value: newUser.email } });
-    fireEvent.change(usernameInput, { target: { value: dbUser.username } });
-    fireEvent.click(button);
-
-    await waitFor(() => {
-      new Promise((r) => setTimeout(r, 100));
-    });
-    error = screen.getByTestId("error");
-    expect(error.textContent).toBe("User already exists");
+    let error = screen.queryByTestId("error");
+    expect(error).toBeNull();
   });
 });

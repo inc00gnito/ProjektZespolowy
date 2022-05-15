@@ -4,13 +4,12 @@ import { makeAutoObservable, runInAction } from "mobx";
 import React from "react";
 import axios, { AxiosError } from "axios";
 import { IUser } from "app/model/User";
-import { removeToken, saveToken } from "app/utils/Token";
+import { getToken, removeToken, saveToken } from "app/utils/Token";
 
 export default class AuthenticationStore {
   constructor() {
     makeAutoObservable(this);
-
-    this.verifyUser();
+    if (getToken()) this.verifyUser();
   }
 
   isAuthenticated = false;
@@ -38,6 +37,7 @@ export default class AuthenticationStore {
       this.isAuthenticated = true;
     } catch (error) {
       this.isAuthenticated = false;
+      removeToken();
     }
   };
 
@@ -107,11 +107,11 @@ export default class AuthenticationStore {
   };
 
   logout = async () => {
-    try {
-      await agent.Authentication.logout();
-    } catch (err) {}
     removeToken();
     this.user = null;
     this.isAuthenticated = false;
+    try {
+      await agent.Authentication.logout();
+    } catch (err) {}
   };
 }

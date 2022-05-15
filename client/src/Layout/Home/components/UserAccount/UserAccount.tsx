@@ -19,14 +19,21 @@ const UserAccount = () => {
   };
   return (
     <div className={styles.profile}>
-      <div className={styles.icon} onClick={toggleMenu}>
+      <button
+        className={styles.icon}
+        onClick={toggleMenu}
+        tabIndex={0}
+        type="button"
+        aria-haspopup="true"
+        aria-label="Account settings"
+      >
         <span className={styles.text}>A</span>
-      </div>
+      </button>
       {isMenuOpen ? (
-        <div className={styles.menuContainer}>
+        <div className={styles.menuContainer} tabIndex={-1}>
           <div className={styles.overlay} onClick={closeMenu} />
           <div className={styles.menu}>
-            <ul className={styles.options}>
+            <ul className={styles.options} role="menu" tabIndex={-1}>
               <li className={styles.item}>
                 <Link to="/profile" className={styles.itemLink}>
                   <div className={styles.iconContainer}>

@@ -8,38 +8,12 @@ import { FaPause } from "react-icons/fa";
 import WhatIsLove from "assets/whatislove.webp";
 import Flaming from "assets/flaming.jpg";
 import cx from "classnames";
-const mp3List = [
-  {
-    id: 1,
-    name: "What is love",
-    author: "PIG",
-    mp3: "https://img-9gag-fun.9cache.com/photo/a31GEQN_460svav1.mp4",
-    demo: "https://img-9gag-fun.9cache.com/photo/a31GEQN_460svav1.mp4",
-    picture: WhatIsLove,
-    price: 15,
-  },
-  {
-    id: 2,
-    name: "Flamingo dance",
-    author: "flaming",
-    mp3: "https://img-9gag-fun.9cache.com/photo/a810rbZ_460svav1.mp4",
-    demo: "https://img-9gag-fun.9cache.com/photo/a810rbZ_460svav1.mp4",
-    picture: Flaming,
-    price: 20,
-  },
-  {
-    id: 3,
-    name: "BUCH jak gorąco",
-    author: "Młoda",
-    mp3: "https://res.cloudinary.com/trackslance/video/upload/v1649794978/special%20track/Chad_ls5wcg.wav",
-    demo: "https://res.cloudinary.com/trackslance/video/upload/v1649794978/special%20track/Chad_ls5wcg.wav",
-    picture:
-      "https://res.cloudinary.com/trackslance/image/upload/v1649794955/special%20track/k1_dk4pg2.jpg",
-    price: 50,
-  },
-];
+import { useTrackStore } from "app/provider/Provider";
+import { observer } from "mobx-react-lite";
 
 const AudioPlayer = () => {
+  const { playerAudio, audioPreviousTrack, audioNextTrack } = useTrackStore();
+
   const [volume, setVolume] = useState("20");
   const [timeTracker, setTimeTrakcer] = useState("0");
   const audioPlayer = useRef<HTMLAudioElement>();
@@ -58,21 +32,6 @@ const AudioPlayer = () => {
       setPlaying(false);
       audioPlayer.current.pause();
     }
-  };
-
-  const next = () => {
-    let newTrackNumber = trackNumber;
-    if (trackNumber < mp3List.length - 1) newTrackNumber = trackNumber + 1;
-    else newTrackNumber = 0;
-    setTrackNumber(newTrackNumber);
-  };
-
-  const previous = () => {
-    let newTrackNumber = trackNumber;
-    if (trackNumber < 1) {
-      newTrackNumber = mp3List.length - 1;
-    } else newTrackNumber = trackNumber - 1;
-    setTrackNumber(newTrackNumber);
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,74 +69,77 @@ const AudioPlayer = () => {
 
   useEffect(() => {
     if (isPlaying) play();
-  }, [trackNumber]);
+  }, [playerAudio]);
 
   useEffect(() => {
     if (audioPlayer.current) {
       audioPlayer.current.volume = 0.2;
+      play();
     }
   }, []);
 
-  const style = {
-    menuList: (base: any) => ({
-      ...base,
-  
-      "::-webkit-scrollbar": {
-        width: "4px",
-        height: "0px",
-      },
-      "::-webkit-scrollbar-track": {
-        background: "#f1f1f1"
-      },
-      "::-webkit-scrollbar-thumb": {
-        background: "#888"
-      },
-      "::-webkit-scrollbar-thumb:hover": {
-        background: "#555"
-      }
-    })
-  }
-  
-
   return (
-    <div className={styles.container}>
+    <div className={styles.container} aria-label="Audio Player" role="region">
       <audio
-        src={mp3List[trackNumber].mp3}
+        src={playerAudio!.audioFile}
         ref={audioPlayer as any}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleEndSong}
+        data-testid="audio"
+        id="audio1"
       ></audio>
       <div className={styles.content}>
         <div className={styles.track}>
           <div className={styles.photo}>
             <img
-              src={mp3List[trackNumber].picture}
+              src={playerAudio!.imgFile}
               alt="track"
               className={styles.img}
             />
           </div>
           <div className={styles.info}>
-            <p className={styles.title}>{mp3List[trackNumber].name}</p>
-            <p className={styles.author}>{mp3List[trackNumber].author}</p>
+            <p className={styles.title} data-testid="song_title">
+              {playerAudio!.title}
+            </p>
+            <p className={styles.author}>{playerAudio!.authors.join(" ")}</p>
           </div>
           <button className={styles.button}>
-            ${mp3List[trackNumber].price}.00
+            ${playerAudio!.cost}.00
             <AiOutlineShopping className={styles.icon} />
           </button>
         </div>
         <div className={styles.controls}>
           <div className={styles.buttons}>
-            <div className={styles.previous} onClick={previous}>
+            <div
+              className={styles.previous}
+              onClick={audioPreviousTrack}
+              data-testid="play_previous"
+            >
               <BsFillSkipStartFill className={styles.icon} />
             </div>
-            <div className={styles.play} onClick={isPlaying ? pause : play}>
+            <button
+              className={styles.play}
+              onClick={isPlaying ? pause : play}
+              data-testid="play_button"
+              aria-controls="audio1"
+            >
               {isPlaying ? (
-                <FaPause className={cx(styles.icon, styles.iconSmall)} />
+                <FaPause
+                  className={cx(styles.icon, styles.iconSmall)}
+                  data-testid="play_button_pause-icon"
+                />
               ) : (
-                <IoPlay className={styles.icon} />
+                <IoPlay
+                  className={styles.icon}
+                  data-testid="play_button_play-icon"
+                />
               )}
-            </div>
-            <div className={styles.next} onClick={next}>
+            </button>
+            <div
+              className={styles.next}
+              onClick={audioNextTrack}
+              data-testid="play_next"
+            >
               <BsFillSkipEndFill className={styles.icon} />
             </div>
           </div>
@@ -211,14 +173,20 @@ const AudioPlayer = () => {
               }
               min={0}
               max={100}
+              data-testid="volume"
               value={volume}
+              aria-valuetext="seek audio bar"
+              aria-valuemax={100}
+              aria-valuemin={0}
+              ria-valuenow={volume}
+              role="slider"
               onChange={handleVolumeChange}
             />
           </div>
         </div>
         <div className={styles.mobile}>
           <button className={styles.button}>
-            ${mp3List[trackNumber].price}.00
+            ${playerAudio!.cost}.00
             <AiOutlineShopping className={styles.icon} />
           </button>
         </div>
@@ -227,4 +195,4 @@ const AudioPlayer = () => {
   );
 };
 
-export default AudioPlayer;
+export default observer(AudioPlayer);
