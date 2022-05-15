@@ -13,7 +13,10 @@ namespace Mobile
             InitializeComponent();
             
         }
-      
+        private void MenuClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new Menu());
+        }
 
     }
 }

@@ -4,6 +4,17 @@
              x:Class="Mobile.Menu"
              BackgroundColor="Black"
              >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="TRACKSLANCE."
+                     Priority="0"/>
+        <ToolbarItem x:Name="MenuClick"
+                     IconImageSource="menu.png"
+                     Priority="1"
+                     Clicked="MenuClicked"/>
+        <ToolbarItem IconImageSource="search.png"
+                     Order="Primary"
+                     Priority="2"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <ScrollView>
             
@@ -113,23 +124,7 @@
                     </VisualStateGroup>
                 </VisualStateManager.VisualStateGroups>
             </Button>
-            <Button Text="Testowanko" HorizontalOptions="Center" Margin="0,15,0,40" 
-                    BorderColor="White" FontSize="35" BackgroundColor="Black" Clicked="TestowankoClicked">
-                <VisualStateManager.VisualStateGroups>
-                    <VisualStateGroup x:Name="CommonStates">
-                        <VisualState x:Name="Normal">
-                            <VisualState.Setters>
-                                <Setter Property="TextColor" Value="White" />
-                            </VisualState.Setters>
-                        </VisualState>
-                        <VisualState x:Name="Pressed">
-                            <VisualState.Setters>
-                                <Setter Property="TextColor" Value="#FF0DBF" />
-                            </VisualState.Setters>
-                        </VisualState>
-                    </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-            </Button>
+            
                
             </StackLayout>
         </ScrollView>

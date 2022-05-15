@@ -2,7 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Mobile.OnSale">
-    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="TRACKSLANCE."
+                     Priority="0"/>
+        <ToolbarItem x:Name="MenuClick"
+                     IconImageSource="menu.png"
+                     Priority="1"
+                     Clicked="MenuClicked"/>
+        <ToolbarItem IconImageSource="search.png"
+                     Order="Primary"
+                     Priority="2"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Welcome to Xamarin.Forms!"

@@ -10,6 +10,10 @@ namespace Mobile
 {
     public partial class Tracks : ContentPage
     {
+        private void MenuClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new Menu());
+        }
         public class Track
         {
             public int Id { get; set; }
