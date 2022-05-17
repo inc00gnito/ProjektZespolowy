@@ -61,6 +61,7 @@ namespace Mobile
         private void PaymentClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
+            //Navigation.PushAsync(new SingleTrackPlay());
 
             Navigation.PushAsync(new Payment());
         }

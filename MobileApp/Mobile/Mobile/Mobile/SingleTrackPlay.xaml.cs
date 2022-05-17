@@ -23,7 +23,9 @@ namespace Mobile
 
         private void PlayButton_Clicked(object sender, EventArgs e)
         {
+            DependencyService.Get<IAudio>().PlayAudioFile("Gentleman.mp3");
             
+
         }
     }
 }
