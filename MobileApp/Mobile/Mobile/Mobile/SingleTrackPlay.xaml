@@ -72,7 +72,7 @@
                     <RowDefinition Height="20">
                     </RowDefinition>
 
-                    <RowDefinition Height="45">
+                    <RowDefinition Height="55">
                     </RowDefinition>
                     <RowDefinition>
                     </RowDefinition>
@@ -120,51 +120,134 @@
                        MinimumTrackColor="White" MaximumTrackColor="Gray"
                        VerticalOptions="Center"
                        />
+                <Label 
+                    Text="0:00"
+                    Grid.Row="2" 
+                    Grid.Column="0"
+                    TextColor="White"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    ></Label>
 
-                <Grid Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="3" VerticalOptions="Start">
+                <Label 
+                    Text="3:33"
+                    Grid.Row="2" 
+                    Grid.Column="5"
+                    TextColor="White"
+                    HorizontalOptions="Start"
+                    VerticalOptions="End"
+                    ></Label>
+
+                <Grid Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="1" VerticalOptions="Start">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
+
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
 
                     </Grid.RowDefinitions>
 
-                    <Button 
-                        Text="Play" 
+                    <ImageButton 
+                        Source="icon_play_white.png"
+                        BackgroundColor="Black"
+                        HeightRequest="50"
                         Grid.Row="0"
-                        Grid.RowSpan="3"
-                        Grid.Column="0"
-                    />
-
-                    <Button 
-                        Text="Forward" 
-                        Grid.Row="0"
-                        Grid.RowSpan="3"
-                        Grid.Column="1"
-                    />
-                    <Button 
-                        Text="Forward" 
-                        Grid.Row="0"
-                        Grid.RowSpan="3"
                         Grid.Column="2"
-                    />
-                    <Button 
-                        Text="Forward" 
+                        Clicked="PlayButton_Clicked">
+                        
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                            Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                            Value="0.9" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                    </ImageButton>
+
+                    <ImageButton 
+                        Source="icon_start_white.png"
+                        BackgroundColor="Black"
+                        HeightRequest="50"
                         Grid.Row="0"
-                        Grid.RowSpan="3"
+                        Grid.Column="1"
+                        Clicked="PlayButton_Clicked">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                            Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                            Value="0.9" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                    </ImageButton>
+
+
+                    <ImageButton 
+                        Source="icon_end_white.png"
+                        BackgroundColor="Black"
+                        HeightRequest="50"
+                        Grid.Row="0"
                         Grid.Column="3"
-                    />
-                    <Button 
-                        Text="Forward" 
-                        Grid.Column="4"
-                        Grid.Row="1"
-                    />
+                        Clicked="PlayButton_Clicked">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                            Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <Setter Property="Scale"
+                            Value="0.9" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                    </ImageButton>
+                 
+
+
+                 
+                    
                 </Grid>
             </Grid>
         </Grid>

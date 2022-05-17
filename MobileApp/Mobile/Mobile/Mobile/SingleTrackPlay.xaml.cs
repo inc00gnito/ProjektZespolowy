@@ -20,5 +20,10 @@ namespace Mobile
         {
             Navigation.PushAsync(new Menu());
         }
+
+        private void PlayButton_Clicked(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
