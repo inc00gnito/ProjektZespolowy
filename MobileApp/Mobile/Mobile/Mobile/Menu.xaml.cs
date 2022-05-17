@@ -58,6 +58,12 @@ namespace Mobile
            
             Navigation.PushAsync(new ContactUs());
         }
+        private void PaymentClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            Navigation.PushAsync(new Payment());
+        }
         private void TestowankoClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;

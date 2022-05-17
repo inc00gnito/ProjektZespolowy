@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Mobile"
+             x:Class="Mobile.Payment"
+             xmlns:myViews="clr-namespace:Mobile"
+             BackgroundColor="Black"
+             >
+    <ScrollView >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65"></RowDefinition>
+                <RowDefinition Height="65"></RowDefinition>
+                <RowDefinition Height="65"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>    
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label 
+            Grid.Row="1" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="PAY BY" 
+            FontSize="60" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="#FF0DBF"
+            ></Label>
+            <Label 
+            Grid.Row="2" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="CARD"
+            FontSize="60" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="#FF0DBF"
+            ></Label>
+            <Frame
+                BackgroundColor="#424040"
+                BorderColor="white"
+                CornerRadius="10"
+                Grid.Row="4"
+                Grid.Column="1"
+                Grid.ColumnSpan="3"
+                >
+                <Entry
+                BackgroundColor="#424040"
+                Placeholder="CARD NUMBER" 
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="18" />
+            </Frame>
+            <Frame
+                BackgroundColor="#424040"
+                BorderColor="white"
+                CornerRadius="10"
+                Grid.Row="5"
+                Grid.Column="1"
+                Grid.ColumnSpan="3">
+                <Entry 
+                BackgroundColor="#424040"
+                Placeholder="MM/YY" 
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="18" />
+            </Frame>
+            <Frame
+                BackgroundColor="#424040"
+                BorderColor="white"
+                CornerRadius="10"
+                Grid.Row="6"
+                Grid.Column="1"
+                Grid.ColumnSpan="3">
+                <Entry 
+                BackgroundColor="#424040"
+                Placeholder="CVV/CVC2" 
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="18" />
+            </Frame>
+            <Button 
+                Grid.Row="8"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                Text="Confirm"
+                FontAttributes="Bold"
+                CornerRadius="10" 
+                BorderWidth="2" 
+                TextColor="White"  
+                BackgroundColor="#FF0DBF"/>
+            
+        </Grid>
+
+    </ScrollView>
+
+
+</ContentPage>
