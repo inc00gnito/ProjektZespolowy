@@ -18,6 +18,7 @@
     border-radius: 2em;
     @media (max-width: 480px) {
       & {
+        position: absolute;
         transform: translate(0, 0);
         top: 0;
         left: 0;

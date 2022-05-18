@@ -5,7 +5,7 @@ import { getToken } from "app/utils/Token";
 import axios, { AxiosRequestConfig } from "axios";
 import { request } from "http";
 
-axios.defaults.baseURL = "https://trackslance.azurewebsites.net/api/";
+axios.defaults.baseURL = "https://trackslance.herokuapp.com/api/";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config: AxiosRequestConfig) => {
