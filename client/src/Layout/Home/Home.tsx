@@ -18,7 +18,7 @@ interface IProps {
 
 const Home: React.FC<IProps> = ({ children }) => {
   const { isPopup, shoppingList } = useCartStore();
-  const { authPopUp, user } = useAuthenticationStore();
+  const { authPopUp, user, isAuthenticated, logout } = useAuthenticationStore();
   const shoppingListLength = shoppingList.size;
 
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -56,6 +56,7 @@ const Home: React.FC<IProps> = ({ children }) => {
           <motion.div
             className={styles.hamburger}
             animate={isOpen ? "open" : "closed"}
+            data-testid="homelayout__mobile__hamburger"
           >
             <MenuToggle
               toggle={() => toggleOpen()}
@@ -68,6 +69,9 @@ const Home: React.FC<IProps> = ({ children }) => {
         </div>
         <motion.div
           className={styles.mobileMenu}
+          aria-labelledby="mobilemenu"
+          aria-describedby="mobilemenu"
+          role="dialog"
           animate={variants()}
           style={{
             visibility: mobileVisiblity as any,
@@ -85,40 +89,68 @@ const Home: React.FC<IProps> = ({ children }) => {
             if (isOpen) setMobileVisibility("visible");
           }}
         >
-          <div className={styles.header}>
-            <div className={styles.user}>
-              <img src={userPicture} alt="user" className={styles.image} />
-              <button
-                className={styles.login}
-                onClick={() => openPopUp("signin")}
-              >
-                Zaloguj się
-              </button>
+          <div className={styles.mobileMenuContainer}>
+            <div className={styles.header}>
+              {isAuthenticated ? (
+                <div className={styles.user}>
+                  <div className={styles.circle}>A</div>
+                  <span className={styles.name}>Aleksandra Janusz</span>
+                </div>
+              ) : (
+                <div className={styles.loginWrapper}>
+                  <button
+                    className={styles.login}
+                    onClick={() => openPopUp("signin")}
+                  >
+                    Zaloguj się
+                  </button>
+                </div>
+              )}
             </div>
-          </div>
-          <div className={styles.menuM}>
-            <ul className={styles.list}>
-              <li className={styles.item}>
-                <Link to="/tracks" className={styles.link}>
-                  Tracks
-                </Link>
-              </li>
-              <li className={styles.item}>
-                <Link to="/sale" className={styles.link}>
-                  On Sale
-                </Link>
-              </li>
-              <li className={styles.item}>
-                <Link to="/about" className={styles.link}>
-                  About us
-                </Link>
-              </li>
-              <li className={styles.item}>
-                <Link to="/contact" className={styles.link}>
-                  Contact
-                </Link>
-              </li>
-            </ul>
+            <div className={styles.menuM}>
+              <ul className={styles.list}>
+                {isAuthenticated ? (
+                  <>
+                    <li className={styles.item}>
+                      <Link to="/orders" className={styles.link}>
+                        Profile
+                      </Link>
+                    </li>
+                    <li className={styles.item}>
+                      <Link to="/settings" className={styles.link}>
+                        Settings
+                      </Link>
+                    </li>
+                  </>
+                ) : null}
+
+                <li className={styles.item}>
+                  <Link to="/tracks" className={styles.link}>
+                    Tracks
+                  </Link>
+                </li>
+                <li className={styles.item}>
+                  <Link to="/about" className={styles.link}>
+                    About us
+                  </Link>
+                </li>
+                <li className={styles.item}>
+                  <Link to="/contact" className={styles.link}>
+                    Contact
+                  </Link>
+                </li>
+                {isAuthenticated ? (
+                  <li className={styles.item}>
+                    <button
+                      className={cx(styles.link, styles.buttonItem)}
+                      onClick={logout}
+                    >
+                      Wyloguj
+                    </button>
+                  </li>
+                ) : null}
+              </ul>
+            </div>
           </div>
         </motion.div>
 
