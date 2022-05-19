@@ -2,32 +2,31 @@ import Filter from "components/Filter/Filter";
 import React, { useEffect, useState } from "react";
 import styles from "./Filters.module.scss";
 import { BiSearch } from "react-icons/bi";
-import { Genre, SortBy } from "app/utils/Filters";
+import { Genre, SortBy } from "app/model/Track";
 import { useTrackStore } from "app/provider/Provider";
+import FilterMultiple from "components/Filter/FilterMultiple";
 
 const Filters = () => {
-  const { loadFilteredTracks, loadTracks, loadSortedByTracks } =
-    useTrackStore();
+  const { loadTracks } = useTrackStore();
+  const [filters, setFiltres] = useState<string[]>([]);
+  const [sort, setSort] = useState<number>();
 
-  const handleGenreChange = (value: string) => {
-    const filterEnum = Genre[value];
-    if (filterEnum === undefined || filterEnum === -1) loadTracks();
-    else loadFilteredTracks(filterEnum);
+  const handleGenreChange = (values: string[]) => {
+    setFiltres(values);
+    loadTracks({ filters: values, sort });
   };
 
   const handleSortByChange = (value: string) => {
-    const filterEnum = SortBy[value];
-    if (filterEnum === undefined || filterEnum === -1) loadTracks();
-    else loadSortedByTracks(filterEnum);
+    setSort(SortBy[value]);
+    loadTracks({ filters, sort: SortBy[value] });
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.row}>
         <div className={styles.filter}>
-          <Filter
+          <FilterMultiple
             list={[
-              "All genres",
               "Rock",
               "pop",
               "Pop Rock",
@@ -36,19 +35,20 @@ const Filters = () => {
               "RnB",
               "Electronic",
             ]}
+            defaultValue="All genres"
             onChange={handleGenreChange}
           />
         </div>
         <div className={styles.filter}>
           <Filter
             list={[
-              "sort by",
               "price lowest",
               "price highest",
               "times sold",
               "discounted lowest",
               "discounted highest",
             ]}
+            defaultValue="sort by"
             onChange={handleSortByChange}
           />
         </div>

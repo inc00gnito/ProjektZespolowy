@@ -21,6 +21,12 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      .filterItems {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 7rem;
+      }
     }
     .icon {
       margin-left: 0.2em;

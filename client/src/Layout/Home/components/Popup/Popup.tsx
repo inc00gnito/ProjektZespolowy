@@ -4,7 +4,7 @@ import track1 from "assets/track1.webp";
 import { IoIosArrowForward } from "react-icons/io";
 import { useCartStore } from "app/provider/Provider";
 import { observer } from "mobx-react-lite";
-import { Genre } from "app/utils/Filters";
+import { Genre } from "app/model/Track";
 
 const Popup = () => {
   const { closePopup, shoppingList } = useCartStore();
