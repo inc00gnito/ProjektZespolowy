@@ -35,8 +35,9 @@ namespace ProjectAPI.Controllers
         public ActionResult ResetCodeSend([FromBody] PasswordResetEmail mail)
         {
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Email == mail.Email);
+            string faketoken = CreateToken();
             if (user == null)
-                return Ok();
+                return Ok(faketoken);
             string ResetCode = CreateCode();
             SendResetCode(mail.Email, ResetCode);
             string HashedCode = Hash(ResetCode, user.Salt);
