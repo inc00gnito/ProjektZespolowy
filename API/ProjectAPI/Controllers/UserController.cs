@@ -212,7 +212,7 @@ namespace ProjectAPI.Controllers
         public async Task<ActionResult> LogIn([FromBody] LogInModel model)
         {
             
-            var user = _db.UsersDbSet.FirstOrDefault(u => u.Username == model.Login || u.Email == model.Login );
+            var user = _db.UsersDbSet.FirstOrDefault(u => u.Username.ToLower() == model.Login.ToLower() || u.Email.ToLower() == model.Login.ToLower());
             if(user == null)
                 return NotFound("user doesnt exist");
 
@@ -230,7 +230,7 @@ namespace ProjectAPI.Controllers
 
             var session = new Session{
                 Token = token,
-                Expiration = DateTime.Now.AddHours(3),
+                Expiration = DateTime.Now.AddDays(1),
                 User = user
             };
 
@@ -312,7 +312,7 @@ namespace ProjectAPI.Controllers
 
             var session = new Session{
                 Token = token,
-                Expiration = DateTime.Now.AddHours(3),
+                Expiration = DateTime.Now.AddDays(1),
                 User = newUser
             };
 
@@ -389,9 +389,21 @@ namespace ProjectAPI.Controllers
 
         private Session Authorization(string token)
         {
-            return _db.SessionDbSet
+            Session session = _db.SessionDbSet
                 .Include(r => r.User)
                 .FirstOrDefault(s => s.Token == token);
+            
+            if( session is null)
+                return null;
+
+            if(session.Expiration > DateTime.Now)
+            {
+                _db.SessionDbSet.Remove(session);
+                _db.SaveChanges();
+                return null;
+            }    
+            
+            return session;
         }
 
         private string CreateCode()
