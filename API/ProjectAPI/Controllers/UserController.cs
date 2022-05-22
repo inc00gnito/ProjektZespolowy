@@ -14,6 +14,8 @@ using System.Diagnostics;
 using AutoMapper;
 using ProjectAPI.Models.DTOs;
 using Newtonsoft.Json;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 namespace ProjectAPI.Controllers
 {
@@ -28,6 +30,49 @@ namespace ProjectAPI.Controllers
         {
             _db = db;
             _mapper = mapper;
+        }
+        [HttpPost("SendResetCode")]
+        public ActionResult ResetCodeSend([FromBody] PasswordResetEmail mail)
+        {
+            var user = _db.UsersDbSet.FirstOrDefault(u => u.Email == mail.Email);
+            if (user == null)
+                return Ok();
+            string ResetCode = CreateCode();
+            SendResetCode(mail.Email, ResetCode);
+            string HashedCode = Hash(ResetCode, user.Salt);
+            string token = CreateToken();
+            var NewCode = new ResetCodeModel
+            {
+                HashedCode = HashedCode,
+                Token = token,
+                Expiration = DateTime.Now.AddHours(1),
+                UserId = user.Id
+            };
+            _db.ResetCodeModelDbSet.Add(NewCode);
+            _db.SaveChanges();
+            return Ok(NewCode.Token);
+        }
+        [HttpPost("ResetPassword")]
+        public ActionResult ResetPassword([FromHeader] string token, [FromBody] PasswordResetModel model)
+        {
+            var Reset = _db.ResetCodeModelDbSet.FirstOrDefault(u => u.Token == token);
+            var User = _db.UsersDbSet.FirstOrDefault(u => u.Id == Reset.UserId);
+            if(DateTime.Compare(DateTime.Now,Reset.Expiration)>0)
+            {
+                return Ok("Reset code expired!");
+            }
+            string hashedcode = Hash(model.ResetCode,User.Salt);
+            string hashedpassw = Hash(model.NewPassword, User.Salt);
+            if (hashedcode==Reset.HashedCode)
+            {
+                User.HashedPassword = hashedpassw;
+                _db.ResetCodeModelDbSet.Remove(Reset);
+                _db.SaveChanges();
+                return Ok("Succesfull password reset!");
+            }
+            _db.SaveChanges();
+            return Ok("Wrong reset code!");
+
         }
         [HttpGet]
         public ActionResult<User> GetUser([FromHeader] string authorization)
@@ -346,6 +391,41 @@ namespace ProjectAPI.Controllers
             return _db.SessionDbSet
                 .Include(r => r.User)
                 .FirstOrDefault(s => s.Token == token);
+        }
+
+        private string CreateCode()
+        {
+            char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+            int size = 6;
+            byte[] data = new byte[4 * size];
+            using (var crypto = RandomNumberGenerator.Create())
+            {
+                crypto.GetBytes(data);
+            }
+            StringBuilder token = new StringBuilder(size);
+            for (int i = 0; i < size; i++)
+            {
+                var rnd = BitConverter.ToUInt32(data, i * 4);
+                var idx = rnd % chars.Length;
+
+                token.Append(chars[idx]);
+            }
+            return token.ToString();
+        }
+        private void SendResetCode(string UserEmail, string ResetCode)
+        {
+            var client = new SmtpClient();
+            client.Connect("smtp.gmail.com", 587, false);
+            client.Authenticate("trackslance@gmail.com", "Trackslance1!");
+            var msg = new MimeMessage
+            {
+                Subject = "Here is your password reset code",
+                Body = new TextPart("html") { Text = ResetCode }
+            };
+            msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
+            msg.To.Add(new MailboxAddress("", UserEmail));
+            client.Send(msg);
+            client.Disconnect(true);
         }
 
      

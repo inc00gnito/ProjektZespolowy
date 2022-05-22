@@ -32,6 +32,7 @@ namespace ProjectAPI.Data
 
         public DbSet<Tag> TagsDbSet { get; set; }
         public DbSet<OrderedTrack> OrderedTracksDbSet { get; set; }
+        public DbSet<ResetCodeModel> ResetCodeModelDbSet { get; set; }
 
     }
 }
