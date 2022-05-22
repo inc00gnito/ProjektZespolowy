@@ -115,9 +115,21 @@ namespace ProjectAPI.Controllers
         
         private Session Authorization(string token)
         {
-            return _db.SessionDbSet
+            Session session = _db.SessionDbSet
                 .Include(r => r.User)
                 .FirstOrDefault(s => s.Token == token);
+            
+            if( session is null)
+                return null;
+
+            if(session.Expiration > DateTime.Now)
+            {
+                _db.SessionDbSet.Remove(session);
+                _db.SaveChanges();
+                return null;
+            }    
+            
+            return session;
         }
 
         private void CreateTags(OrderedTrack track, List<string> tags)

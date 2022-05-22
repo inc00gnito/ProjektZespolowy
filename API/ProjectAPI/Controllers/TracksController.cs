@@ -247,9 +247,21 @@ namespace ProjectAPI.Controllers
 
         private Session Authorization(string token)
         {
-            return _db.SessionDbSet
+            Session session = _db.SessionDbSet
                 .Include(r => r.User)
                 .FirstOrDefault(s => s.Token == token);
+            
+            if( session is null)
+                return null;
+
+            if(session.Expiration > DateTime.Now)
+            {
+                _db.SessionDbSet.Remove(session);
+                _db.SaveChanges();
+                return null;
+            }    
+            
+            return session;
         }
 
         private List<TrackDTO> Sort(SortBy? key, List<TrackDTO> tracks)
@@ -284,7 +296,7 @@ namespace ProjectAPI.Controllers
 
         private List<TrackDTO> Search(string phrase, List<TrackDTO> tracks)
         {
-            return tracks.Where(x => x.Title.Contains(phrase) || x.Authors.Any(a => a.StageName.Contains(phrase))).ToList();
+            return tracks.Where(x => x.Title.ToLower().Contains(phrase.ToLower()) || x.Authors.Any(a => a.StageName.ToLower().Contains(phrase.ToLower()))).ToList();
         }    
       
         #endregion
