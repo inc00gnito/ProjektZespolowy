@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <SelectedDevice>Samsung SM-G950F</SelectedDevice>
-    <ActiveDebugProfile>Samsung SM-G950F</ActiveDebugProfile>
+    <SelectedDevice>Emulator systemu Android</SelectedDevice>
+    <ActiveDebugProfile>Emulator systemu Android</ActiveDebugProfile>
     <AndroidDesignerPreferredTheme>MainTheme</AndroidDesignerPreferredTheme>
     <DefaultDevice>pixel_2_-_api_30</DefaultDevice>
-    <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
+    <SelectedPlatformGroup>Emulator</SelectedPlatformGroup>
   </PropertyGroup>
 </Project>
