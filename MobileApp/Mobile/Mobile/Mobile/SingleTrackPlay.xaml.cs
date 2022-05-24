@@ -12,6 +12,7 @@ namespace Mobile
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SingleTrackPlay : ContentPage
     {
+        public bool playing;
         public SingleTrackPlay()
         {
             InitializeComponent();
@@ -23,8 +24,19 @@ namespace Mobile
 
         private void PlayButton_Clicked(object sender, EventArgs e)
         {
-            DependencyService.Get<IAudio>().PlayAudioFile("Gentleman.mp3");
             
+            var button = (ImageButton)sender; 
+            if(playing)
+            {
+                playing = false;
+                button.Source = "icon_play_white.png";
+            }
+            else
+            {
+                DependencyService.Get<IAudio>().PlayAudioFile("Gentleman.mp3");
+                playing = true;
+                button.Source = "icon_pause_white.png";
+            }
 
         }
     }

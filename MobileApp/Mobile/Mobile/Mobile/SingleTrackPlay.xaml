@@ -45,7 +45,13 @@
                         HorizontalOptions="Center"
                         Aspect="AspectFill">
             </Image>
-
+            
+            <!--<xct:MediaElement 
+                                  AutoPlay="True" 
+                                  Source="https://jfversluis.dev/Sample.mp3" 
+                                  Grid.Row="2"
+                                  Grid.Column="1"
+                                  HeightRequest="200"></xct:MediaElement>-->
 
             <Grid Grid.Row="3" Grid.Column="1" Grid.RowSpan="2">
                 <Grid.ColumnDefinitions>
@@ -79,6 +85,7 @@
                     </RowDefinition>
 
                 </Grid.RowDefinitions>
+                
                 <Label 
                        TextColor="White"
                        FontSize="18"
@@ -138,7 +145,7 @@
                     HorizontalOptions="Start"
                     VerticalOptions="End"
                     ></Label>
-                <!--<xct:MediaElement></xct:MediaElement>-->
+               
 
                 <Grid Grid.Row="3" Grid.ColumnSpan="6" Grid.RowSpan="1" VerticalOptions="Start">
                     <Grid.ColumnDefinitions>
