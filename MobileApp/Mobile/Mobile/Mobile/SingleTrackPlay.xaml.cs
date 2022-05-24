@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+
+
 namespace Mobile
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    
     public partial class SingleTrackPlay : ContentPage
     {
         public bool playing;
