@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:Mobile.Custom_Renderer"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:Mobile.Custom_Renderer"
              x:Class="Mobile.Login"
              BackgroundColor="Black"
              Title="Login">
@@ -11,9 +12,10 @@
                      IconImageSource="menu.png"
                      Priority="1"
                      Clicked="MenuClicked"/>
-        <ToolbarItem IconImageSource="search.png"
+        <ToolbarItem IconImageSource="shoppingbag.png"
                      Order="Primary"
-                     Priority="2"/>
+                     Priority="2"
+                     Clicked="ShoppingBagClicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout>
@@ -62,7 +64,11 @@
                     <local:BorderlessEntry Placeholder="Password" FontSize="25" IsPassword="True"/>
                 </Frame>
             </Frame>
-
+            <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
+                <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
+                    <local:BorderlessEntry Placeholder="Password" FontSize="25" IsPassword="True"/>
+                </Frame>
+            </Frame>
             <Label Text="Forgot Password?"
                    TextColor="White"
                    FontSize="20"

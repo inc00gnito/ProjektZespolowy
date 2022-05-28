@@ -39,7 +39,7 @@ namespace Mobile
         {
             var content = "";
             HttpClient client = new HttpClient();
-            var RestURL = "https://trackslance.azurewebsites.net/api/Tracks";
+            var RestURL = "https://trackslance.herokuapp.com/api/Tracks";
             client.BaseAddress = new Uri(RestURL);
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             HttpResponseMessage response = await client.GetAsync(RestURL);
@@ -102,6 +102,10 @@ namespace Mobile
         private void traczekClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new SingleTrackPlay());
+        }
+        private void ShoppingBagClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MyOrders());
         }
     }
 }

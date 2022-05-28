@@ -42,5 +42,9 @@ namespace Mobile
         {
             Navigation.PushAsync(new ForgotPassword());
         }
+        private void ShoppingBagClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MyOrders());
+        }
     }
 }

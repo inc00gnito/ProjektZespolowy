@@ -2,10 +2,12 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Mobile"
+             
              x:Class="Mobile.Payment"
              xmlns:myViews="clr-namespace:Mobile"
+             xmlns:local="clr-namespace:Mobile.Custom_Renderer"
              BackgroundColor="Black"
+             Title="Payment"
              >
     <ScrollView >
         <Grid>
@@ -51,6 +53,7 @@
             VerticalOptions="Center"
             TextColor="#FF0DBF"
             ></Label>
+
             <Frame
                 BackgroundColor="#424040"
                 BorderColor="white"
@@ -59,12 +62,13 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="3"
                 >
-                <Entry
-                BackgroundColor="#424040"
+                
+                <local:BorderlessEntry BackgroundColor="#424040"
                 Placeholder="CARD NUMBER" 
                 TextColor="White" 
                 PlaceholderColor="White"  
-                FontSize="18" />
+                FontSize="18" 
+                />
             </Frame>
             <Frame
                 BackgroundColor="#424040"
@@ -73,7 +77,7 @@
                 Grid.Row="5"
                 Grid.Column="1"
                 Grid.ColumnSpan="3">
-                <Entry 
+                <local:BorderlessEntry
                 BackgroundColor="#424040"
                 Placeholder="MM/YY" 
                 TextColor="White" 
@@ -87,7 +91,7 @@
                 Grid.Row="6"
                 Grid.Column="1"
                 Grid.ColumnSpan="3">
-                <Entry 
+                <local:BorderlessEntry
                 BackgroundColor="#424040"
                 Placeholder="CVV/CVC2" 
                 TextColor="White" 

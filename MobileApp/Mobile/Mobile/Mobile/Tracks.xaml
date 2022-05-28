@@ -16,9 +16,10 @@
                      IconImageSource="menu.png"
                      Priority="1"
                      Clicked="MenuClicked"/>
-        <ToolbarItem IconImageSource="search.png"
+        <ToolbarItem IconImageSource="shoppingbag.png"
                      Order="Primary"
-                     Priority="2"/>
+                     Priority="2"
+                     Clicked="ShoppingBagClicked"/>
     </ContentPage.ToolbarItems>
     <ScrollView >
         <Grid >
@@ -124,12 +125,13 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                
+
                                 <StackLayout 
-                                Grid.Column="0"
-                                Grid.Row="3"
-                                Grid.ColumnSpan="4"
-                                Margin="0,10,0,0">
+                                    
+                                    Grid.Column="0"
+                                    Grid.Row="3"
+                                    Grid.ColumnSpan="4"
+                                    Margin="0,10,0,0">
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="PlayTrack"/>
                                     </StackLayout.GestureRecognizers>
@@ -171,8 +173,8 @@
                                         </Button>
                                         <Line 
                                             Grid.Row="0"
-                                            Grid.Column="1"
-                                            Grid.ColumnSpan="4"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="5"
                                             HeightRequest="1"
                                             VerticalOptions="End"
                                             X1="0" Y1="0"

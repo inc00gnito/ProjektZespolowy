@@ -149,5 +149,8 @@
   <ItemGroup>
     <AndroidAsset Include="Assets\Gentleman.mp3" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\shoppingbag.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

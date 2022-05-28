@@ -10,9 +10,10 @@
                      IconImageSource="menu.png"
                      Priority="1"
                      Clicked="MenuClicked"/>
-        <ToolbarItem IconImageSource="search.png"
+        <ToolbarItem IconImageSource="shoppingbag.png"
                      Order="Primary"
-                     Priority="2"/>
+                     Priority="2"
+                     Clicked="ShoppingBagClicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <Grid BackgroundColor="Black">

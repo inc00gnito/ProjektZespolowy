@@ -61,15 +61,19 @@ namespace Mobile
         private void PaymentClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            Navigation.PushAsync(new SingleTrackPlay());
+            //Navigation.PushAsync(new SingleTrackPlay());
 
-            //Navigation.PushAsync(new Payment());
+            Navigation.PushAsync(new Payment());
         }
         private void TestowankoClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
 
             Navigation.PushAsync(new Testowy());
+        }
+        private void ShoppingBagClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MyOrders());
         }
     }
 }
