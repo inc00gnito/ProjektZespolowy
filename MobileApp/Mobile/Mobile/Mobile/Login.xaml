@@ -51,22 +51,18 @@
             
             <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
                 <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                    <local:BorderlessEntry Placeholder="E-mail or username" FontSize="25"/>
+                    <local:BorderlessEntry x:Name="UserLogin" Placeholder="E-mail or username" FontSize="25"/>
                 </Frame>
             </Frame>
             <Label Text="Password *"
                    TextColor="White"
                    FontSize="25"
                    Margin="30,30,0,0"/>
-
+            
+            
             <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
                 <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                    <local:BorderlessEntry Placeholder="Password" FontSize="25" IsPassword="True"/>
-                </Frame>
-            </Frame>
-            <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="20,0,20,0">
-                <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                    <local:BorderlessEntry Placeholder="Password" FontSize="25" IsPassword="True"/>
+                    <local:BorderlessEntry x:Name="Password" Placeholder="Password" FontSize="25" IsPassword="True"/>
                 </Frame>
             </Frame>
             <Label Text="Forgot Password?"
