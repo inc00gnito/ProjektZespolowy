@@ -64,7 +64,7 @@ namespace Mobile
             //Navigation.PushAsync(new SingleTrackPlay());
             //Navigation.PushAsync(new Payment());
 
-            Navigation.PushAsync(new TrackPlayer());
+            Navigation.PushAsync(new MainTrackPage());
         }
         private void TestowankoClicked(object sender, EventArgs e)
         {

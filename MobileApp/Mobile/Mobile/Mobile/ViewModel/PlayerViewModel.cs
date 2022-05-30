@@ -127,7 +127,8 @@ namespace Mobile.ViewModel
         private async void PlayMusic(Music music)
         {
             var mediaInfo = CrossMediaManager.Current;
-            await mediaInfo.Play(music?.Url);
+            await mediaInfo.Play(music?.Url);       //tu coś nie tak jest z przekazywaniem url
+            //await mediaInfo.Play("https://ia800806.us.archive.org/15/items/Mp3Playlist_555/AaronNeville-CrazyLove.mp3");       //tu coś nie tak jest z przekazywaniem url
             IsPlaying = true;
 
             mediaInfo.MediaItemFinished += (sender, args) =>

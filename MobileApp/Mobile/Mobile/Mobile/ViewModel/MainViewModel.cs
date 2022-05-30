@@ -57,7 +57,7 @@ namespace Mobile.ViewModel
             if (selectedMusic != null)
             {
                 var viewModel = new PlayerViewModel(selectedMusic, musicList) ;
-                var playerPage = new TrackPlayer { BindingContext = viewModel };
+                var playerPage = new TrackPlayer { BindingContext = viewModel };        //Tu przekazywane są informacje do Track Playera
 
                 var navigation = Application.Current.MainPage as NavigationPage;
                 navigation.PushAsync(playerPage, true);
@@ -68,12 +68,12 @@ namespace Mobile.ViewModel
         {
             return new ObservableCollection<Music> 
             { 
-                new Music { Title = "Beach Walk", Artist = "Unicorn Heads", Url = "https://devcrux.com/wp-content/uploads/Beach_Walk.mp3", CoverImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRU6FVly4jMTD3AKB_sHxqPofJVQwqqUj5peEvgA1H4XegM3uJ7&usqp=CAU", IsRecent = true},
-                new Music { Title = "I'll Follow You", Artist = "Density & Time", Url = "https://devcrux.com/wp-content/uploads/I_ll_Follow_You.mp3", CoverImage = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRm-su97lHFGZrbR6BkgL32qbzZBj2f3gKGrFR0Pn66ih01SyGj&usqp=CAU"},
-                new Music { Title = "Ancient", Artist = "Density & Time", Url = "https://devcrux.com/wp-content/uploads/Ancient.mp3"},
-                new Music { Title = "News Room News", Artist = "Spence", Url = "https://devcrux.com/wp-content/uploads/Cats_Searching_for_the_Truth.mp3"},
-                new Music { Title = "Bro Time", Artist = "Nat Keefe & BeatMowe", Url = "https://devcrux.com/wp-content/uploads/Bro_Time.mp3"},
-                new Music { Title = "Cats Searching for the Truth", Artist = "Nat Keefe & Hot Buttered Rum", Url = "https://devcrux.com/wp-content/uploads/Cats_Searching_for_the_Truth.mp3"}
+                new Music { Title = "Beach Walk", Artist = "Unicorn Heads", Url = "https://ia600605.us.archive.org/32/items/Mp3Playlist_555/AaronNeville-CrazyLove.mp3", CoverImage = "cover_1.jpg", IsRecent = true},
+                new Music { Title = "I'll Follow You", Artist = "Density & Time", Url = "http://techslides.com/demos/samples/sample.mp3", CoverImage = "https://images.complex.com/complex/image/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_face,q_auto,w_1280/bpi6fyo9ky60ranoscof.jpg"},
+                new Music { Title = "Ancient", Artist = "Density & Time", Url = "http://techslides.com/demos/samples/sample.mp3"},
+                new Music { Title = "News Room News", Artist = "Spence", Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"},
+                new Music { Title = "Bro Time", Artist = "Nat Keefe & BeatMowe", Url = "https://ia600605.us.archive.org/32/items/Mp3Playlist_555/AaronNeville-CrazyLove.mp3"},
+                new Music { Title = "Cats Searching for the Truth", Artist = "Nat Keefe & Hot Buttered Rum", Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"}
             };
         }
     }
