@@ -97,11 +97,11 @@ namespace Mobile
           
 
 
-            Navigation.PushAsync(new SingleTrackPlay());
+            //Navigation.PushAsync(new TrackPlayer());
         }
         private void traczekClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new SingleTrackPlay());
+          //  Navigation.PushAsync(new TrackPlayer());
         }
         private void ShoppingBagClicked(object sender, EventArgs e)
         {
