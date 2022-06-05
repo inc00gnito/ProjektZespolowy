@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectAPI.Migrations
 {
-    public partial class initalCreate : Migration
+    public partial class initalcreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,9 +11,9 @@ namespace ProjectAPI.Migrations
                 name: "NewsletterEmailsDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -22,14 +21,30 @@ namespace ProjectAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ResetCodeModelDbSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HashedCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResetCodeModelDbSet", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TagsDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    TrackId = table.Column<int>(type: "integer", nullable: true),
-                    OrderedTrackId = table.Column<int>(type: "integer", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrackId = table.Column<int>(type: "int", nullable: true),
+                    OrderedTrackId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,12 +55,12 @@ namespace ProjectAPI.Migrations
                 name: "UsersDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Username = table.Column<string>(type: "text", nullable: true),
-                    Salt = table.Column<byte[]>(type: "bytea", nullable: true),
-                    HashedPassword = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    HashedPassword = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -56,11 +71,11 @@ namespace ProjectAPI.Migrations
                 name: "OrdersDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Price = table.Column<float>(type: "real", nullable: false),
-                    DateOfPurchase = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false)
+                    DateOfPurchase = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,11 +92,11 @@ namespace ProjectAPI.Migrations
                 name: "SessionDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Token = table.Column<string>(type: "text", nullable: true),
-                    UserId = table.Column<int>(type: "integer", nullable: true),
-                    Expiration = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    Expiration = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,20 +113,20 @@ namespace ProjectAPI.Migrations
                 name: "TracksDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<float>(type: "real", nullable: false),
                     Cost = table.Column<float>(type: "real", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     DiscountedByUser = table.Column<float>(type: "real", nullable: false),
                     DiscountedByShop = table.Column<float>(type: "real", nullable: false),
-                    Genre = table.Column<int>(type: "integer", nullable: false),
-                    AudioFile = table.Column<string>(type: "text", nullable: true),
-                    DemoFile = table.Column<string>(type: "text", nullable: true),
-                    ImgFile = table.Column<string>(type: "text", nullable: true),
-                    TimesSold = table.Column<int>(type: "integer", nullable: false),
-                    IsDiscounted = table.Column<bool>(type: "boolean", nullable: false)
+                    Genre = table.Column<int>(type: "int", nullable: false),
+                    AudioFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DemoFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimesSold = table.Column<int>(type: "int", nullable: false),
+                    IsDiscounted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,21 +143,21 @@ namespace ProjectAPI.Migrations
                 name: "OrderedTracksDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: true),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Time = table.Column<float>(type: "real", nullable: false),
                     Cost = table.Column<float>(type: "real", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     DiscountedByUser = table.Column<float>(type: "real", nullable: false),
                     DiscountedByShop = table.Column<float>(type: "real", nullable: false),
-                    Genre = table.Column<int>(type: "integer", nullable: false),
-                    AudioFile = table.Column<string>(type: "text", nullable: true),
-                    DemoFile = table.Column<string>(type: "text", nullable: true),
-                    ImgFile = table.Column<string>(type: "text", nullable: true),
-                    TimesSold = table.Column<int>(type: "integer", nullable: false),
-                    IsDiscounted = table.Column<bool>(type: "boolean", nullable: false),
-                    OrderId = table.Column<int>(type: "integer", nullable: true)
+                    Genre = table.Column<int>(type: "int", nullable: false),
+                    AudioFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DemoFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImgFile = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TimesSold = table.Column<int>(type: "int", nullable: false),
+                    IsDiscounted = table.Column<bool>(type: "bit", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -159,11 +174,11 @@ namespace ProjectAPI.Migrations
                 name: "AuthorsDbSet",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    StageName = table.Column<string>(type: "text", nullable: true),
-                    TrackId = table.Column<int>(type: "integer", nullable: true),
-                    OrderedTrackId = table.Column<int>(type: "integer", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrackId = table.Column<int>(type: "int", nullable: true),
+                    OrderedTrackId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -220,6 +235,9 @@ namespace ProjectAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "NewsletterEmailsDbSet");
+
+            migrationBuilder.DropTable(
+                name: "ResetCodeModelDbSet");
 
             migrationBuilder.DropTable(
                 name: "SessionDbSet");

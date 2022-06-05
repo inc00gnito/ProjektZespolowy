@@ -10,8 +10,8 @@ using ProjectAPI.Data;
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220522112807_ResetCode")]
-    partial class ResetCode
+    [Migration("20220605140022_initalcreate")]
+    partial class initalcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
