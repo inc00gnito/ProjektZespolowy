@@ -16,6 +16,8 @@ using ProjectAPI.Models.DTOs;
 using Newtonsoft.Json;
 using MailKit.Net.Smtp;
 using MimeKit;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace ProjectAPI.Controllers
 {
@@ -25,11 +27,13 @@ namespace ProjectAPI.Controllers
     {
         public readonly DataBaseContext _db;
         private readonly IMapper _mapper;
+        private readonly SendGridKey _sgKey;
 
-        public UserController(DataBaseContext db, IMapper mapper)
+        public UserController(DataBaseContext db, IMapper mapper, SendGridKey sgKey)
         {
             _db = db;
             _mapper = mapper;
+            _sgKey = sgKey;
         }
         [HttpPost("SendResetCode")]
         public ActionResult ResetCodeSend([FromBody] PasswordResetEmail mail)
@@ -54,9 +58,9 @@ namespace ProjectAPI.Controllers
             return Ok(NewCode.Token);
         }
         [HttpPost("ResetPassword")]
-        public ActionResult ResetPassword([FromHeader] string token, [FromBody] PasswordResetModel model)
+        public ActionResult ResetPassword([FromHeader] string authorization, [FromBody] PasswordResetModel model)
         {
-            var Reset = _db.ResetCodeModelDbSet.FirstOrDefault(u => u.Token == token);
+            var Reset = _db.ResetCodeModelDbSet.FirstOrDefault(u => u.Token == authorization);
             var User = _db.UsersDbSet.FirstOrDefault(u => u.Id == Reset.UserId);
             if(DateTime.Compare(DateTime.Now,Reset.Expiration)>0)
             {
@@ -427,18 +431,16 @@ namespace ProjectAPI.Controllers
         }
         private void SendResetCode(string UserEmail, string ResetCode)
         {
-            var client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate("trackslance@gmail.com", "Trackslance1!");
-            var msg = new MimeMessage
+            var client = new SendGridClient(_sgKey.API);
+            var msg = new SendGridMessage()
             {
                 Subject = "Here is your password reset code",
-                Body = new TextPart("html") { Text = ResetCode }
+                HtmlContent = ResetCode
             };
-            msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
-            msg.To.Add(new MailboxAddress("", UserEmail));
-            client.Send(msg);
-            client.Disconnect(true);
+            msg.From = new EmailAddress("trackslance@gmail.com", "Trackslance");
+            msg.AddTo(UserEmail);
+            client.SendEmailAsync(msg).ConfigureAwait(false);
+
         }
 
      

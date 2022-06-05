@@ -17,6 +17,7 @@ using MimeKit.Encodings;
 using ProjectAPI.Data;
 using AutoMapper;
 using Newtonsoft.Json;
+using ProjectAPI.Models;
 
 namespace ProjectAPI
 {
@@ -47,9 +48,14 @@ namespace ProjectAPI
 
             if (new[] { cloudName, apiSecret, apiKey }.Any(string.IsNullOrWhiteSpace))
                 throw new ArgumentException("Specify Cloudinary account details");
-
-
             services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+            
+            var sgApi = Configuration.GetValue<string>("SendGrid");
+            if (new[] { sgApi }.Any(string.IsNullOrWhiteSpace))
+                throw new ArgumentException("Specify SendGrid details");
+
+            services.AddSingleton(new SendGridKey(sgApi));
+            
             
             
             services.AddDbContext<DataBaseContext>(opt =>
