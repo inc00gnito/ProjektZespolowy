@@ -32,6 +32,7 @@ namespace Mobile
 
         private async void SignInClicked(object sender, EventArgs e)
         {
+            
             LoginService services = new LoginService();
             var getLoginDetails = await services.CheckLoginIfExists(UserLogin.Text, Password.Text);
 
