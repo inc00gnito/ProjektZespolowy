@@ -120,11 +120,20 @@
             <StackLayout   
                 Grid.Row="3" 
                 Grid.Column="1"
-                Grid.ColumnSpan="4">
-                <ListView x:Name="TracksList"  HasUnevenRows="True">
+                Grid.ColumnSpan="4"
+                >
+                <!--Czy nie może być tutaj collection view?-->
+                <!--Wtedy po dodaniu -    SelectionChangedCommand="{Binding SelectionCommand}
+                Przenosiłoby do widoku TrackPlayer-->
+                <!--<ListView x:Name="TracksList" HasUnevenRows="True">
+                    
+                </ListView>-->
+                
+                <ListView x:Name="TracksList" 
+                                >  
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <ViewCell >
 
                                 <StackLayout 
                                     
@@ -135,7 +144,7 @@
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="PlayTrack"/>
                                     </StackLayout.GestureRecognizers>
-                                    <Grid>
+                                    <Grid >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition>
                                             </ColumnDefinition>
