@@ -25,10 +25,12 @@ namespace Mobile
             {
                 Email = Email.Text
             };
+            Console.WriteLine("\t\t TO JEST MEJL :" + email.Email);
             var json = JsonConvert.SerializeObject(email);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var result = await client.PostAsync(RestURL, content);
             result.EnsureSuccessStatusCode();
+            Console.WriteLine(result);
             var resultString = await result.Content.ReadAsStringAsync();
             var post = JsonConvert.DeserializeObject<Newsletter>(resultString);
         }
