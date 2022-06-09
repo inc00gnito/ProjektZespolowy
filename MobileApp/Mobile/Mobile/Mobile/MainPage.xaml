@@ -51,8 +51,8 @@
                 <ContentView HeightRequest="100">
                     <Frame BackgroundColor="Black" BorderColor="white" CornerRadius="35" Margin="30,0">
                         <StackLayout>
-                            <Entry Placeholder="" TextColor="White" PlaceholderColor="black"  FontSize="18"  Margin="5,-17,0,0" />
-                            <Button Text="Submit" CornerRadius="0"  FontSize="18" Margin="-20,0,-20,0"/>
+                            <Entry x:Name="Email" Placeholder="" TextColor="White" PlaceholderColor="black"  FontSize="18"  Margin="5,-17,0,0" />
+                            <Button  Text="Submit" CornerRadius="0"  FontSize="18" Margin="-20,0,-20,0" Clicked="SubmitClicked"/>
                         </StackLayout>
                        
                     </Frame>
