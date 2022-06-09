@@ -97,7 +97,7 @@ namespace ProjectAPI.Controllers
         }   
         
         [HttpDelete]
-        public ActionResult DeleteUser([FromHeader] string authorization)
+        public ActionResult DeleteUser([FromHeader] string authorization,[FromBody] ChangePassw password)
         {
             Session session = Authorization(authorization);
             if (session == null)
@@ -109,6 +109,11 @@ namespace ProjectAPI.Controllers
             if (user == null)
             {
                 return NotFound("User not found");
+            }
+            string hashedpassword =  Hash(password.Password,user.Salt);
+            if(hashedpassword!=session.User.HashedPassword)
+            {
+                return Unauthorized("Wrong password");
             }
             if (user.Tracks.Count() > 0)
             {
