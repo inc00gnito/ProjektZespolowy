@@ -61,18 +61,18 @@ namespace ProjectAPI
             services.AddDbContext<DataBaseContext>(opt =>
             {
                 string connStr;
-                //var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                //if (env == "Development")
-                //{
-                //    connStr = Configuration.GetConnectionString("kozak");
-                //    opt.UseSqlServer(connStr);
-                //}
-                //else
-                //{
-                    //var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL"); 
-                    // Parse connection URL to connection string for Npgsql
-                    var connUrl =
-                        "postgres://golnolgltvynkz:f4a6132d03be068daba3d2bee3fe761a7e274c95362eb1ef3dc8060ac44852c0@ec2-52-30-67-143.eu-west-1.compute.amazonaws.com:5432/d4ttuiu0h4s64v";
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (env == "Development")
+            {
+                connStr = Configuration.GetConnectionString("kozak");
+                opt.UseSqlServer(connStr);
+            }
+            else
+            {
+                var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    //  Parse connection URL to connection string for Npgsql
+                    //var connUrl =
+                    //         "postgres://golnolgltvynkz:f4a6132d03be068daba3d2bee3fe761a7e274c95362eb1ef3dc8060ac44852c0@ec2-52-30-67-143.eu-west-1.compute.amazonaws.com:5432/d4ttuiu0h4s64v";
                     connUrl = connUrl.Replace("postgres://", string.Empty);
                     var pgUserPass = connUrl.Split("@")[0];
                     var pgHostPortDb = connUrl.Split("@")[1];
@@ -85,7 +85,7 @@ namespace ProjectAPI
 
                     connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb}; SSL Mode=Require; Trust Server Certificate=true";
                     opt.UseNpgsql(connStr);
-                //}
+                }
 
             });
 

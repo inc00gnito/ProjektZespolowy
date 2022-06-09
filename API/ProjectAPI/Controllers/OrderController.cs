@@ -122,7 +122,7 @@ namespace ProjectAPI.Controllers
             if( session is null)
                 return null;
 
-            if(session.Expiration > DateTime.Now)
+            if(session.Expiration < DateTime.Now)
             {
                 _db.SessionDbSet.Remove(session);
                 _db.SaveChanges();
