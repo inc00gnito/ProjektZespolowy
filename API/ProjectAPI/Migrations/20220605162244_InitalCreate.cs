@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectAPI.Migrations
 {
-    public partial class initalCreate : Migration
+    public partial class InitalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,22 @@ namespace ProjectAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_NewsletterEmailsDbSet", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResetCodeModelDbSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    HashedCode = table.Column<string>(type: "text", nullable: true),
+                    Token = table.Column<string>(type: "text", nullable: true),
+                    Expiration = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResetCodeModelDbSet", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -220,6 +236,9 @@ namespace ProjectAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "NewsletterEmailsDbSet");
+
+            migrationBuilder.DropTable(
+                name: "ResetCodeModelDbSet");
 
             migrationBuilder.DropTable(
                 name: "SessionDbSet");

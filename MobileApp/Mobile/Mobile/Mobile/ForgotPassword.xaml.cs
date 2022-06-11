@@ -24,5 +24,9 @@ namespace Mobile
         {
             Navigation.PushAsync(new Menu());
         }
+        private void ShoppingBagClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MyOrders());
+        }
     }
 }

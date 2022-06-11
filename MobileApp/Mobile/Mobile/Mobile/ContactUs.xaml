@@ -11,9 +11,10 @@
                      IconImageSource="menu.png"
                      Priority="1"
                      Clicked="MenuClicked"/>
-        <ToolbarItem IconImageSource="search.png"
+        <ToolbarItem IconImageSource="shoppingbag.png"
                      Order="Primary"
-                     Priority="2"/>
+                     Priority="2"
+                     Clicked="ShoppingBagClicked"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content >
@@ -26,10 +27,10 @@
                 <Label Text="NEED A HAND?" FontSize="36" TextColor="#FF0DBF"  Margin="10,0,10,20" FontAttributes="Bold"/>
                 <Label Text="Contact us" TextColor="#FF0DBF" FontSize="24" Margin="10,10,10,20" FontAttributes="Bold"/>
 
-                <Label Text="YOUR NAME" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
+                <Label  Text="YOUR NAME" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="10,0,10,0">
                     <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                        <local:BorderlessEntry Placeholder="Name" FontSize="17"/>
+                        <local:BorderlessEntry x:Name="firstName" Placeholder="Name" FontSize="17"/>
                     </Frame>
                 </Frame>
                 <!--<Line HeightRequest="2"
@@ -42,24 +43,24 @@
                 <Label Text="USERNAME" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="10,0,10,0">
                     <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                        <local:BorderlessEntry Placeholder="Username" FontSize="17"/>
+                        <local:BorderlessEntry  x:Name="lastName" Placeholder="Username" FontSize="17"/>
                     </Frame>
                 </Frame>
 
                 <Label Text="E-MAIL ADRESS *" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="10,0,10,0">
                     <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                        <local:BorderlessEntry Placeholder="E-mail" FontSize="17"/>
+                        <local:BorderlessEntry x:Name="email" Placeholder="E-mail" FontSize="17"/>
                     </Frame>
                 </Frame>
                 
-                <Label Text="MESSAGE" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
+                <Label   Text="MESSAGE" TextColor="White" FontSize="17" HeightRequest="28" Margin="10,0,0,0" />
                 <Frame BorderColor="White"  CornerRadius="10" Padding="0" Margin="10,0,10,0">
                     <Frame BackgroundColor="Gray" CornerRadius="10" Margin="3,3,3,3" Padding="0">
-                        <local:BorderlessEntry Placeholder="Message" FontSize="17"/>
+                        <local:BorderlessEntry x:Name="message" Placeholder="Message" FontSize="17"/>
                     </Frame>
                 </Frame>
-                <Button  Text="Send message" Margin="0,45,0,30" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold" CornerRadius="35"  TextColor="White"  BackgroundColor="#FF0DBF"/>
+                <Button  Text="Send message" Margin="0,45,0,30" HorizontalOptions="CenterAndExpand" FontSize="17" FontAttributes="Bold" CornerRadius="35"  TextColor="White"  BackgroundColor="#FF0DBF" Clicked="SendMessageClicked"/>
                 
             </StackLayout>
             

@@ -10,8 +10,8 @@ using ProjectAPI.Data;
 namespace ProjectAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20220518103456_initalCreate")]
-    partial class initalCreate
+    [Migration("20220605162244_InitalCreate")]
+    partial class InitalCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -135,6 +135,30 @@ namespace ProjectAPI.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderedTracksDbSet");
+                });
+
+            modelBuilder.Entity("ProjectAPI.Models.ResetCodeModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Expiration")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("HashedCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Token")
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ResetCodeModelDbSet");
                 });
 
             modelBuilder.Entity("ProjectAPI.Models.Session", b =>

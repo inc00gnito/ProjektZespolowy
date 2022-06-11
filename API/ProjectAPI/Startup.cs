@@ -17,6 +17,7 @@ using MimeKit.Encodings;
 using ProjectAPI.Data;
 using AutoMapper;
 using Newtonsoft.Json;
+using ProjectAPI.Models;
 
 namespace ProjectAPI
 {
@@ -47,24 +48,31 @@ namespace ProjectAPI
 
             if (new[] { cloudName, apiSecret, apiKey }.Any(string.IsNullOrWhiteSpace))
                 throw new ArgumentException("Specify Cloudinary account details");
-
-
             services.AddSingleton(new Cloudinary(new Account(cloudName, apiKey, apiSecret)));
+            
+            var sgApi = Configuration.GetValue<string>("SendGrid");
+            if (new[] { sgApi }.Any(string.IsNullOrWhiteSpace))
+                throw new ArgumentException("Specify SendGrid details");
+
+            services.AddSingleton(new SendGridKey(sgApi));
+            
             
             
             services.AddDbContext<DataBaseContext>(opt =>
             {
                 string connStr;
-                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                if (env == "Development")
-                {
-                    connStr = Configuration.GetConnectionString("kozak");
-                    opt.UseSqlServer(connStr);
-                }
-                else
-                {
-                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL"); 
-                    // Parse connection URL to connection string for Npgsql
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            if (env == "Development")
+            {
+                connStr = Configuration.GetConnectionString("kozak");
+                opt.UseSqlServer(connStr);
+            }
+            else
+            {
+                var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    //  Parse connection URL to connection string for Npgsql
+                    //var connUrl =
+                    //         "postgres://golnolgltvynkz:f4a6132d03be068daba3d2bee3fe761a7e274c95362eb1ef3dc8060ac44852c0@ec2-52-30-67-143.eu-west-1.compute.amazonaws.com:5432/d4ttuiu0h4s64v";
                     connUrl = connUrl.Replace("postgres://", string.Empty);
                     var pgUserPass = connUrl.Split("@")[0];
                     var pgHostPortDb = connUrl.Split("@")[1];

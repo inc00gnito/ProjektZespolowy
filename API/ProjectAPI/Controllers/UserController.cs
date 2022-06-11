@@ -14,6 +14,10 @@ using System.Diagnostics;
 using AutoMapper;
 using ProjectAPI.Models.DTOs;
 using Newtonsoft.Json;
+using MailKit.Net.Smtp;
+using MimeKit;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace ProjectAPI.Controllers
 {
@@ -23,11 +27,57 @@ namespace ProjectAPI.Controllers
     {
         public readonly DataBaseContext _db;
         private readonly IMapper _mapper;
+        private readonly SendGridKey _sgKey;
 
-        public UserController(DataBaseContext db, IMapper mapper)
+        public UserController(DataBaseContext db, IMapper mapper, SendGridKey sgKey)
         {
             _db = db;
             _mapper = mapper;
+            _sgKey = sgKey;
+        }
+        [HttpPost("SendResetCode")]
+        public ActionResult ResetCodeSend([FromBody] PasswordResetEmail mail)
+        {
+            var user = _db.UsersDbSet.FirstOrDefault(u => u.Email == mail.Email);
+            string faketoken = CreateToken();
+            if (user == null)
+                return Ok(faketoken);
+            string ResetCode = CreateCode();
+            SendResetCode(mail.Email, ResetCode);
+            string HashedCode = Hash(ResetCode, user.Salt);
+            string token = CreateToken();
+            var NewCode = new ResetCodeModel
+            {
+                HashedCode = HashedCode,
+                Token = token,
+                Expiration = DateTime.Now.AddHours(1),
+                UserId = user.Id
+            };
+            _db.ResetCodeModelDbSet.Add(NewCode);
+            _db.SaveChanges();
+            return Ok(NewCode.Token);
+        }
+        [HttpPost("ResetPassword")]
+        public ActionResult ResetPassword([FromHeader] string authorization, [FromBody] PasswordResetModel model)
+        {
+            var Reset = _db.ResetCodeModelDbSet.FirstOrDefault(u => u.Token == authorization);
+            var User = _db.UsersDbSet.FirstOrDefault(u => u.Id == Reset.UserId);
+            if(DateTime.Compare(DateTime.Now,Reset.Expiration)>0)
+            {
+                return Ok("Reset code expired!");
+            }
+            string hashedcode = Hash(model.ResetCode,User.Salt);
+            string hashedpassw = Hash(model.NewPassword, User.Salt);
+            if (hashedcode==Reset.HashedCode)
+            {
+                User.HashedPassword = hashedpassw;
+                _db.ResetCodeModelDbSet.Remove(Reset);
+                _db.SaveChanges();
+                return Ok("Succesfull password reset!");
+            }
+            _db.SaveChanges();
+            return Ok("Wrong reset code!");
+
         }
         [HttpGet]
         public ActionResult<User> GetUser([FromHeader] string authorization)
@@ -47,7 +97,7 @@ namespace ProjectAPI.Controllers
         }   
         
         [HttpDelete]
-        public ActionResult DeleteUser([FromHeader] string authorization)
+        public ActionResult DeleteUser([FromHeader] string authorization,[FromBody] ChangePassw password)
         {
             Session session = Authorization(authorization);
             if (session == null)
@@ -59,6 +109,11 @@ namespace ProjectAPI.Controllers
             if (user == null)
             {
                 return NotFound("User not found");
+            }
+            string hashedpassword =  Hash(password.Password,user.Salt);
+            if(hashedpassword!=session.User.HashedPassword)
+            {
+                return Unauthorized("Wrong password");
             }
             if (user.Tracks.Count() > 0)
             {
@@ -166,7 +221,7 @@ namespace ProjectAPI.Controllers
         public async Task<ActionResult> LogIn([FromBody] LogInModel model)
         {
             
-            var user = _db.UsersDbSet.FirstOrDefault(u => u.Username == model.Login || u.Email == model.Login );
+            var user = _db.UsersDbSet.FirstOrDefault(u => u.Username.ToLower() == model.Login.ToLower() || u.Email.ToLower() == model.Login.ToLower());
             if(user == null)
                 return NotFound("user doesnt exist");
 
@@ -184,7 +239,7 @@ namespace ProjectAPI.Controllers
 
             var session = new Session{
                 Token = token,
-                Expiration = DateTime.Now.AddHours(3),
+                Expiration = DateTime.Now.AddDays(1),
                 User = user
             };
 
@@ -266,7 +321,7 @@ namespace ProjectAPI.Controllers
 
             var session = new Session{
                 Token = token,
-                Expiration = DateTime.Now.AddHours(3),
+                Expiration = DateTime.Now.AddDays(1),
                 User = newUser
             };
 
@@ -343,9 +398,54 @@ namespace ProjectAPI.Controllers
 
         private Session Authorization(string token)
         {
-            return _db.SessionDbSet
+            Session session = _db.SessionDbSet
                 .Include(r => r.User)
                 .FirstOrDefault(s => s.Token == token);
+            
+            if( session is null)
+                return null;
+
+            if(session.Expiration < DateTime.Now)
+            {
+                _db.SessionDbSet.Remove(session);
+                _db.SaveChanges();
+                return null;
+            }    
+            
+            return session;
+        }
+
+        private string CreateCode()
+        {
+            char[] chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+            int size = 6;
+            byte[] data = new byte[4 * size];
+            using (var crypto = RandomNumberGenerator.Create())
+            {
+                crypto.GetBytes(data);
+            }
+            StringBuilder token = new StringBuilder(size);
+            for (int i = 0; i < size; i++)
+            {
+                var rnd = BitConverter.ToUInt32(data, i * 4);
+                var idx = rnd % chars.Length;
+
+                token.Append(chars[idx]);
+            }
+            return token.ToString();
+        }
+        private void SendResetCode(string UserEmail, string ResetCode)
+        {
+            var client = new SendGridClient(_sgKey.API);
+            var msg = new SendGridMessage()
+            {
+                Subject = "Here is your password reset code",
+                HtmlContent = ResetCode
+            };
+            msg.From = new EmailAddress("trackslance@gmail.com", "Trackslance");
+            msg.AddTo(UserEmail);
+            client.SendEmailAsync(msg).ConfigureAwait(false);
+
         }
 
      

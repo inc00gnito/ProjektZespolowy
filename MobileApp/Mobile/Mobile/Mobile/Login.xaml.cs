@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using CrossPlatformBasicLoginSystem.ServicesHandler;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,19 +29,33 @@ namespace Mobile
             public string Password { get; set; }
 
         }
-        
 
+        private async void SignInClicked(object sender, EventArgs e)
+        {
+            
+            LoginService services = new LoginService();
+            var getLoginDetails = await services.CheckLoginIfExists(UserLogin.Text, Password.Text);
+
+            if (getLoginDetails)
+            {
+                await DisplayAlert("Login success", "You are login", "Okay", "Cancel");
+            }
+            else
+            {
+                await DisplayAlert("Login failed", "Username or Password is incorrect or not exists", "Okay", "Cancel");
+            }
+        }
         private void SignUpClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new SignUp());
         }
-        private void SignInClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new MainPage());
-        }
         private void ForgotPasswordClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new ForgotPassword());
+        }
+        private void ShoppingBagClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new MyOrders());
         }
     }
 }

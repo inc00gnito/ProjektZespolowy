@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using MimeKit;
 using ProjectAPI.Data;
 using ProjectAPI.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 
 namespace ProjectAPI.Controllers
 {
@@ -15,10 +18,12 @@ namespace ProjectAPI.Controllers
     public class NewsletterController : ControllerBase
     {
         public readonly DataBaseContext _db;
+        private readonly SendGridKey _sgKey;
 
-        public NewsletterController(DataBaseContext db)
+        public NewsletterController(DataBaseContext db, SendGridKey sgKey)
         {
             _db = db;
+            _sgKey = sgKey;
         }
 
         [Route("Newsletter")]
@@ -75,60 +80,49 @@ namespace ProjectAPI.Controllers
             }
         }
 
-        private void SendMail(string newsletterEmail)
+        private async  void SendMail(string newsletterEmail)
         {
-            var client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate("trackslance@gmail.com", "Trackslance1!"); // later hide password somehow
-
-                var msg = CreateMessage();
-                msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
-                msg.To.Add(new MailboxAddress("", newsletterEmail));
-                client.Send(msg);
-            
-            client.Disconnect(true);
+            var client = new SendGridClient(_sgKey.API);
+            var msg = CreateMessage();
+            msg.From = new EmailAddress("trackslance@gmail.com", "Trackslance");
+            msg.AddTo(new EmailAddress(newsletterEmail));
+            await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
 
-        private void ContactUs(Contact contact)
+
+
+        private async void ContactUs(Contact contact)
         {
-            var client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate("trackslance@gmail.com", "Trackslance1!"); // later hide password somehow
+            var client = new SendGridClient(_sgKey.API);
             string name = contact.FirstName + " " + contact.LastName;
             var msg = CreateMessage(contact.Message);
-            msg.To.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
-            msg.From.Add(new MailboxAddress(name, contact.Email));
-            client.Send(msg);
-          
-
-            client.Disconnect(true);
-
+            
+            msg.From = new EmailAddress("trackslance@gmail.com");
+            msg.AddTo(new EmailAddress(contact.Email, name));
+            await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
 
-        private MimeMessage CreateMessage(string message = null)
+        private SendGridMessage CreateMessage(string message = null)
         {
-            var msg = new MimeMessage();
+            var msg = new SendGridMessage();
             
-            
+
+
             if (message == null)
             {
                 msg.Subject = "Newsletter!";
-                msg.Body = new TextPart("plain")
-                {
-                    Text = @"Testing"
-                };
+                msg.PlainTextContent = "Thank you for signing up to our newsletter \n" +
+                                       "";
             }
             else 
             {
-                msg.Subject = "Help";
-                msg.Body = new TextPart("plain")
-            {
-                Text = message
-            };
+                msg.Subject = "Help!";
+                msg.HtmlContent = "You have sent the following message to us <br>";
+                msg.HtmlContent += "<strong>" + message + "</strong> <br>";
+                msg.HtmlContent += "We will respond as soon as we can! <br>" +
+                                  "<br> Trackslance Team";
 
             }
-
-
             return msg;
         }
         #endregion
