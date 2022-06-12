@@ -53,6 +53,7 @@ export default class TrackStore {
     console.log(params);
     try {
       const { data } = await agent.Track.list(params);
+      console.log(data);
       this.tracks = data;
     } catch (err) {
       if (axios.isAxiosError(err)) return console.log("fds");

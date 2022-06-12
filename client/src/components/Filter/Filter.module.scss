@@ -1,5 +1,14 @@
 @import "../../app/styles/variables.scss";
 .container {
+  .background {
+    position: fixed;
+    background-color: black;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
   .select {
     position: relative;
     width: 100%;
@@ -31,49 +40,6 @@
     .icon {
       margin-left: 0.2em;
     }
-    .options {
-      position: absolute;
-      z-index: 5;
-      top: 110%;
-      max-height: 180px;
-      overflow: hidden;
-      overflow-y: auto;
-      left: 0;
-      right: 10%;
-      border-radius: 0.1em;
-      scrollbar-color: $primaryColorDark $primaryColor;
-      scrollbar-width: thin;
-      &::-webkit-scrollbar {
-        width: 4px;
-      }
-      &::-webkit-scrollbar-track {
-        background-color: $primaryColor;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: $primaryColorDark;
-      }
-
-      &::-webkit-scrollbar-thumb:hover {
-        background: $primaryColorExtraDark;
-      }
-      .list {
-        .item {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          list-style-type: none;
-          padding: 0.5rem 0;
-          transition: background 0.3;
-          background-color: $primaryColor;
-          font-size: 0.95em;
-          cursor: pointer;
-          &:hover {
-            background-color: $primaryColorDarker;
-          }
-        }
-      }
-    }
   }
   .selectActive {
     border-bottom-left-radius: 0;
@@ -87,5 +53,51 @@
     font-size: 1em;
     font-weight: bold;
     padding-top: 0.2em;
+  }
+}
+
+.options {
+  z-index: 5;
+  max-height: 180px;
+  overflow: hidden;
+  overflow-y: auto;
+  right: 10%;
+  margin-top: 2px;
+  border-radius: 0.1em;
+  scrollbar-color: $primaryColorDark $primaryColor;
+  scrollbar-width: thin;
+  color: white;
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: $primaryColor;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $primaryColorDark;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: $primaryColorExtraDark;
+  }
+  .list {
+    .item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      list-style-type: none;
+      padding: 0.5rem 0;
+      transition: background 0.3;
+      background-color: $primaryColor;
+      font-size: 0.95em;
+      cursor: pointer;
+      &[aria-selected="true"] {
+        background-color: $primaryColorDarker;
+      }
+      &:hover {
+        background-color: $primaryColorDarker;
+      }
+    }
   }
 }

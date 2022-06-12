@@ -18,14 +18,19 @@ h6 {
   font-family: "Montserrat", sans-serif;
 }
 
-
-.dropdown{
+.dropdown {
   background-color: #d400b8;
-  color:white;
+  color: white;
   margin-left: 20px;
-   }
+}
 
 *:focus {
   outline: none;
 }
 
+.react__modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 30;
+}

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Filter.module.scss";
 import cx from "classnames";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
+import Portal from "components/Portal/Portal";
 
 interface IProps {
   list: string[];
@@ -13,9 +14,14 @@ interface IProps {
 const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<number[]>([]);
+  const anchorEl = useRef<HTMLButtonElement>(null);
 
   const handleToggleSelect = () => {
     setOpen(!isOpen);
+  };
+
+  const closeSelect = () => {
+    setOpen(false);
   };
 
   function removeItemOnce<T>(arr: T[], index: number) {
@@ -103,6 +109,7 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
           onClick={handleToggleSelect}
           //   onKeyDown={handleListKeyDown}
           aria-describedby="selectError"
+          ref={anchorEl}
         >
           <span className={styles.filterItems}>
             {selectedOption.length === 0 ? defaultValue : listString}
@@ -114,39 +121,42 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
           )}
         </button>
         {isOpen ? (
-          <div className={styles.options}>
-            <ul
-              className={styles.list}
-              tabIndex={-1}
-              role="listbox"
-              aria-activedescendant={listString}
-            >
-              <li
-                className={styles.item}
-                data-name="option1"
-                tabIndex={0}
-                role="option"
-                //   onKeyDown={() => handleKeyDown(key)}
-                onClick={clear}
-                aria-selected={selectedOption.length === 0}
+          <Portal anchorEl={anchorEl} onClick={closeSelect}>
+            <div className={styles.options}>
+              <ul
+                className={styles.list}
+                tabIndex={-1}
+                role="listbox"
+                data-testid="modal__list"
+                aria-activedescendant={listString}
               >
-                {defaultValue}
-              </li>
-              {list.map((item, key) => (
                 <li
                   className={styles.item}
                   data-name="option1"
                   tabIndex={0}
                   role="option"
-                  onKeyDown={() => handleKeyDown(key)}
-                  onClick={() => handleItemClick(key)}
-                  aria-selected={listString.includes(item)}
+                  //   onKeyDown={() => handleKeyDown(key)}
+                  onClick={clear}
+                  aria-selected={selectedOption.length === 0}
                 >
-                  {item}
+                  {defaultValue}
                 </li>
-              ))}
-            </ul>
-          </div>
+                {list.map((item, key) => (
+                  <li
+                    className={styles.item}
+                    data-name="option1"
+                    tabIndex={0}
+                    role="option"
+                    onKeyDown={() => handleKeyDown(key)}
+                    onClick={() => handleItemClick(key)}
+                    aria-selected={listString.includes(item)}
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Portal>
         ) : null}
       </div>
     </div>

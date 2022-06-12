@@ -24,7 +24,7 @@ const Filters = () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <div className={styles.filter}>
+        <div className={styles.filter} data-testid="tracks__filter">
           <FilterMultiple
             list={[
               "Rock",
@@ -39,7 +39,7 @@ const Filters = () => {
             onChange={handleGenreChange}
           />
         </div>
-        <div className={styles.filter}>
+        <div className={styles.filter} data-testid="tracks__sort">
           <Filter
             list={[
               "price lowest",

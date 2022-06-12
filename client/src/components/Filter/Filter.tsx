@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Filter.module.scss";
 import cx from "classnames";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import Portal from "components/Portal/Portal";
 
 interface IProps {
   list: string[];
@@ -15,6 +16,10 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
 
   const handleToggleSelect = () => {
     setOpen(!isOpen);
+  };
+
+  const closeSelect = () => {
+    setOpen(false);
   };
 
   const handleKeyDown = (index: number) => (e: any) => {
@@ -73,6 +78,9 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
     setOpen(false);
   };
 
+  const anchorEl = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {}, []);
   return (
     <div className={styles.container}>
       <div
@@ -88,6 +96,7 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
           onClick={handleToggleSelect}
           onKeyDown={handleListKeyDown}
           aria-describedby="selectError"
+          ref={anchorEl}
         >
           <span>
             {selectedOption === undefined ? defaultValue : list[selectedOption]}
@@ -98,48 +107,57 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
             <BsChevronDown className={styles.icon} />
           )}
         </button>
-        {isOpen ? (
-          <div className={styles.options}>
-            <ul
-              className={styles.list}
-              tabIndex={-1}
-              role="listbox"
-              aria-activedescendant={
-                selectedOption === undefined ? "" : list[selectedOption]
-              }
-            >
-              <li
-                className={styles.item}
-                data-name="option1"
-                tabIndex={0}
-                role="option"
-                // onKeyDown={() => handleKeyDown(key)}
-                onClick={clear}
-                // aria-selected={
-                // !!selectedOption && list?.[selectedOption] === item
-                // }
-              >
-                clear
-              </li>
 
-              {list.map((item, key) => (
+        {isOpen ? (
+          <Portal anchorEl={anchorEl} onClick={closeSelect}>
+            <div
+              className={styles.options}
+              onClick={(e) => {
+                console.log("clikc child?");
+                e.stopPropagation();
+              }}
+            >
+              <ul
+                className={styles.list}
+                tabIndex={-1}
+                role="listbox"
+                aria-activedescendant={
+                  selectedOption === undefined ? "" : list[selectedOption]
+                }
+              >
                 <li
                   className={styles.item}
                   data-name="option1"
                   tabIndex={0}
                   role="option"
-                  onKeyDown={() => handleKeyDown(key)}
-                  onClick={() => handleItemClick(key)}
-                  aria-selected={
-                    selectedOption !== undefined &&
-                    list?.[selectedOption] === item
-                  }
+                  // onKeyDown={() => handleKeyDown(key)}
+                  onClick={clear}
+                  // aria-selected={
+                  // !!selectedOption && list?.[selectedOption] === item
+                  // }
                 >
-                  {item}
+                  clear
                 </li>
-              ))}
-            </ul>
-          </div>
+
+                {list.map((item, key) => (
+                  <li
+                    className={styles.item}
+                    data-name="option1"
+                    tabIndex={0}
+                    role="option"
+                    onKeyDown={() => handleKeyDown(key)}
+                    onClick={() => handleItemClick(key)}
+                    aria-selected={
+                      selectedOption !== undefined &&
+                      list?.[selectedOption] === item
+                    }
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Portal>
         ) : null}
       </div>
     </div>
