@@ -4,6 +4,7 @@ import { BsDownload } from "react-icons/bs";
 import { AiOutlineShopping } from "react-icons/ai";
 import { ITrack } from "app/model/Track";
 import { useCartStore, useTrackStore } from "app/provider/Provider";
+import { createCloudinaryDownLink } from "app/utils/Link";
 
 interface IProps {
   track: ITrack;
@@ -12,6 +13,7 @@ interface IProps {
 const TrackListItem: React.FC<IProps> = ({ track }) => {
   const { addCartItem } = useCartStore();
   const { setAudioPlayerTrack } = useTrackStore();
+  const downloadLink = createCloudinaryDownLink(track.audioFile);
   return (
     <li
       className={styles.container}
@@ -66,7 +68,9 @@ const TrackListItem: React.FC<IProps> = ({ track }) => {
       </div>
       <div className={styles.column} onClick={(e) => e.stopPropagation()}>
         <div className={styles.download}>
-          <BsDownload className={styles.icon} />
+          <a href={downloadLink} download className={styles.link}>
+            <BsDownload className={styles.icon} />
+          </a>
         </div>
         <button className={styles.shop} onClick={() => addCartItem(track)}>
           <span className={styles.price} data-testid="track_item_price">

@@ -81,6 +81,15 @@
           text-align: center;
           color: white;
           font-size: 1vw;
+          &:-webkit-autofill,
+          &:-webkit-autofill:hover,
+          &:-webkit-autofill:focus,
+          &:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px black inset !important;
+          }
+          &:-webkit-autofill {
+            -webkit-text-fill-color: white !important;
+          }
           @media (orientation: portrait) {
             & {
               font-size: 3.8vw;

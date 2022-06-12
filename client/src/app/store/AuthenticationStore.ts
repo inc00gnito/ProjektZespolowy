@@ -9,12 +9,13 @@ import { getToken, removeToken, saveToken } from "app/utils/Token";
 export default class AuthenticationStore {
   constructor() {
     makeAutoObservable(this);
-    if (getToken()) this.verifyUser();
+    this.verifyUser();
   }
 
   isAuthenticated = false;
   authPopUp: IAuthModalType = null;
   user: IUser | null = null;
+  isLoading = true;
 
   authFunc = () => {
     if (this.isAuthenticated) return true;
@@ -32,11 +33,15 @@ export default class AuthenticationStore {
 
   verifyUser = async () => {
     try {
+      if (!getToken()) throw new Error("unauthenticated");
       const { data } = await agent.User.details();
       this.user = data;
       this.isAuthenticated = true;
+      this.isLoading = false;
+      console.log("set authenticated");
     } catch (error) {
       this.isAuthenticated = false;
+      this.isLoading = false;
       removeToken();
     }
   };

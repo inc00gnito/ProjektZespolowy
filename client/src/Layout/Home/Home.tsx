@@ -42,7 +42,6 @@ const Home: React.FC<IProps> = ({ children }) => {
   return (
     <div className={styles.container}>
       {authPopUp && <div className={styles.overlay} />}
-
       <nav className={styles.nav}>
         <div className={styles.title}>
           <h1 className={styles.heading}>

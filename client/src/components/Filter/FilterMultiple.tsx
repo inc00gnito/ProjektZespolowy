@@ -2,17 +2,19 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Filter.module.scss";
 import cx from "classnames";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import Portal from "components/Portal/Portal";
 
 interface IProps {
   list: string[];
-  onChange: (value: string) => void;
+  onChange: (values: string[]) => void;
   defaultValue: string;
 }
 
 const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
   const [isOpen, setOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<number>();
+  const [selectedOption, setSelectedOption] = useState<number[]>([]);
+  const anchorEl = useRef<HTMLButtonElement>(null);
 
   const handleToggleSelect = () => {
     setOpen(!isOpen);
@@ -22,13 +24,26 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
     setOpen(false);
   };
 
+  function removeItemOnce<T>(arr: T[], index: number) {
+    if (index > -1) {
+      arr.splice(index, 1);
+    }
+    return [...arr];
+  }
+
+  const indexInSelectedOptions = (index: number) =>
+    selectedOption.indexOf(index);
+
   const handleKeyDown = (index: number) => (e: any) => {
     switch (e.key) {
       case " ":
       case "SpaceBar":
       case "Enter":
         e.preventDefault();
-        setSelectedOption(index);
+        const indexOfEl = indexInSelectedOptions(index);
+        if (indexOfEl === -1) setSelectedOption([...selectedOption, index]);
+        else setSelectedOption(removeItemOnce(selectedOption, indexOfEl));
+        // setSelectedOption(index);
         setOpen(false);
         break;
       default:
@@ -36,51 +51,49 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
     }
   };
 
-  const handleListKeyDown = (e: any) => {
-    let newValue;
-    switch (e.key) {
-      case "Escape":
-        e.preventDefault();
-        setOpen(false);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        if (selectedOption === undefined) return;
-        newValue = selectedOption - 1;
-        if (newValue < 0) setSelectedOption(0);
-        else setSelectedOption(newValue);
-        break;
-      case "ArrowDown":
-        e.preventDefault();
-        if (selectedOption === undefined) return;
-        newValue = selectedOption + 1;
-        if (newValue >= list.length) setSelectedOption(list.length - 1);
-        else setSelectedOption(newValue);
-        break;
-      default:
-        break;
-    }
-  };
+  //   const handleListKeyDown = (e: any) => {
+  //     let newValue;
+  //     switch (e.key) {
+  //       case "Escape":
+  //         e.preventDefault();
+  //         setOpen(false);
+  //         break;
+  //       case "ArrowUp":
+  //         e.preventDefault();
+  //         newValue = selectedOption - 1;
+  //         if (newValue < 0) setSelectedOption(0);
+  //         else setSelectedOption(newValue);
+  //         break;
+  //       case "ArrowDown":
+  //         e.preventDefault();
+  //         newValue = selectedOption + 1;
+  //         if (newValue >= list.length) setSelectedOption(list.length - 1);
+  //         else setSelectedOption(newValue);
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
 
   const handleItemClick = (key: number) => {
-    setSelectedOption(key);
+    const indexOfEl = indexInSelectedOptions(key);
+    if (indexOfEl === -1) setSelectedOption([...selectedOption, key]);
+    else setSelectedOption(removeItemOnce(selectedOption, indexOfEl));
     setOpen(false);
   };
 
   useEffect(() => {
-    if (selectedOption === undefined) return onChange("");
-    onChange(list[selectedOption]);
+    const listArr = selectedOption.map((item) => list[item]);
+    onChange(listArr);
   }, [selectedOption]);
 
+  const listString = selectedOption.map((item) => list[item]).join(", ");
+
   const clear = () => {
-    setSelectedOption(undefined);
-    onChange("");
+    setSelectedOption([]);
     setOpen(false);
   };
 
-  const anchorEl = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {}, []);
   return (
     <div className={styles.container}>
       <div
@@ -94,12 +107,12 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
           aria-haspopup="listbox"
           aria-expanded={isOpen}
           onClick={handleToggleSelect}
-          onKeyDown={handleListKeyDown}
+          //   onKeyDown={handleListKeyDown}
           aria-describedby="selectError"
           ref={anchorEl}
         >
-          <span>
-            {selectedOption === undefined ? defaultValue : list[selectedOption]}
+          <span className={styles.filterItems}>
+            {selectedOption.length === 0 ? defaultValue : listString}
           </span>
           {isOpen ? (
             <BsChevronUp className={styles.icon} />
@@ -107,38 +120,27 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
             <BsChevronDown className={styles.icon} />
           )}
         </button>
-
         {isOpen ? (
           <Portal anchorEl={anchorEl} onClick={closeSelect}>
-            <div
-              className={styles.options}
-              onClick={(e) => {
-                console.log("clikc child?");
-                e.stopPropagation();
-              }}
-            >
+            <div className={styles.options}>
               <ul
                 className={styles.list}
                 tabIndex={-1}
                 role="listbox"
-                aria-activedescendant={
-                  selectedOption === undefined ? "" : list[selectedOption]
-                }
+                data-testid="modal__list"
+                aria-activedescendant={listString}
               >
                 <li
                   className={styles.item}
                   data-name="option1"
                   tabIndex={0}
                   role="option"
-                  // onKeyDown={() => handleKeyDown(key)}
+                  //   onKeyDown={() => handleKeyDown(key)}
                   onClick={clear}
-                  // aria-selected={
-                  // !!selectedOption && list?.[selectedOption] === item
-                  // }
+                  aria-selected={selectedOption.length === 0}
                 >
-                  clear
+                  {defaultValue}
                 </li>
-
                 {list.map((item, key) => (
                   <li
                     className={styles.item}
@@ -147,10 +149,7 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
                     role="option"
                     onKeyDown={() => handleKeyDown(key)}
                     onClick={() => handleItemClick(key)}
-                    aria-selected={
-                      selectedOption !== undefined &&
-                      list?.[selectedOption] === item
-                    }
+                    aria-selected={listString.includes(item)}
                   >
                     {item}
                   </li>

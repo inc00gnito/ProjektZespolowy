@@ -10,8 +10,7 @@ import { faker } from "@faker-js/faker";
 //   });
 
 //   it("auth flow, register, logout, login", function () {
-//     //change resolution, enter website
-//     cy.viewport(1920, 1080);
+//
 //     cy.visit("http://localhost:3000/");
 
 //     //signup
