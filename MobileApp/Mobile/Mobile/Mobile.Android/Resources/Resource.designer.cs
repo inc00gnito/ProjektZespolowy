@@ -27263,31 +27263,34 @@ namespace Mobile.Droid
 			public const int notify_panel_notification_icon_bg = 2131165377;
 			
 			// aapt resource value: 0x7F0700C2
-			public const int preference_list_divider_material = 2131165378;
+			public const int playBlack = 2131165378;
 			
 			// aapt resource value: 0x7F0700C3
-			public const int search = 2131165379;
+			public const int preference_list_divider_material = 2131165379;
 			
 			// aapt resource value: 0x7F0700C4
-			public const int share = 2131165380;
+			public const int search = 2131165380;
 			
 			// aapt resource value: 0x7F0700C5
-			public const int shoppingbag = 2131165381;
+			public const int share = 2131165381;
 			
 			// aapt resource value: 0x7F0700C6
-			public const int test_custom_background = 2131165382;
+			public const int shoppingbag = 2131165382;
 			
 			// aapt resource value: 0x7F0700C7
-			public const int tooltip_frame_dark = 2131165383;
+			public const int test_custom_background = 2131165383;
 			
 			// aapt resource value: 0x7F0700C8
-			public const int tooltip_frame_light = 2131165384;
+			public const int tooltip_frame_dark = 2131165384;
 			
 			// aapt resource value: 0x7F0700C9
-			public const int track_lance = 2131165385;
+			public const int tooltip_frame_light = 2131165385;
 			
 			// aapt resource value: 0x7F0700CA
-			public const int user_avatar = 2131165386;
+			public const int track_lance = 2131165386;
+			
+			// aapt resource value: 0x7F0700CB
+			public const int user_avatar = 2131165387;
 			
 			static Drawable()
 			{

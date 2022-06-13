@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:Mobile"
              x:Class="Mobile.Tracks"
              xmlns:myViews="clr-namespace:Mobile"
+             xmlns:vm="clr-namespace:Mobile.ViewModel"
              BackgroundColor="Black"
              Title="Tracks"
              >
@@ -21,6 +22,9 @@
                      Priority="2"
                      Clicked="ShoppingBagClicked"/>
     </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <vm:MainViewModel/>
+    </ContentPage.BindingContext>
     <ScrollView >
         <Grid >
 
@@ -129,7 +133,7 @@
                     
                 </ListView>-->
                 
-                <ListView x:Name="TracksList" 
+                <ListView x:Name="TracksList"  SelectedItem="{Binding SelectionCommand}"
                                 >  
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -142,7 +146,7 @@
                                     Grid.ColumnSpan="4"
                                     Margin="0,10,0,0">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="PlayTrack"/>
+                                        <TapGestureRecognizer Tapped="PlayTrack" />
                                     </StackLayout.GestureRecognizers>
                                     <Grid >
                                         <Grid.ColumnDefinitions>

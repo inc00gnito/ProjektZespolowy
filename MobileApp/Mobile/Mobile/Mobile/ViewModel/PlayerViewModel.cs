@@ -99,7 +99,7 @@ namespace Mobile.ViewModel
         public ICommand PlayCommand => new Command(Play);
         public ICommand ChangeCommand => new Command(ChangeMusic);
         public ICommand BackCommand => new Command(() => Application.Current.MainPage.Navigation.PopAsync());
-        public ICommand ShareCommand => new Command(() => Share.RequestAsync(selectedMusic.Url, selectedMusic.Title));
+        public ICommand ShareCommand => new Command(() => Share.RequestAsync(selectedMusic.AudioFile, selectedMusic.Title));
 
 
         private async void Play()
@@ -127,7 +127,7 @@ namespace Mobile.ViewModel
         private async void PlayMusic(Music music)
         {
             var mediaInfo = CrossMediaManager.Current;
-            await mediaInfo.Play(music?.Url);       //tu coś nie tak jest z przekazywaniem url
+            await mediaInfo.Play(music?.AudioFile);       //tu coś nie tak jest z przekazywaniem url
             //await mediaInfo.Play("https://ia800806.us.archive.org/15/items/Mp3Playlist_555/AaronNeville-CrazyLove.mp3");       //tu coś nie tak jest z przekazywaniem url
             IsPlaying = true;
 

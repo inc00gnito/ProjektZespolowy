@@ -7,6 +7,8 @@
              mc:Ignorable="d" NavigationPage.HasNavigationBar="False"
              x:Class="Mobile.TrackPlayer">
 
+   
+
 
     <pv:PancakeView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
         <pv:PancakeView.BackgroundGradientStops>
@@ -60,12 +62,19 @@
             </Grid>
             <StackLayout Grid.Row="1" Spacing="25" HorizontalOptions="Center" VerticalOptions="Center">
                     <pv:PancakeView BackgroundColor="Gray" HeightRequest="150" WidthRequest="150" CornerRadius="5" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Image Source="{Binding SelectedMusic.CoverImage}" Aspect="AspectFill" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center"/>
+                        <Image Source="{Binding SelectedMusic.ImgFile}" Aspect="AspectFill" HeightRequest="150" WidthRequest="150" HorizontalOptions="Center" VerticalOptions="Center"/>
                     </pv:PancakeView>
                 <StackLayout HorizontalOptions="Center">
                     <StackLayout>
                         <Label Text="{Binding SelectedMusic.Title}" TextColor="White" FontSize="25" HorizontalOptions="Center"/>
-                        <Label Text="{Binding SelectedMusic.Artist}" TextColor="White" FontSize="15" Opacity="0.5" HorizontalOptions="Center"/>
+                        <Label TextColor="White" FontSize="15" Opacity="0.5" HorizontalOptions="Center">
+                            <Label.Text>
+                                <MultiBinding StringFormat="{}{0}     {1}">
+                                    <Binding Path="SelectedMusic.Authors[0].StageName" />
+                                    <Binding Path="SelectedMusic.Authors[1].StageName" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

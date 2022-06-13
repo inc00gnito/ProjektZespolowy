@@ -37,8 +37,8 @@ namespace Mobile
         private void TracksClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-           
-            Navigation.PushAsync(new Tracks());
+
+            Navigation.PushAsync(new MainTrackPage());
         }
         private void MyOrdersClicked(object sender, EventArgs e)
         {
@@ -61,10 +61,8 @@ namespace Mobile
         private void PaymentClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
-            //Navigation.PushAsync(new SingleTrackPlay());
-            //Navigation.PushAsync(new Payment());
+            Navigation.PushAsync(new Payment());
 
-            Navigation.PushAsync(new MainTrackPage());
         }
         private void TestowankoClicked(object sender, EventArgs e)
         {
