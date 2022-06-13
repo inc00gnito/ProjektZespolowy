@@ -8,65 +8,9 @@ import { checkAuth } from "app/utils/Auth";
 export default class CartStore {
   constructor() {
     makeAutoObservable(this);
-    this.initalize();
   }
   shoppingList = new Map<number, ICartItem>();
   isPopup = false;
-  initalize = () => {
-    this.shoppingList.set(1, {
-      id: 1,
-      imgFile: trackImage1,
-      title: "Lorem Ipsum",
-      cost: 10,
-      quantity: 2,
-      time: 10,
-      genre: 0,
-      discountedByShop: 0,
-      discountedByUser: 0,
-      isDiscounted: false,
-      timesSold: 0,
-      tags: [],
-      authors: [],
-      audioFile: "",
-      demoFile: "",
-    });
-
-    this.shoppingList.set(2, {
-      id: 2,
-      imgFile: trackImage1,
-      title: "Lorem Ipsum121",
-      cost: 40,
-      quantity: 1,
-      time: 10,
-      genre: 0,
-      discountedByShop: 0,
-      discountedByUser: 0,
-      isDiscounted: false,
-      timesSold: 0,
-      tags: [],
-      authors: [],
-      audioFile: "",
-      demoFile: "",
-    });
-
-    this.shoppingList.set(3, {
-      id: 3,
-      imgFile: trackImage1,
-      title: "Lorem Ipsum121dsa",
-      cost: 10,
-      quantity: 5,
-      time: 10,
-      genre: 0,
-      discountedByShop: 0,
-      discountedByUser: 0,
-      isDiscounted: false,
-      timesSold: 0,
-      tags: [],
-      authors: [],
-      audioFile: "",
-      demoFile: "",
-    });
-  };
 
   closePopup = () => {
     this.isPopup = false;
@@ -76,25 +20,20 @@ export default class CartStore {
     this.isPopup = true;
   };
 
-  // addCartItem = (track: ITrack) => {
-  //   stores.authenticationStore.authFunc(() => {
-  //     const newCartItem: ICartItem = {
-  //       ...track,
-  //       quantity: 1,
-  //     };
-  //     this.shoppingList.set(newCartItem.id, newCartItem);
-
-  //     this.openPopup();
-  //   });
-  // };
-
-  // authService = (arg: any) => stores.authenticationStore.authFunc(arg)
-
   addCartItem = checkAuth((track: ITrack) => {
-    const newCartItem: ICartItem = {
-      ...track,
-      quantity: 1,
-    };
+    const cartItem = this.shoppingList.get(track.id);
+    let newCartItem: ICartItem;
+    if (cartItem) {
+      newCartItem = cartItem;
+      newCartItem.quantity++;
+      this.shoppingList.set(newCartItem.id, newCartItem);
+    } else {
+      newCartItem = {
+        ...JSON.parse(JSON.stringify(track)),
+        quantity: 1,
+      };
+      console.log(newCartItem);
+    }
     this.shoppingList.set(newCartItem.id, newCartItem);
 
     this.openPopup();
