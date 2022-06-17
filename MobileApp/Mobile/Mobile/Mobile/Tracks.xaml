@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:Mobile"
              x:Class="Mobile.Tracks"
              xmlns:myViews="clr-namespace:Mobile"
+             xmlns:vm="clr-namespace:Mobile.ViewModel"
              BackgroundColor="Black"
              Title="Tracks"
              >
@@ -21,6 +22,9 @@
                      Priority="2"
                      Clicked="ShoppingBagClicked"/>
     </ContentPage.ToolbarItems>
+    <ContentPage.BindingContext>
+        <vm:MainViewModel/>
+    </ContentPage.BindingContext>
     <ScrollView >
         <Grid >
 
@@ -120,11 +124,20 @@
             <StackLayout   
                 Grid.Row="3" 
                 Grid.Column="1"
-                Grid.ColumnSpan="4">
-                <ListView x:Name="TracksList"  HasUnevenRows="True">
+                Grid.ColumnSpan="4"
+                >
+                <!--Czy nie może być tutaj collection view?-->
+                <!--Wtedy po dodaniu -    SelectionChangedCommand="{Binding SelectionCommand}
+                Przenosiłoby do widoku TrackPlayer-->
+                <!--<ListView x:Name="TracksList" HasUnevenRows="True">
+                    
+                </ListView>-->
+                
+                <ListView x:Name="TracksList"  SelectedItem="{Binding SelectionCommand}"
+                                >  
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
+                            <ViewCell >
 
                                 <StackLayout 
                                     
@@ -133,9 +146,9 @@
                                     Grid.ColumnSpan="4"
                                     Margin="0,10,0,0">
                                     <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="PlayTrack"/>
+                                        <TapGestureRecognizer Tapped="PlayTrack" />
                                     </StackLayout.GestureRecognizers>
-                                    <Grid>
+                                    <Grid >
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition>
                                             </ColumnDefinition>

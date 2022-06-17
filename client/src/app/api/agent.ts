@@ -30,7 +30,7 @@ const Newsletter = {
 
 const Track = {
   listBestsellers: () => requests.get<ITrack[]>("tracks/bestsellers"),
-  list: () => requests.get<ITrack[]>("tracks"),
+  list: (params: string) => requests.get<ITrack[]>(`tracks${params}`),
   listFiltered: (filter: number) =>
     requests.get<ITrack[]>(`tracks/filterbygenerer?genre=${filter}`),
   listSortedBy: (sortBy: number) =>

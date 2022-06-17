@@ -1,21 +1,38 @@
-import { Enum } from "app/model/global";
+import {
+  ITrackFilters,
+  ITrackOptions,
+  ITrackSearch,
+  ITrackSort,
+} from "app/model/Track";
 
-export const Genre: Enum = {
-  "All genres": -1,
-  Rock: 0,
-  pop: 1,
-  "Pop Rock": 2,
-  "Punk Rock": 3,
-  "Hip Hop": 4,
-  RnB: 5,
-  Electronic: 6,
+export const convertTrackOptionsToParams = (options?: ITrackOptions) => {
+  if (!options) return "";
+  const { filters, sort, search } = options;
+  const filtersParams = convertTrackFilterToParams(filters);
+  const sortParams = convertTrackSortToParams(sort);
+  const searchParams = convertTrackSearchToParams(search);
+
+  const params = joinParams(filtersParams, sortParams, searchParams);
+  return params;
 };
 
-export const SortBy: Enum = {
-  "sort by": -1,
-  "price lowest": 0,
-  "price highest": 1,
-  "times sold": 2,
-  "discounted lowest": 3,
-  "discounted highest": 4,
+export const convertTrackFilterToParams = (filters?: ITrackFilters) => {
+  if (!filters || filters.length === 0) return "";
+  return "filter=" + filters.join(",");
+};
+
+export const convertTrackSortToParams = (sort?: ITrackSort) => {
+  if (sort === undefined) return "";
+  return "sort=" + sort;
+};
+
+export const convertTrackSearchToParams = (search?: ITrackSearch) => {
+  if (!search) return "";
+  return "search=" + search;
+};
+
+export const joinParams = (...params: string[]) => {
+  const nonEmptyParams = params.filter((n) => n);
+  if (nonEmptyParams.length === 0) return "";
+  return "?" + nonEmptyParams.join("&");
 };

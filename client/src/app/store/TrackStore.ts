@@ -1,10 +1,8 @@
-import { ITrack } from "app/model/Track";
+import { ITrack, ITrackOptions } from "app/model/Track";
 import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import agent from "app/api/agent";
-import { Genre } from "app/utils/Filters";
-import WhatIsLove from "assets/whatislove.webp";
-import Flaming from "assets/flaming.jpg";
+import { convertTrackOptionsToParams } from "app/utils/Filters";
 
 export default class TrackStore {
   constructor() {
@@ -50,29 +48,12 @@ export default class TrackStore {
     }
   };
 
-  loadTracks = async () => {
+  loadTracks = async (options?: ITrackOptions) => {
+    const params = convertTrackOptionsToParams(options);
+    console.log(params);
     try {
-      const { data } = await agent.Track.list();
-      this.tracks = data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) return console.log("fds");
-      console.log("server error");
-    }
-  };
-
-  loadFilteredTracks = async (filter: number) => {
-    try {
-      const { data } = await agent.Track.listFiltered(filter);
-      this.tracks = data;
-    } catch (err) {
-      if (axios.isAxiosError(err)) return console.log("fds");
-      console.log("server error");
-    }
-  };
-
-  loadSortedByTracks = async (sortBy: number) => {
-    try {
-      const { data } = await agent.Track.listSortedBy(sortBy);
+      const { data } = await agent.Track.list(params);
+      console.log(data);
       this.tracks = data;
     } catch (err) {
       if (axios.isAxiosError(err)) return console.log("fds");

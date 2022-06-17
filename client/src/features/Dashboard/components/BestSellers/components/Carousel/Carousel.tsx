@@ -5,6 +5,7 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { HiDownload } from "react-icons/hi";
 import { ITrack } from "app/model/Track";
 import { createCloudinaryDownLink } from "app/utils/Link";
+import { useCartStore } from "app/provider/Provider";
 
 interface IProps {
   items: ITrack[];
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
+  const { addCartItem } = useCartStore();
   const photosLength = items.length;
   const [elements, setElements] = useState(desktopView);
   const [sliderElements, setSliderElements] = useState(desktopView + 4);
@@ -115,8 +117,6 @@ const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
       tempIndex -= 1;
       if (tempPhotoIndex < 0) tempPhotoIndex = photosLength - 1;
       if (tempIndex < 0) tempIndex = sliderElements - 1;
-      console.log("temo");
-      console.log(tempPhotoIndex);
       indexArr[tempIndex] = tempPhotoIndex;
     }
 
@@ -151,6 +151,10 @@ const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
       if (tempIndex === sliderElements) tempIndex = 0;
     }
     setPosArr(posArr);
+  };
+
+  const handleAddProduct = (item: ITrack) => {
+    addCartItem(item);
   };
 
   useEffect(() => {
@@ -216,7 +220,10 @@ const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
                 <div className={styles.action}>
                   <p className={styles.name}>Lorem ipsum</p>
                   <p className={styles.price}>5,00 zł</p>
-                  <button className={styles.button}>
+                  <button
+                    className={styles.button}
+                    onClick={() => handleAddProduct(items[cards[item]])}
+                  >
                     <span className={styles.text}>Dodaj do koszyka</span>
                   </button>
                 </div>
