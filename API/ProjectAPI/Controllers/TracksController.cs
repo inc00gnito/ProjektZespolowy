@@ -22,6 +22,8 @@ using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Newtonsoft.Json;
 using Org.BouncyCastle.Crypto.Utilities;
 using ProjectAPI.Models.DTOs;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace ProjectAPI.Controllers
 {
@@ -31,13 +33,15 @@ namespace ProjectAPI.Controllers
     {
         public readonly DataBaseContext _db;
         private readonly Cloudinary _cloudinary;
+        private readonly SendGridKey _sgKey;
         private readonly IMapper _mapper;
 
-        public TracksController(DataBaseContext db, Cloudinary cloudinary, IMapper mapper)
+        public TracksController(DataBaseContext db, Cloudinary cloudinary, IMapper mapper, SendGridKey sgKey)
         {
             _db = db;
             _cloudinary = cloudinary;
             _mapper = mapper;
+            _sgKey = sgKey;
         }
               
         //TODO - to postTrack add UserId after authorization is done
@@ -153,7 +157,10 @@ namespace ProjectAPI.Controllers
 
             //Newsletter is being sent everytime a discount price is changed
             var emails = _db.NewsletterEmailsDbSet.ToList();
-            SendMail(emails);
+            foreach (var newsletterEmail in emails)
+            {
+                SendMail(newsletterEmail.Email);
+            }
 
             return NoContent();
         }
@@ -191,34 +198,21 @@ namespace ProjectAPI.Controllers
             
         }
 
-        private void SendMail(List<NewsletterEmail> newsletterEmails)
+        private async void SendMail(string newsletterEmail)
         {
-            var client = new SmtpClient();
-            client.Connect("smtp.gmail.com", 587, false);
-            client.Authenticate("trackslance@gmail.com", "Trackslance1!"); // later hide password somehow
-
-            foreach (var newsletterEmail in newsletterEmails)
-            {
-                var msg = CreateMessage(newsletterEmail.Email);
-                client.Send(msg);
-            }
-
-            client.Disconnect(true);
+            var client = new SendGridClient(_sgKey.API);
+            var msg = CreateMessage();
+            msg.From = new EmailAddress("trackslance@gmail.com", "Trackslance");
+            msg.AddTo(new EmailAddress(newsletterEmail));
+            await client.SendEmailAsync(msg).ConfigureAwait(false);
         }
 
-        private MimeMessage CreateMessage(string email)
-        {
-            var msg = new MimeMessage();
-            msg.From.Add(new MailboxAddress("Trackslance", "trackslance@gmail.com"));
-            msg.To.Add(new MailboxAddress("", email));
-            msg.Subject = "Newsletter!";
-
-            msg.Body = new TextPart("plain")
-            {
-                Text = @"Testing put changes  in fucking api"
-            };
-
-            return msg;
+        private SendGridMessage CreateMessage()
+        { var msg = new SendGridMessage();
+            
+           msg.Subject = "Newsletter!";
+           msg.PlainTextContent = "Check out our new discounted offers" ;
+           return msg;
         }
 
         private async Task<string> GetFileStringAndUpload(IFormFile file, string type = "")
