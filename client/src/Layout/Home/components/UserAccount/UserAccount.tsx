@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useAuthenticationStore } from "app/provider/Provider";
 
 const UserAccount = () => {
-  const { logout } = useAuthenticationStore();
+  const { logout, user } = useAuthenticationStore();
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => {
@@ -27,7 +27,9 @@ const UserAccount = () => {
         aria-haspopup="true"
         aria-label="Account settings"
       >
-        <span className={styles.text}>A</span>
+        <span className={styles.text}>
+          {user?.username.slice(0, 1).toUpperCase()}
+        </span>
       </button>
       {isMenuOpen ? (
         <div className={styles.menuContainer} tabIndex={-1}>

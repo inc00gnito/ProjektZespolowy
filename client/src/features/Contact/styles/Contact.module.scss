@@ -1,129 +1,155 @@
 @import "../../../app/styles/variables.scss";
 
 .container {
-  padding-top: $navbarHeight; //odusniecie elementów zeby nie były pod nawigacja
   background-color: black;
   color: white;
 }
 
-
-.header{
+.header {
   margin-left: 100px;
-  color:$primaryColor;
+  color: $primaryColor;
   font-size: 70px;
-
 }
 
-.firstLine{
-  display:flex;
+.firstLine {
+  display: flex;
 }
 
-.formHeader{
-  margin:auto;
+.formHeader {
+  margin: auto;
   text-align: center;
-  margin-top:70px;
-  font-size:47px;
-  margin-bottom: 100px;;
-}
-
-.formCointaner{
-  width:540px;
-  margin:auto;
-}
-
-.contact{
- color:$primaryColor;
- font-size:30px;
- margin-bottom: 50px;
- font-weight: 800;
-}
-.line{
-  width:50%;
-}
-
-.input{
-  border:none;
-  border-bottom: 2px solid white;
-  color:white;
-  background-color: black;
-  width:100%;
-  margin-top:50px;
-  margin-bottom:20px;
-  font-size:1.5rem;
-}
-.label{
+  margin-top: 40px;
+  font-size: 47px;
   margin-bottom: 30px;
 }
 
-.button{
-  background-color: $primaryColor;
-  color:white;
-  border:1px solid $primaryColor;
-  border-radius: 20px;
-  font-size:20px;
-  font-weight: 600;
-  padding:10px 15px;
-  margin-bottom: 100px;
-  cursor: pointer;
-  transition: .3s;
+.formCointaner {
+  width: 540px;
+  margin: auto;
 }
-.button:hover{
+
+.contact {
+  color: $primaryColor;
+  font-size: 30px;
+  margin-bottom: 50px;
+  font-weight: 800;
+}
+.line {
+  width: 50%;
+}
+
+.input {
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+  background-color: black;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.textarea {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid white;
+  color: white;
+  background-color: black;
+  width: 100%;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  resize: none;
+}
+
+.inputError {
+  border-color: red;
+}
+
+.errorMessage {
+  color: red;
+  margin-bottom: 5px;
+}
+
+.label {
+  margin-bottom: 30px;
+}
+
+.successMessage {
+  margin-top: 5px;
+  color: #388e3c;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.button {
+  background-color: $primaryColor;
+  color: white;
+  border: 1px solid $primaryColor;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 180px;
+  height: 45px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.button:hover {
   background-color: $primaryColorDarker;
 }
 
-@media(max-width: 670px){
-  .formHeader{
-    display:none;
+@media (max-width: 670px) {
+  .formHeader {
+    display: none;
   }
-  .header{
+  .header {
     margin-bottom: 100px;
-    font-size:50px;
+    font-size: 50px;
   }
 
-  .firstLine{
-    display:block;
-    width:100%;
+  .firstLine {
+    display: block;
+    width: 100%;
     margin-right: 0;
   }
 
-  .formCointaner{
-    width:100%;
+  .formCointaner {
+    width: 100%;
     margin-right: 0;
   }
 
-  .input{
+  .input {
     box-sizing: border-box;
-    width:90%;
+    width: 90%;
     margin-right: 20px;
     margin-left: 20px;
   }
 
-  .label{
+  .label {
     margin-right: 20px;
     margin-left: 20px;
-
   }
 
-  .line{
-    width:100%;
+  .line {
+    width: 100%;
   }
 
-  .contact{
+  .contact {
     margin-left: 20px;
   }
 
-  .button{
-    display:block;
-    margin:auto;
+  .button {
+    display: block;
+    margin: auto;
     margin-bottom: 20px;
   }
-
 }
 
-@media(max-width: 670px){
-
-  .header{
-    font-size:40px;
+@media (max-width: 670px) {
+  .header {
+    font-size: 40px;
   }
-
 }

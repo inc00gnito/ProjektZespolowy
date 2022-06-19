@@ -17,6 +17,15 @@ export interface ITrack {
   isDiscounted: boolean;
 }
 
+export interface ITrackForm {
+  audioFile: File;
+  imageFile: File;
+  price: number;
+  tags: { value: string }[];
+  title: string;
+  genre: number;
+}
+
 export const Genre: Enum = {
   "All genres": -1,
   Rock: 0,

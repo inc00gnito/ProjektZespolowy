@@ -105,6 +105,9 @@
           margin-top: 2em;
         }
         .imageUploadContainer {
+          .error {
+            max-width: 18rem;
+          }
           .imageUpload {
             background-color: $primaryGrey;
             width: 18rem;
@@ -184,6 +187,7 @@
     }
   }
   .error {
+    max-width: 100%;
     color: red;
     font-size: 1em;
     font-weight: bold;

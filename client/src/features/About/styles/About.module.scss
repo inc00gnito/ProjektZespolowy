@@ -1,156 +1,153 @@
 @import "../../../app/styles/variables.scss";
 
 .container {
-  padding-top: $navbarHeight; //odusniecie elementów zeby nie były pod nawigacja
-  display:flex;
   background-color: black;
   color: white;
-  height:calc(100vh - $navbarHeight);
+  min-height: calc(100vh - $navbarHeight);
   box-sizing: border-box;
 }
-.line{
-  padding-bottom:200px;
+.content {
+  display: flex;
+  padding-top: $navbarHeight;
+}
+.line {
+  padding-bottom: 200px;
   border-top: 1px solid white;
   height: 1px;
-  width:90%;
-  margin:auto
+  width: 90%;
+  margin: auto;
 }
-.Team{
+.Team {
   margin: 50px;
   text-align: center;
-  font-size:50px;
+  font-size: 50px;
 }
-.text{
-  margin:20px;
+.text {
+  margin: 20px;
   text-align: center;
 }
-.gif{
+.gif {
   display: block;
-  width:400px;
+  width: 400px;
   border: 3px solid white;
   border-radius: 50%;
-  position:relative;
+  position: relative;
   bottom: 400px;
-  left:200px;
+  left: 200px;
   z-index: 0;
-  margin:auto;
+  margin: auto;
 }
-.trackslance{
-  width:300px;
-  height:300px;
+.trackslance {
+  width: 300px;
+  height: 300px;
   border: 3px solid white;
   background-color: black;
   border-radius: 50%;
   text-align: center;
   line-height: 300px;
-  font-size:30px;
-  margin-top:80px;
+  font-size: 30px;
+  margin-top: 80px;
   z-index: 999;
   position: relative;
 }
-.wrapper1{
-  width:40%;
+.wrapper1 {
+  width: 40%;
 }
-.wrapper2{
-  width:auto;
+.wrapper2 {
+  width: auto;
 }
-@media(max-width:1000px){
-  .container{
-    display:block;
+@media (max-width: 1000px) {
+  .container {
+    display: block;
   }
-  .wrapper1{
-    width:100%;
+  .content {
+    display: block;
+  }
+  .wrapper1 {
+    width: 100%;
     margin-bottom: 200px;
-    text-align:start;
+    text-align: start;
   }
-  .wrapper2{
-    width:80%;
-    margin:auto;
+  .wrapper2 {
+    width: 80%;
+    margin: auto;
   }
-  .gif{
+  .gif {
     left: 100px;
   }
-  .trackslance{
-    width:250px;
-  height:250px;
-  line-height: 250px;
-  position: relative;
-  top:100px;
-  left:200px;
+  .trackslance {
+    width: 250px;
+    height: 250px;
+    line-height: 250px;
+    position: relative;
+    top: 100px;
+    left: 200px;
   }
-
-
 }
-@media(max-width:700px){
-  .wrapper1{
-    width:100%;
+@media (max-width: 700px) {
+  .wrapper1 {
+    width: 100%;
     margin-bottom: 250px;
-    text-align:start;
+    text-align: start;
   }
 
-  .gif{
-    width:350px;
-    left:0px;
-    margin:auto;
+  .gif {
+    width: 350px;
+    left: 0px;
+    margin: auto;
   }
 }
 
-
-@media(max-width:800px){
-  .wrapper1{
-    width:100%;
+@media (max-width: 800px) {
+  .wrapper1 {
+    width: 100%;
     margin-bottom: 250px;
-    text-align:start;
+    text-align: start;
   }
 
-  .gif{
-    width:350px;
-    left:0px;
-    margin:auto;
+  .gif {
+    width: 350px;
+    left: 0px;
+    margin: auto;
   }
-
 }
 
-@media(max-width:900px){
-  .wrapper1{
-    width:100%;
+@media (max-width: 900px) {
+  .wrapper1 {
+    width: 100%;
     margin-bottom: 250px;
-    text-align:start;
+    text-align: start;
   }
 
-  .gif{
-    width:350px;
-    left:0px;
-    margin:auto;
+  .gif {
+    width: 350px;
+    left: 0px;
+    margin: auto;
   }
-
 }
 
-
-
-@media(max-width:600px){
-  .wrapper1{
+@media (max-width: 600px) {
+  .wrapper1 {
     margin-bottom: 0;
   }
-  .wrapper2{
+  .wrapper2 {
     margin-top: 100px;
   }
-  .gif{
-    width:300px;
+  .gif {
+    width: 300px;
     position: relative;
-    margin:auto;
-    top:-180px;
-    left:0px;
+    margin: auto;
+    top: -180px;
+    left: 0px;
   }
-  .trackslance{
-    font-size:20px;
+  .trackslance {
+    font-size: 20px;
     line-height: 200px;
-    width:200px;
-    height:200px;
-    top:260px;
-    left:40px;
+    width: 200px;
+    height: 200px;
+    top: 260px;
+    left: 40px;
     position: relative;
     margin-top: 0;
   }
-
 }

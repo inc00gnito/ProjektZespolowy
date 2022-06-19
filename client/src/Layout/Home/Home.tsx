@@ -188,9 +188,9 @@ const Home: React.FC<IProps> = ({ children }) => {
             </Link>
             {isPopup ? <Popup /> : null}
           </div>
-          <div className={styles.search}>
+          {/* <div className={styles.search}>
             <BiSearch className={styles.icon} />
-          </div>
+          </div> */}
           <div className={styles.account}>
             {user ? (
               <UserAccount />

@@ -12,12 +12,17 @@ import Tag from "./Tag/Tag";
 import PrimaryInput from "components/Input/Input";
 import PrimaryArrayInput from "components/ArrayInput/ArrayInput";
 import Button from "components/Button/Button";
+import { useTrackStore } from "app/provider/Provider";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
+import { observer } from "mobx-react-lite";
 
 const AUDIO_FILE_FORMATS_LIST = [
   "audio/wav",
   "audio/mp3",
   "audio/ogg",
   "audio/webm",
+  "audio/mpeg",
 ];
 
 const IMAGE_FILE_FORMATS_LIST = [
@@ -34,7 +39,10 @@ const schema = yup.object({
     .test(
       "fileFormat",
       "File format is invalid, we support WAV, MP3, OGG, WEBM",
-      (file) => file && AUDIO_FILE_FORMATS_LIST.includes(file.type)
+      (file) => {
+        console.log(file);
+        return file && AUDIO_FILE_FORMATS_LIST.includes(file.type);
+      }
     )
     .test(
       "fileSize",
@@ -60,10 +68,52 @@ const schema = yup.object({
       "File size too large, 1MB max",
       (file) => file && file.size < 1100000
     ),
-  type: yup.string().required("select type"),
+  genre: yup.string().required("select genre"),
 });
 
+const GENERE_LIST = [
+  {
+    id: 0,
+    name: 0,
+    value: "Rock",
+  },
+  {
+    id: 1,
+    name: 1,
+    value: "Pop",
+  },
+  {
+    id: 2,
+    name: 2,
+    value: "PopRock",
+  },
+  {
+    id: 3,
+    name: 3,
+    value: "PunkRock",
+  },
+  {
+    id: 4,
+    name: 4,
+    value: "HipHop",
+  },
+  {
+    id: 5,
+    name: 5,
+    value: "RnB",
+  },
+  {
+    id: 6,
+    name: 6,
+    value: "Electronic",
+  },
+];
+
 const Form = () => {
+  const navigate = useNavigate();
+  const { addTrack, isSubmitting } = useTrackStore();
+  console.log("isSubmitting?");
+  console.log(isSubmitting);
   const [tag, setTag] = useState("");
   const {
     register,
@@ -95,14 +145,12 @@ const Form = () => {
   };
 
   const onSubmit = (values: any) => {
-    console.log("submit");
+    addTrack(values).then(() => {
+      navigate("/tracks");
+    });
   };
-  useEffect(() => {
-    console.log(getValues());
-  }, [errors]);
 
   const [audioFile, imageFile] = watch(["audioFile", "imageFile"]);
-  console.log(imageFile);
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.row}>
@@ -234,13 +282,17 @@ const Form = () => {
           </div>
 
           <div className={styles.trackType}>
-            <span className={styles.name}>TRACK TYPE*</span>
+            <span className={styles.name}>TRACK Genre*</span>
             <div className={styles.select}>
               <Controller
                 control={control}
-                name="type"
+                name="genre"
                 render={({ field }) => (
-                  <Select field={field} error={errors?.type?.message} />
+                  <Select
+                    field={field}
+                    error={errors?.genre?.message}
+                    list={GENERE_LIST}
+                  />
                 )}
               />
             </div>
@@ -257,7 +309,11 @@ const Form = () => {
                 : undefined
             }
           >
-            Publish
+            {isSubmitting ? (
+              <CircularProgress size={15} sx={{ color: "#800760" }} />
+            ) : (
+              "Publish"
+            )}
           </Button>
         </div>
       </div>
@@ -265,4 +321,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default observer(Form);

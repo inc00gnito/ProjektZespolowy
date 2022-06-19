@@ -1,8 +1,9 @@
-import { ITrack, ITrackOptions } from "app/model/Track";
+import { ITrack, ITrackForm, ITrackOptions } from "app/model/Track";
 import { makeAutoObservable, runInAction } from "mobx";
 import axios from "axios";
 import agent from "app/api/agent";
 import { convertTrackOptionsToParams } from "app/utils/Filters";
+import { getAudioLength } from "app/utils/Audio";
 
 export default class TrackStore {
   constructor() {
@@ -12,6 +13,7 @@ export default class TrackStore {
   tracksBestsellers: ITrack[] = [];
   tracks: ITrack[] = [];
   playerAudio: ITrack | null = null;
+  isSubmitting = false;
 
   setAudioPlayerTrack = (track: ITrack) => {
     this.playerAudio = track;
@@ -58,6 +60,32 @@ export default class TrackStore {
     } catch (err) {
       if (axios.isAxiosError(err)) return console.log("fds");
       console.log("server error");
+    }
+  };
+
+  addTrack = async (track: ITrackForm) => {
+    this.isSubmitting = true;
+    const duration = await getAudioLength(track.audioFile);
+
+    const uploadTrack = new FormData();
+    uploadTrack.append("time", String(duration));
+    uploadTrack.append("imageFormFile", track.imageFile);
+    uploadTrack.append("audioFormFile", track.audioFile);
+    uploadTrack.append("demoFormFile", track.audioFile);
+    uploadTrack.append("demoFormFile", track.audioFile);
+    track.tags.map((tag) => uploadTrack.append(`tags[]`, tag.value));
+    uploadTrack.append("cost", String(track.price));
+    uploadTrack.append("title", track.title);
+    uploadTrack.append("genre", String(track.genre));
+    try {
+      await agent.Track.add(uploadTrack);
+      runInAction(() => {
+        this.isSubmitting = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this.isSubmitting = false;
+      });
     }
   };
 }

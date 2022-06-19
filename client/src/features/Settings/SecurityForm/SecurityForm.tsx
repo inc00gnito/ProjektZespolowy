@@ -69,7 +69,7 @@ const SecuirtyForm = () => {
         </div>
         <div className={styles.row}>
           <div className={styles.button}>
-            <Button>Update secuirty information</Button>
+            <Button>Update security information</Button>
           </div>
         </div>
       </form>

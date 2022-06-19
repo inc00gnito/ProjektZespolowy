@@ -5,7 +5,8 @@
   justify-content: center;
   color: white;
   height: 100%;
-  height: calc(100vh - $navbarHeight);
+  min-height: calc(100vh - $navbarHeight);
+  padding-bottom: 20px;
 
   .content {
     width: 100%;

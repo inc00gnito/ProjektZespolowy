@@ -1,4 +1,5 @@
 import { IAuthResponse, ICreds, ISignup } from "app/model/authentication";
+import { IContactMessage } from "app/model/Contact";
 import { ITrack } from "app/model/Track";
 import { IUser } from "app/model/User";
 import { getToken } from "app/utils/Token";
@@ -31,10 +32,7 @@ const Newsletter = {
 const Track = {
   listBestsellers: () => requests.get<ITrack[]>("tracks/bestsellers"),
   list: (params: string) => requests.get<ITrack[]>(`tracks${params}`),
-  listFiltered: (filter: number) =>
-    requests.get<ITrack[]>(`tracks/filterbygenerer?genre=${filter}`),
-  listSortedBy: (sortBy: number) =>
-    requests.get<ITrack[]>(`tracks/sort?key=${sortBy}`),
+  add: (track: FormData) => requests.post("tracks", track),
 };
 
 const Authentication = {
@@ -52,4 +50,15 @@ const User = {
   details: () => requests.get<IUser>("user"),
 };
 
-export default { Newsletter, Track, Authentication, User };
+const Contact = {
+  sendMessage: (message: IContactMessage) => requests.post("contact", message),
+};
+
+const Settings = {
+  changeEmail: (email: string) => requests.put("user/changeEmail", { email }),
+  changeName: (name: string) => requests.put("user/changeName", { name }),
+  changePassword: (currentPassword: string, newPassword: string) =>
+    requests.put("user/changePassword", { currentPassword, newPassword }),
+};
+
+export default { Newsletter, Track, Authentication, User, Contact, Settings };

@@ -5,13 +5,12 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 interface IProps {
-  field: ControllerRenderProps<FieldValues, "type">;
+  field: ControllerRenderProps<FieldValues, any>;
   error: string | undefined;
+  list: { id: number; name: number | string; value: string }[];
 }
 
-const list = ["option1", "option2", "option3"];
-
-const Select: React.FC<IProps> = ({ field, error }) => {
+const Select: React.FC<IProps> = ({ field, error, list }) => {
   const [isOpen, setOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(0);
 
@@ -63,7 +62,7 @@ const Select: React.FC<IProps> = ({ field, error }) => {
   };
 
   useEffect(() => {
-    field.onChange(list[selectedOption]);
+    field.onChange(list[selectedOption].name);
   }, [selectedOption]);
 
   return (
@@ -83,7 +82,7 @@ const Select: React.FC<IProps> = ({ field, error }) => {
           onKeyDown={handleListKeyDown}
           aria-describedby="selectError"
         >
-          <span>{list[selectedOption]}</span>
+          <span>{list[selectedOption].value}</span>
           {isOpen ? (
             <BsChevronUp className={styles.icon} />
           ) : (
@@ -96,19 +95,20 @@ const Select: React.FC<IProps> = ({ field, error }) => {
               className={styles.list}
               tabIndex={-1}
               role="listbox"
-              aria-activedescendant={list[selectedOption]}
+              aria-activedescendant={list[selectedOption].value}
             >
               {list.map((item, key) => (
                 <li
                   className={styles.item}
                   data-name="option1"
                   tabIndex={0}
+                  key={item.id}
                   role="option"
                   onKeyDown={() => handleKeyDown(key)}
                   onClick={() => handleItemClick(key)}
-                  aria-selected={list[selectedOption] === item}
+                  aria-selected={list[selectedOption].name === item.name}
                 >
-                  {item}
+                  {item.value}
                 </li>
               ))}
             </ul>

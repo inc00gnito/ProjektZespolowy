@@ -20,7 +20,8 @@ const schema = yup.object({
   username: yup
     .string()
     .required("This field is required")
-    .matches(/^[^@]*$/, "Username cannot contains @ char"),
+    .matches(/^[^@]*$/, "Username cannot contains @ char")
+    .min(3, "Username must be at least 3 characters"),
   password: yup.string().required("This field is required"),
   confirmPassword: yup
     .string()
