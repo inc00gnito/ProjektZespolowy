@@ -11,5 +11,7 @@ namespace ProjectAPI.Models
         [RegularExpression(@"^.{5,19}$",
             ErrorMessage = "Password must be between 6 and 20 ")]
         public string Password { get; set; }
+
+        public string OldPassword { get; set; }
     }
 }

@@ -183,7 +183,11 @@ namespace ProjectAPI.Controllers
                 return Unauthorized("Session not found");
             int id = session.User.Id;
             var user = _db.UsersDbSet.FirstOrDefault(u => u.Id == id);
-
+            string oldpassword = Hash(use.OldPassword, user.Salt);
+            if (oldpassword != user.HashedPassword)
+            {
+                return Unauthorized("invalid password");
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

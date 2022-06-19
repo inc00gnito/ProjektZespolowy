@@ -64,7 +64,7 @@ namespace ProjectAPI
             var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             if (env == "Development")
             {
-                connStr = Configuration.GetConnectionString("kozak");
+                connStr = Configuration.GetConnectionString("robert");
                 opt.UseSqlServer(connStr);
             }
             else
