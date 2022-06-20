@@ -97,7 +97,7 @@ namespace ProjectAPI.Controllers
         }   
         
         [HttpDelete]
-        public ActionResult DeleteUser([FromHeader] string authorization,[FromBody] ChangePassw password)
+        public ActionResult DeleteUser([FromHeader] string authorization,[FromBody] UserDelete password)
         {
             Session session = Authorization(authorization);
             if (session == null)
