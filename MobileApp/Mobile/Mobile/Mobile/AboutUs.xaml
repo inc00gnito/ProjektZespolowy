@@ -19,18 +19,18 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Text="Our Team." Margin="40"  TextColor="#FF0DBF" FontSize="55" FontAttributes="Bold"/>
+                <Label Text="Our Team." Margin="40,20,0,15"  TextColor="#FF0DBF" FontSize="55" FontAttributes="Bold"/>
                 <Label Text="Team of students from Warsaw." Margin="40,0"  TextColor="White" FontSize="18"/>
                 <Label Text="You are now listening to Trackslance." Margin="40,0"  TextColor="White" FontSize="18"/>
                 <Label Text="Welcome to our music family." Margin="40,0" TextColor="White" FontSize="18"/>
                 <Frame BackgroundColor="White" BorderColor="White" Margin="30,40" CornerRadius="360" >
                     <Image Source="naszgif.gif" IsAnimationPlaying="True" Margin="-16"/>
                 </Frame>
-                <Frame HeightRequest="190" WidthRequest="190" CornerRadius="360"  HorizontalOptions="Start" VerticalOptions="Start" Margin="20,-130,0,20" Padding="0" BackgroundColor="White" >
+                <Frame HeightRequest="190" WidthRequest="190" CornerRadius="360"  HorizontalOptions="Start" VerticalOptions="Start" Margin="20,-130,0,40" Padding="0" BackgroundColor="White" >
                     <Frame HeightRequest="180" WidthRequest="180" CornerRadius="360"  HorizontalOptions="Start" VerticalOptions="Start" Margin="5,5" Padding="0" BackgroundColor="Black">
                         <Label Text="TRACKSLANCE." FontSize="17" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                     </Frame>
-                </Frame>
+                </Frame> 
                 
             </StackLayout>
         </ScrollView>

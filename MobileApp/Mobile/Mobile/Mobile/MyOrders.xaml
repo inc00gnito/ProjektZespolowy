@@ -38,7 +38,7 @@
                 <ColumnDefinition Width="10"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Image Source="user_avatar.jpg" VerticalOptions="Start" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1"  Aspect="AspectFit"/>
+           <!-- <Image Source="user_avatar.jpg" VerticalOptions="Start" HorizontalOptions="Start" Grid.Row="0" Grid.Column="1"  Aspect="AspectFit"/>
             <Label 
             Grid.Row="0" 
             Grid.Column="2"
@@ -48,8 +48,8 @@
             HorizontalOptions="Start" 
             VerticalOptions="Center" 
             TextColor="White"
-            ></Label>
-
+            />
+            -->
             <Frame Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5" BackgroundColor="#FF0DBF"></Frame>
             <Label 
             Grid.Row="2" 
