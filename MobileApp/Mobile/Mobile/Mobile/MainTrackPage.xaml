@@ -56,7 +56,7 @@
            
 
 
-            <CollectionView  x:Name="TracksList" Grid.Row="1" Margin="20,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+            <CollectionView  x:Name="TrackList" Grid.Row="1" Margin="20,0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
                             SelectionMode="Single" SelectedItem="{Binding SelectedMusic}" SelectionChangedCommand="{Binding SelectionCommand}">
                 <CollectionView.Header>
                     <Label Text="YOUR PLAYLIST" TextColor="Black" Opacity="0.5" Margin="15,10"/>

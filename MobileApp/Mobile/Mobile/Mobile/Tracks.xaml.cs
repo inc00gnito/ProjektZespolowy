@@ -5,6 +5,7 @@ using Xamarin.Forms.Xaml;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Mobile.Models;
+using Xamarin.Essentials;
 
 namespace Mobile
 {
@@ -55,7 +56,7 @@ namespace Mobile
         {
             InitializeComponent();
             LoadData();
-            
+
 
             Items1.Add("Hip-Hop");
             Items1.Add("Pop");
@@ -94,18 +95,28 @@ namespace Mobile
         }
         private void PlayTrack(object sender, EventArgs e)
         {
-          
+
 
 
             //Navigation.PushAsync(new TrackPlayer());
         }
         private void traczekClicked(object sender, EventArgs e)
         {
-          //  Navigation.PushAsync(new TrackPlayer());
+            //  Navigation.PushAsync(new TrackPlayer());
         }
-        private void ShoppingBagClicked(object sender, EventArgs e)
+        private async void ShoppingBagClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new MyOrders());
+            var token = await SecureStorage.GetAsync("Token");
+            if (token == null)
+            {
+                Console.WriteLine("TOKEN" + token);
+                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+            }
+            else
+            {
+                Console.WriteLine("TOKEN" + token);
+                await Navigation.PushAsync(new MyOrders());
+            }
         }
     }
 }

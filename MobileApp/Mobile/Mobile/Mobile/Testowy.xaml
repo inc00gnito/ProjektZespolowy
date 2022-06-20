@@ -52,7 +52,7 @@
                                         Margin="2,5,2,10"
                                         FontSize="9"
                                         CornerRadius="10"
-                                        Text="{Binding Cost}"
+                                        Text="{Binding Cost, StringFormat='{0} $'}"
                                         BackgroundColor="#FF0DBF" >
                                 </Button>
                                 <Line 

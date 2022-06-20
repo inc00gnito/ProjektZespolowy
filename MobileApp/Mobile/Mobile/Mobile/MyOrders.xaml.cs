@@ -1,6 +1,10 @@
-﻿using System;
+﻿using CrossPlatformBasicLoginSystem.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+
 
 namespace Mobile
 {
@@ -17,9 +21,18 @@ namespace Mobile
         {
             Navigation.PushAsync(new Menu());
         }
-        private void ShoppingBagClicked(object sender, EventArgs e)
+        private async void ShoppingBagClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new MyOrders());
+            
+            var token = await SecureStorage.GetAsync("Token");
+            if(token == null)
+            {
+                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+            }
+            else
+            { 
+                Navigation.PushAsync(new MyOrders());
+            }
         }
 
     }

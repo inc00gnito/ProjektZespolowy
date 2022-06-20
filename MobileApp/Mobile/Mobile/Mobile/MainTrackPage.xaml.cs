@@ -50,7 +50,7 @@ namespace Mobile
             HttpResponseMessage response = await client.GetAsync(RestURL);
             content = await response.Content.ReadAsStringAsync();
             var Items = JsonConvert.DeserializeObject<List<Music>>(content);
-            TracksList.ItemsSource = Items;
+            TrackList.ItemsSource = Items;
            
         }
 

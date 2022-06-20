@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -33,13 +33,13 @@ namespace Mobile
 
         private async void SignInClicked(object sender, EventArgs e)
         {
-            
+
             LoginService services = new LoginService();
             var getLoginDetails = await services.CheckLoginIfExists(UserLogin.Text, Password.Text);
 
             if (getLoginDetails)
             {
-                Navigation.PushAsync(new MainPage());
+                await Navigation.PushAsync(new MainPage());
                 await DisplayAlert("Login success", "You are login", "Okay", "Cancel");
             }
             else
@@ -47,6 +47,7 @@ namespace Mobile
                 await DisplayAlert("Login failed", "Username or Password is incorrect or not exists", "Okay", "Cancel");
             }
         }
+
         private void SignUpClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new SignUp());
@@ -55,9 +56,21 @@ namespace Mobile
         {
             Navigation.PushAsync(new ForgotPassword());
         }
-        private void ShoppingBagClicked(object sender, EventArgs e)
+        private async void ShoppingBagClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new MyOrders());
+
+            var token = await SecureStorage.GetAsync("Token");
+            if (token == null)
+            {
+                Console.WriteLine("TOKEN" + token);
+                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+                await Navigation.PushAsync(new MainPage());
+            }
+            else
+            {
+              
+                await Navigation.PushAsync(new MyOrders());
+            }
         }
     }
 }
