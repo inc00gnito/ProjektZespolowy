@@ -27,6 +27,7 @@ namespace Mobile
         {
             public string Login { get; set; }
             public string Password { get; set; }
+            public string Token { get; set; }
 
         }
 
@@ -38,6 +39,7 @@ namespace Mobile
 
             if (getLoginDetails)
             {
+                Navigation.PushAsync(new MainPage());
                 await DisplayAlert("Login success", "You are login", "Okay", "Cancel");
             }
             else
