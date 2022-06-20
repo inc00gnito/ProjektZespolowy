@@ -72,12 +72,12 @@ namespace Mobile
             var token = await SecureStorage.GetAsync("Token");
             if (token == null)
             {
-                LoginOrLogoutButton.Text = "Login";
+               LoginOrLogoutButton.Text = "Login";
             }
             else
             {
                 
-                LoginOrLogoutButton.Text = "Logout";
+               LoginOrLogoutButton.Text = "Logout";
             }
         }
 

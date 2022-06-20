@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+
 namespace Mobile
 {
     public class Music
@@ -79,10 +80,42 @@ namespace Mobile
                     //new Music { Title = "Cats Searching for the Truth and the title is really long", Artist = "Nat Keefe & Hot Buttered Rum", Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"}
                 };
         }
+
+        List<string> Items1 = new List<string>();
+        List<string> Items2 = new List<string>();
+
+        private void OnDropdownSelected(object sender, ItemSelectedEventArgs e)
+        {
+            //label.Text = IsItem1 ? Items1[e.SelectedIndex] : Items2[e.SelectedIndex];
+        }
+        private void ProceedCheckoutClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Navigation.PushAsync(new CartPage());
+        }
         public MainTrackPage()
         {
             InitializeComponent();
             LoadData();
+
+            Items1.Add("Hip-Hop");
+            Items1.Add("Pop");
+            Items1.Add("RNB");
+
+            Items2.Add("Price");
+            Items2.Add("Genre");
+            Items2.Add("Newest");
+            Items2.Add("Relevance");
+
+
+
+            dropdown.ItemsSource = Items1;
+            dropdown.SelectedIndex = 1;
+            dropdown.ItemSelected += OnDropdownSelected;
+
+            dropdown2.ItemsSource = Items2;
+            dropdown2.SelectedIndex = 1;
+            dropdown2.ItemSelected += OnDropdownSelected;
         }
     }
 }
