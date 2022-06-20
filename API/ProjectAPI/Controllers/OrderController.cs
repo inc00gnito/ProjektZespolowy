@@ -99,6 +99,8 @@ namespace ProjectAPI.Controllers
             int id = session.User.Id;
             var user = _db.UsersDbSet
                 .Include(r=>r.Orders)
+                .ThenInclude(r=>r.Tracks)
+                .ThenInclude(r=>r.Authors)
                 .FirstOrDefault(r => r.Id == id);
 
             if (user == null)
