@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
@@ -15,7 +17,13 @@ namespace Mobile
        
         public Menu()
         {
+           
             InitializeComponent();
+            
+            if (SecureStorage.GetAsync("Token").Result != null)
+                LogIn.Text = "Log Out";
+            else
+                LogIn.Text = "Log In";
         }
         private void MenuClicked(object sender, EventArgs e)
         {
@@ -31,9 +39,9 @@ namespace Mobile
             }
             else
             {
-                SecureStorage.RemoveAll();
-                await DisplayAlert("You are successful logout", "dsadsadsada", "Okay", "Cancel");
-                await Navigation.PushAsync(new MyOrders());
+                LogOut(token);
+                await DisplayAlert("You have successfully logged out", "", "Okay", "Cancel");
+                await Navigation.PushAsync(new MainPage());
             }
 
 
@@ -58,7 +66,8 @@ namespace Mobile
             if (token == null)
             {
                 Console.WriteLine("TOKEN" + token);
-                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+                await Navigation.PushAsync(new Login());
+                await DisplayAlert("You are not logged in", "Login first, and try again", "Okay", "Cancel");
             }
             else
             {
@@ -66,21 +75,32 @@ namespace Mobile
                 await Navigation.PushAsync(new MyOrders());
             }
         }
-        private async void LoginButton(object sender, EventArgs e)
+        public class LogOutModel
         {
+
+            public string authorization { get; set; }
             
-            var token = await SecureStorage.GetAsync("Token");
-            if (token == null)
-            {
-               LoginOrLogoutButton.Text = "Login";
-            }
-            else
-            {
-                
-               LoginOrLogoutButton.Text = "Logout";
-            }
         }
 
+        public async void LogOut(string token)
+        {
+
+            var RestURL = "https://trackslance.herokuapp.com/api/User/LogOut/";
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(RestURL);
+            Console.WriteLine(token);
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(token);
+
+            var response = await httpClient.GetAsync(RestURL);
+            Console.WriteLine(response);
+
+            var res = await response.Content.ReadAsStringAsync();
+
+            SecureStorage.Remove("Token");
+            //SecureStorage.RemoveAll();
+        }
+       
 
         private void OnSaleClicked(object sender, EventArgs e)
         {
@@ -119,7 +139,8 @@ namespace Mobile
             if (token == null)
             {
                 Console.WriteLine("TOKEN" + token);
-                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+                await Navigation.PushAsync(new Login());
+                await DisplayAlert("You are not logged in", "Login first, and try again", "Okay", "Cancel");
             }
             else
             {

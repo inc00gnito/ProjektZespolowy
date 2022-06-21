@@ -110,6 +110,7 @@ namespace Mobile
             if (token == null)
             {
                 Console.WriteLine("TOKEN" + token);
+                await Navigation.PushAsync(new Login());
                 await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
             }
             else
