@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Mobile.Settings"
+             xmlns:local="clr-namespace:Mobile.Custom_Renderer"
+             BackgroundColor="Black">
+    <ContentPage.ToolbarItems>
+            <ToolbarItem Text="TRACKSLANCE."
+                     Priority="0"/>
+            <ToolbarItem x:Name="MenuClick"
+                     IconImageSource="menu.png"
+                     Priority="1"
+                     Clicked="MenuClicked"/>
+            <ToolbarItem IconImageSource="shoppingbag.png"
+                     Order="Primary"
+                     Priority="2"
+                     Clicked="ShoppingBagClicked"/>
+        </ContentPage.ToolbarItems>
+    <ScrollView >
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="10"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="40"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="120"></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label 
+            Grid.Row="0" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="General" 
+            FontSize="40" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Label 
+            Grid.Row="1" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="E-MAIL ADDRESS" 
+            FontSize="17" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Label 
+            Grid.Row="1" 
+            Grid.Column="4"
+            Grid.ColumnSpan="2"
+            Text="USERNAME" 
+            FontSize="17" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Frame
+                BackgroundColor="#424040"
+                CornerRadius="10"
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2">
+            </Frame>
+            <local:BorderlessEntry 
+                Grid.Row="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#424040"
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="15"
+                Margin="3,3,3,3"
+                />
+            <Frame
+                BackgroundColor="#424040"
+                CornerRadius="10"
+                Grid.Row="2"
+                Grid.Column="4"
+                Grid.ColumnSpan="2">
+            </Frame>
+            <local:BorderlessEntry 
+                Grid.Row="2"
+                Grid.Column="4"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#424040"
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="15"
+                Margin="3,3,3,3"
+                />
+            <Button 
+                Grid.Row="4"
+                Grid.Column="2"
+                Grid.ColumnSpan="4"
+                Text="Update account information"
+                FontSize="12"
+                CornerRadius="10" 
+                BorderWidth="2" 
+                TextColor="White"  
+                BackgroundColor="#FF0DBF"/>
+            <Label 
+            Grid.Row="5" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="Security" 
+            FontSize="40" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Label 
+            Grid.Row="6" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="CURRTENT
+                    PASSWORD" 
+            FontSize="17" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Frame
+                BackgroundColor="#424040"
+                CornerRadius="10"
+                Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="2">
+            </Frame>
+            <local:BorderlessEntry 
+                Grid.Row="7"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#424040"
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="15"
+                Margin="3,3,3,3"
+                />
+            <Label 
+            Grid.Row="8" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Text="NEW PASSWORD" 
+            FontSize="17" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Label 
+            Grid.Row="8" 
+            Grid.Column="4"
+            Grid.ColumnSpan="2"
+            Text="CONFIRM NEW PASSWORD" 
+            FontSize="17" 
+            FontAttributes="Bold" 
+            HorizontalOptions="Start" 
+            VerticalOptions="Center"
+            TextColor="White"
+            ></Label>
+            <Frame
+                BackgroundColor="#424040"
+                CornerRadius="10"
+                Grid.Row="9"
+                Grid.Column="1"
+                Grid.ColumnSpan="2">
+            </Frame>
+            <local:BorderlessEntry 
+                Grid.Row="9"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#424040"
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="15"
+                Margin="3,3,3,3"
+                />
+
+            <Frame
+                BackgroundColor="#424040"
+                CornerRadius="10"
+                Grid.Row="9"
+                Grid.Column="4"
+                Grid.ColumnSpan="2">
+            </Frame>
+            <local:BorderlessEntry 
+                Grid.Row="9"
+                Grid.Column="4"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#424040"
+                TextColor="White" 
+                PlaceholderColor="White"  
+                FontSize="15"
+                Margin="3,3,3,3"
+                />
+            <Button 
+                Grid.Row="10"
+                Grid.Column="2"
+                Grid.ColumnSpan="4"
+                Text="Update security information"
+                FontSize="12"
+                CornerRadius="10" 
+                BorderWidth="2" 
+                TextColor="White"  
+                BackgroundColor="#FF0DBF"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

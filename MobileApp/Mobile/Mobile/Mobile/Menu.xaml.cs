@@ -100,6 +100,12 @@ namespace Mobile
             Navigation.PushAsync(new Payment());
 
         }
+        private void SettingsClicked(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            Navigation.PushAsync(new Settings());
+
+        }
         private void TestowankoClicked(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
