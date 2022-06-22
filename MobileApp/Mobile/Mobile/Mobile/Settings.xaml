@@ -19,7 +19,7 @@
     <ScrollView >
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="50" ></RowDefinition>
                 <RowDefinition Height="25"></RowDefinition>
                 <RowDefinition Height="45"></RowDefinition>
                 <RowDefinition Height="10"></RowDefinition>
