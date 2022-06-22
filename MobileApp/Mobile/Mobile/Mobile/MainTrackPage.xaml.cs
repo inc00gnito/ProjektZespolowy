@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 
@@ -92,6 +93,26 @@ namespace Mobile
         {
             Button btn = (Button)sender;
             Navigation.PushAsync(new CartPage());
+        }
+        private void MenuClicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new Menu());
+        }
+        private async void ShoppingBagClicked(object sender, EventArgs e)
+        {
+
+            var token = await SecureStorage.GetAsync("Token");
+            if (token == null)
+            {
+                Console.WriteLine("TOKEN" + token);
+                await Navigation.PushAsync(new Login());
+                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+            }
+            else
+            {
+                Console.WriteLine("TOKEN" + token);
+                await Navigation.PushAsync(new MyOrders());
+            }
         }
         public MainTrackPage()
         {
