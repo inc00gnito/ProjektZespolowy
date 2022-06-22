@@ -34,19 +34,7 @@ namespace Mobile.ViewModel
         public int TimesSold { get; set; }
         public bool IsDiscounted { get; set; }
     }
-    //public async void LoadData()
-    //{
-    //    var content = "";
-    //    HttpClient client = new HttpClient();
-    //    var RestURL = "https://trackslance.herokuapp.com/api/Tracks";
-    //    client.BaseAddress = new Uri(RestURL);
-    //    client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
-    //    HttpResponseMessage response = await client.GetAsync(RestURL);
-    //    content = await response.Content.ReadAsStringAsync();
-    //    var Items = JsonConvert.DeserializeObject<List<Track>>(content);
-    //    TracksList.ItemsSource = Items;
-
-    //}
+   
     public class MainViewModel : BaseViewModel
     {
         public MainViewModel()
@@ -96,7 +84,6 @@ namespace Mobile.ViewModel
             {
                 var viewModel = new PlayerViewModel(selectedMusic, musicList) ;
                 var playerPage = new TrackPlayer { BindingContext = viewModel };        //Tu przekazywane są informacje do Track Playera
-
                 var navigation = Application.Current.MainPage as NavigationPage;
                 navigation.PushAsync(playerPage, true);
             }

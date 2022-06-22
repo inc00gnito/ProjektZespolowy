@@ -36,6 +36,8 @@ namespace CrossPlatformBasicLoginSystem.RestAPIClient
 
             var response = await httpClient.PostAsync(LoginWebServiceUrl,c);
             var res = await response.Content.ReadAsStringAsync();
+            if (res.Equals("user doesnt exist") || res.Equals("invalid password"))
+                return response.IsSuccessStatusCode;
             var model = JsonConvert.DeserializeObject<UserDetailCredentials>(res);
             await SecureStorage.SetAsync("Token", model.Token);
             

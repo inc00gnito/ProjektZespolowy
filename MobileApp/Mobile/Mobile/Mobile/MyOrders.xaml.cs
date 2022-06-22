@@ -27,11 +27,11 @@ namespace Mobile
             var token = await SecureStorage.GetAsync("Token");
             if(token == null)
             {
-                await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
+                await DisplayAlert("You are not logged in", "Login first, and try again", "Okay", "Cancel");
             }
             else
             { 
-                Navigation.PushAsync(new MyOrders());
+                await Navigation.PushAsync(new MyOrders());
             }
         }
 

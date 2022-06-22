@@ -64,7 +64,7 @@ namespace Mobile
             {
                 Console.WriteLine("TOKEN" + token);
                 await DisplayAlert("You are not login", "Login first, and try again", "Okay", "Cancel");
-                await Navigation.PushAsync(new MainPage());
+               
             }
             else
             {

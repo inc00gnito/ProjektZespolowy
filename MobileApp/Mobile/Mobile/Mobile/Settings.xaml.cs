@@ -10,15 +10,11 @@ using Xamarin.Forms.Xaml;
 namespace Mobile
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ForgotPassword : ContentPage
+    public partial class Settings : ContentPage
     {
-        public ForgotPassword()
+        public Settings()
         {
             InitializeComponent();
-        }
-        private void SignInClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new Login());
         }
         private void MenuClicked(object sender, EventArgs e)
         {
@@ -26,7 +22,7 @@ namespace Mobile
         }
         private async void ShoppingBagClicked(object sender, EventArgs e)
         {
-
+            // SecureStorage.RemoveAll();
             var token = await SecureStorage.GetAsync("Token");
             if (token == null)
             {
