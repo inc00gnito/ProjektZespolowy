@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./History.module.scss";
+import styles from "./Profile.module.scss";
 import HomeLayout from "Layout/Home/Home";
 import Header from "./components/Header/Header";
 import OrderList from "./components/Order/OrderList";
 
-const History = () => {
+const Orders = () => {
   return (
     <HomeLayout>
       <div className={styles.container}>
@@ -19,4 +19,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default Orders;

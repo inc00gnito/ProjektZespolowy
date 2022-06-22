@@ -15,7 +15,7 @@ import ResetPassword from "features/Auth/ResetPassword/ResetPassword";
 import Cart from "features/Cart/Cart";
 import Payment from "features/Payment/Payment";
 import Upload from "features/Upload/Upload";
-import History from "features/History/History";
+import Orders from "features/Profile/Profile";
 import Settings from "features/Settings/Settings";
 import NotFound from "features/NotFound/NotFound";
 
@@ -53,7 +53,7 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/payment" element={<Payment />} />
           <Route path="/upload" element={<Upload />} />
-          <Route path="/profile" element={<History />} />
+          <Route path="/profile" element={<Orders />} />
           <Route path="/settings" element={<Settings />} />
         </Route>
       </Routes>

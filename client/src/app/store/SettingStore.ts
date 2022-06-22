@@ -2,6 +2,7 @@ import agent from "app/api/agent";
 import { makeAutoObservable, runInAction } from "mobx";
 import { stores } from "app/provider/Provider";
 import axios from "axios";
+import { saveToken } from "app/utils/Token";
 
 export default class SettingStore {
   constructor() {
@@ -58,11 +59,16 @@ export default class SettingStore {
     }
   };
 
-  updatePassowrd = async (currentPassword: string, newPassword: string) => {
+  updatePassword = async (currentPassword: string, newPassword: string) => {
     this.isSubmitting = true;
     try {
+      const { data: token } = await agent.Settings.changePassword(
+        currentPassword,
+        newPassword
+      );
       runInAction(() => {
         this.isSubmitting = false;
+        saveToken(token);
       });
     } catch (err) {
       runInAction(() => {

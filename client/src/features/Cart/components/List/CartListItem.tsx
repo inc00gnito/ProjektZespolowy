@@ -10,8 +10,7 @@ interface IProps {
 }
 
 const CartListItem: React.FC<IProps> = ({ cartItem }) => {
-  const { cartItemDecreaseQuantity, cartItemIncreaseQuantity, cartItemDelete } =
-    useCartStore();
+  const { cartItemDelete } = useCartStore();
   return (
     <li className={styles.item}>
       <div className={styles.track}>
@@ -27,19 +26,19 @@ const CartListItem: React.FC<IProps> = ({ cartItem }) => {
         <div className={styles.gap} />
         <div className={styles.summary}>
           <div className={styles.amount}>
-            <button
+            {/* <button
               className={styles.button}
               onClick={() => cartItemDecreaseQuantity(cartItem.id)}
             >
               <AiOutlineMinus />
-            </button>
-            <span className={styles.text}>{cartItem.quantity}</span>
-            <button
+            </button> */}
+            {/* <span className={styles.text}>{cartItem.quantity}</span> */}
+            {/* <button
               className={styles.button}
               onClick={() => cartItemIncreaseQuantity(cartItem.id)}
             >
               <AiOutlinePlus />
-            </button>
+            </button> */}
           </div>
           <div className={styles.price}>
             <span className={styles.text}>

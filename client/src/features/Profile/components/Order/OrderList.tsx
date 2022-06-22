@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import { useUserStore } from "app/provider/Provider";
+import { observer } from "mobx-react-lite";
+import React, { useEffect, useState } from "react";
 import styles from "./OrderList.module.scss";
 import OrderlistItem from "./OrderlistItem";
 
 const OrderList = () => {
-  const items = [
-    {
-      id: "1",
-      date: new Date(),
-    },
-    {
-      id: "2",
-      date: new Date(),
-    },
-  ];
+  const { orders, loadOrders } = useUserStore();
 
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  useEffect(() => {
+    loadOrders();
+  }, []);
+  console.log(orders);
+
+  const [activeItem, setActiveItem] = useState<number | null>(null);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -37,19 +35,20 @@ const OrderList = () => {
           </div>
         </div>
         <div className={styles.list}>
-          {items.map((item) => {
-            return (
-              <OrderlistItem
-                item={item}
-                setActive={setActiveItem}
-                active={activeItem}
-              />
-            );
-          })}
+          {orders &&
+            orders.map((order) => {
+              return (
+                <OrderlistItem
+                  order={order}
+                  setActive={setActiveItem}
+                  active={activeItem}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
   );
 };
 
-export default OrderList;
+export default observer(OrderList);

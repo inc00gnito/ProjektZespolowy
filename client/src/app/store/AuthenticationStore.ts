@@ -16,6 +16,7 @@ export default class AuthenticationStore {
   authPopUp: IAuthModalType = null;
   user: IUser | null = null;
   isLoading = true;
+  isSubmitting = false;
 
   authFunc = () => {
     if (this.isAuthenticated) return true;
@@ -108,6 +109,34 @@ export default class AuthenticationStore {
           },
         };
       }
+    }
+  };
+
+  sendResetCode = async (email: string) => {
+    this.isSubmitting = true;
+    try {
+      await agent.User.sendResetCode(email);
+      runInAction(() => {
+        this.isSubmitting = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this.isSubmitting = false;
+      });
+    }
+  };
+
+  resetPassword = async (code: string, newPassword: string) => {
+    this.isSubmitting = true;
+    try {
+      await agent.User.resetPassword(code, newPassword);
+      runInAction(() => {
+        this.isSubmitting = false;
+      });
+    } catch (err) {
+      runInAction(() => {
+        this.isSubmitting = false;
+      });
     }
   };
 

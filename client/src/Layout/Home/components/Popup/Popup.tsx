@@ -43,9 +43,7 @@ const Popup = () => {
               </div>
               <div className={styles.info}>
                 <div className={styles.name}>
-                  <span className={styles.text}>
-                    {track.title} ({track.quantity})
-                  </span>
+                  <span className={styles.text}>{track.title}</span>
                   <span className={styles.subText}>{track.genre}</span>
                 </div>
               </div>

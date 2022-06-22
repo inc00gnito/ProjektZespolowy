@@ -5,6 +5,7 @@ import CartStore from "app/store/CartStore";
 import TrackStore from "app/store/TrackStore";
 import ContactStore from "app/store/ContactStore";
 import SettingStore from "app/store/SettingStore";
+import UserStore from "app/store/UserStore";
 
 interface IStore {
   newsletterStore: NewsletterStore;
@@ -13,6 +14,7 @@ interface IStore {
   trackStore: TrackStore;
   contactStore: ContactStore;
   settingStore: SettingStore;
+  userStore: UserStore;
 }
 
 export const stores: IStore = {
@@ -22,6 +24,7 @@ export const stores: IStore = {
   trackStore: new TrackStore(),
   contactStore: new ContactStore(),
   settingStore: new SettingStore(),
+  userStore: new UserStore(),
 };
 
 export const Context = createContext(stores);
@@ -59,4 +62,9 @@ export const useContactStore = () => {
 export const useSettingStore = () => {
   const { settingStore } = useStore();
   return settingStore;
+};
+
+export const useUserStore = () => {
+  const { userStore } = useStore();
+  return userStore;
 };

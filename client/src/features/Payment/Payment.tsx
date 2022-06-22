@@ -13,8 +13,10 @@ import { MobileDatePicker } from "@mui/x-date-pickers";
 import Form from "./components/Form/Form";
 import PaymentSuccess from "./components/PaymentSuccess/PaymentSuccess";
 import { useNavigate } from "react-router-dom";
+import { useCartStore } from "app/provider/Provider";
 
 const Payment = () => {
+  const { buy } = useCartStore();
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
   const [paymentVerification, setPaymentVerification] = useState<
@@ -23,6 +25,7 @@ const Payment = () => {
 
   const onSubmit = (data: any) => {
     setLoading(true);
+    buy();
   };
 
   useEffect(() => {

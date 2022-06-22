@@ -1,7 +1,8 @@
 import { IAuthResponse, ICreds, ISignup } from "app/model/authentication";
+import { ICartItem } from "app/model/Cart";
 import { IContactMessage } from "app/model/Contact";
 import { ITrack } from "app/model/Track";
-import { IUser } from "app/model/User";
+import { IOrder, IUser } from "app/model/User";
 import { getToken } from "app/utils/Token";
 import axios, { AxiosRequestConfig } from "axios";
 import { request } from "http";
@@ -48,17 +49,38 @@ const Authentication = {
 
 const User = {
   details: () => requests.get<IUser>("user"),
+  orderList: () => requests.get<IOrder[]>("order"),
+  sendResetCode: (email: string) =>
+    requests.post("user/sendResetCode", { email }),
+  resetPassword: (code: string, newPassword: string) =>
+    requests.post("user/resetPassword", { resetCode: code, newPassword }),
 };
 
 const Contact = {
   sendMessage: (message: IContactMessage) => requests.post("contact", message),
 };
 
-const Settings = {
-  changeEmail: (email: string) => requests.put("user/changeEmail", { email }),
-  changeName: (name: string) => requests.put("user/changeName", { name }),
-  changePassword: (currentPassword: string, newPassword: string) =>
-    requests.put("user/changePassword", { currentPassword, newPassword }),
+const Cart = {
+  order: (order: ICartItem[]) => requests.post("order", order),
 };
 
-export default { Newsletter, Track, Authentication, User, Contact, Settings };
+const Settings = {
+  changeEmail: (email: string) => requests.put("user/changeEmail", { email }),
+  changeName: (name: string) =>
+    requests.put("user/changeName", { username: name }),
+  changePassword: (currentPassword: string, newPassword: string) =>
+    requests.put<string>("user/changePassword", {
+      password: newPassword,
+      oldPassword: currentPassword,
+    }),
+};
+
+export default {
+  Newsletter,
+  Track,
+  Authentication,
+  User,
+  Contact,
+  Settings,
+  Cart,
+};
