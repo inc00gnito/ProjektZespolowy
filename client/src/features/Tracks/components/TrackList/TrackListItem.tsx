@@ -14,6 +14,14 @@ const TrackListItem: React.FC<IProps> = ({ track }) => {
   const { addCartItem } = useCartStore();
   const { setAudioPlayerTrack } = useTrackStore();
   const downloadLink = createCloudinaryDownLink(track.audioFile);
+  let trackTime = Math.round(track.time);
+  const trackMinutes = Math.floor(trackTime / 60);
+  trackTime = trackTime - trackMinutes * 60;
+  const trackMinutesString =
+    trackMinutes < 10 ? "0" + trackMinutes : trackMinutes;
+  const trackSeconds = trackTime;
+  const trackSecondsString =
+    trackSeconds < 10 ? "0" + trackSeconds : trackSeconds;
   return (
     <li
       className={styles.container}
@@ -46,7 +54,7 @@ const TrackListItem: React.FC<IProps> = ({ track }) => {
       <div className={styles.column}>
         <div className={styles.time}>
           <span className={styles.text} data-testid="track_item_time">
-            {track.time}
+            {trackMinutes}:{trackSecondsString}
           </span>
         </div>
       </div>

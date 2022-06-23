@@ -1,6 +1,7 @@
 import React from "react";
 import HomeLayout from "Layout/Home/Home";
 import styles from "./styles/About.module.scss";
+import gif from "assets/gif.gif";
 const About = () => {
   return (
     <HomeLayout>
@@ -15,11 +16,7 @@ const About = () => {
           <div className={styles.wrappe2r}>
             <div className={styles.trackslance}>TRACKSLANCE.</div>
             <div>
-              <img
-                className={styles.gif}
-                src="https://static.wixstatic.com/media/53f1e3_8b07c51aea4e4fdf8e54862a5ff0e33b~mv2.gif"
-                alt=""
-              />
+              <img className={styles.gif} src={gif} alt="" />
             </div>
           </div>
         </div>

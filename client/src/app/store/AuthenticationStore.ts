@@ -5,6 +5,7 @@ import React from "react";
 import axios, { AxiosError } from "axios";
 import { IUser } from "app/model/User";
 import { getToken, removeToken, saveToken } from "app/utils/Token";
+import { stores } from "app/provider/Provider";
 
 export default class AuthenticationStore {
   constructor() {
@@ -43,6 +44,7 @@ export default class AuthenticationStore {
     } catch (error) {
       this.isAuthenticated = false;
       this.isLoading = false;
+      localStorage.removeItem("cart");
       removeToken();
     }
   };
@@ -144,6 +146,8 @@ export default class AuthenticationStore {
     removeToken();
     this.user = null;
     this.isAuthenticated = false;
+    localStorage.removeItem("cart");
+    stores.cartStore.shoppingList = new Map();
     try {
       await agent.Authentication.logout();
     } catch (err) {}

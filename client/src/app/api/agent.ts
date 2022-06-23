@@ -11,7 +11,8 @@ axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config: AxiosRequestConfig) => {
   const token = getToken();
-  if (token && !!config?.headers?.token)
+  console.log(config?.headers?.token);
+  if (token && !config?.headers?.token)
     config.headers = {
       Authorization: token,
     };

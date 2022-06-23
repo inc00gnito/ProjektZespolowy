@@ -101,7 +101,7 @@ const AudioPlayer = () => {
             <p className={styles.title} data-testid="song_title">
               {playerAudio!.title}
             </p>
-            <p className={styles.author}>{playerAudio!.authors.join(" ")}</p>
+            <p className={styles.author}>{playerAudio!.genre}</p>
           </div>
           <button className={styles.button}>
             ${playerAudio!.cost}.00

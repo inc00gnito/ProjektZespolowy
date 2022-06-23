@@ -2,7 +2,9 @@ import React from "react";
 import styles from "./Start.module.scss";
 import background from "assets/starterBgc.jpg";
 import cx from "classnames";
+import { useNavigate } from "react-router-dom";
 const Start = () => {
+  const navigaiton = useNavigate();
   return (
     <div className={styles.start}>
       <div className={styles.background}>
@@ -18,7 +20,12 @@ const Start = () => {
               <span className={styles.subHeading}>
                 Now Available on PC &#38; Mobile
               </span>
-              <button className={styles.button}>Buy Now</button>
+              <button
+                className={styles.button}
+                onClick={() => navigaiton("/tracks")}
+              >
+                Buy Now
+              </button>
             </div>
           </div>
           <div className={styles.composerCard}>

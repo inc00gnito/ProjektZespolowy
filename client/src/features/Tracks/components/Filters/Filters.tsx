@@ -10,6 +10,7 @@ const Filters = () => {
   const { loadTracks } = useTrackStore();
   const [filters, setFiltres] = useState<string[]>([]);
   const [sort, setSort] = useState<number>();
+  const [search, setSearch] = useState("");
 
   const handleGenreChange = (values: string[]) => {
     setFiltres(values);
@@ -21,6 +22,20 @@ const Filters = () => {
     loadTracks({ filters, sort: SortBy[value] });
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    loadTracks({ filters, search });
+  };
+  let timeout: any = null;
+
+  const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timeout);
+    setSearch(e.target.value);
+    timeout = setTimeout(() => {
+      loadTracks({ filters, search: e.target.value });
+    }, 400);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.row}>
@@ -28,7 +43,7 @@ const Filters = () => {
           <FilterMultiple
             list={[
               "Rock",
-              "pop",
+              "Pop",
               "Pop Rock",
               "Punk Rock",
               "Hip Hop",
@@ -54,16 +69,19 @@ const Filters = () => {
         </div>
       </div>
       <div className={styles.row}>
-        <div className={styles.search}>
-          <input
-            type="text"
-            className={styles.input}
-            placeholder="What type of track are you looking for?"
-          />
-          <button className={styles.iconContainer}>
-            <BiSearch className={styles.icon} />
-          </button>
-        </div>
+        <form onSubmit={handleSearch}>
+          <div className={styles.search}>
+            <input
+              type="text"
+              className={styles.input}
+              onChange={onSearchChange}
+              placeholder="What type of track are you looking for?"
+            />
+            <button className={styles.iconContainer}>
+              <BiSearch className={styles.icon} />
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

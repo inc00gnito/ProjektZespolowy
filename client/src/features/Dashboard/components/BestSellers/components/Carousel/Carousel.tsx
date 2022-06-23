@@ -216,13 +216,13 @@ const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
                   />
                 </div>
                 <div className={styles.action}>
-                  <p className={styles.name}>Lorem ipsum</p>
-                  <p className={styles.price}>5,00 zł</p>
+                  <p className={styles.name}>{items[cards[item]]?.title}</p>
+                  <p className={styles.price}> {items[cards[item]]?.cost} $</p>
                   <button
                     className={styles.button}
                     onClick={() => handleAddProduct(items[cards[item]])}
                   >
-                    <span className={styles.text}>Dodaj do koszyka</span>
+                    <span className={styles.text}>Add to cart</span>
                   </button>
                 </div>
                 <div className={styles.download}>
