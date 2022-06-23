@@ -170,8 +170,6 @@ const Carousel: React.FC<IProps> = ({ items, desktopView, mobileView }) => {
     };
   });
 
-  console.log(cards);
-
   return (
     <div className={styles.container}>
       <div

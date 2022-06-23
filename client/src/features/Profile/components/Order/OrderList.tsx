@@ -10,7 +10,6 @@ const OrderList = () => {
   useEffect(() => {
     loadOrders();
   }, []);
-  console.log(orders);
 
   const [activeItem, setActiveItem] = useState<number | null>(null);
   return (

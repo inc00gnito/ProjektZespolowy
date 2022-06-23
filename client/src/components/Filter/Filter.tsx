@@ -113,7 +113,6 @@ const Filter: React.FC<IProps> = ({ list, onChange, defaultValue }) => {
             <div
               className={styles.options}
               onClick={(e) => {
-                console.log("clikc child?");
                 e.stopPropagation();
               }}
             >

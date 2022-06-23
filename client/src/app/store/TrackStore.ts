@@ -28,9 +28,7 @@ export default class TrackStore {
   };
 
   audioNextTrack = () => {
-    console.log("next null?");
     if (!this.playerAudio) return;
-    console.log("next track?");
     let id = this.tracks.findIndex((item) => item.id == this.playerAudio!.id);
     if (id === this.tracks.length - 1) id = 0;
     else id++;
@@ -52,10 +50,8 @@ export default class TrackStore {
 
   loadTracks = async (options?: ITrackOptions) => {
     const params = convertTrackOptionsToParams(options);
-    console.log(params);
     try {
       const { data } = await agent.Track.list(params);
-      console.log(data);
       this.tracks = data;
     } catch (err) {
       if (axios.isAxiosError(err)) return console.log("fds");

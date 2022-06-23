@@ -57,7 +57,6 @@ const ReactPortal: React.FC<IProps> = ({ children, anchorEl, onClick }) => {
   if (wrapperElement === null) return null;
 
   children = children || <div></div>;
-  console.log(children);
   return createPortal(
     React.cloneElement(children as any, {
       style: {

@@ -15,7 +15,6 @@ const PrimaryInput: React.FC<IProps> = ({
   inputProps,
   error,
 }) => {
-  console.log(inputProps);
   return (
     <div className={styles.container}>
       <label htmlFor={label} className={styles.name}>

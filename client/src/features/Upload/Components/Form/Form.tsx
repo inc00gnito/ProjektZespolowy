@@ -40,7 +40,6 @@ const schema = yup.object({
       "fileFormat",
       "File format is invalid, we support WAV, MP3, OGG, WEBM",
       (file) => {
-        console.log(file);
         return file && AUDIO_FILE_FORMATS_LIST.includes(file.type);
       }
     )
@@ -112,8 +111,6 @@ const GENERE_LIST = [
 const Form = () => {
   const navigate = useNavigate();
   const { addTrack, isSubmitting } = useTrackStore();
-  console.log("isSubmitting?");
-  console.log(isSubmitting);
   const [tag, setTag] = useState("");
   const {
     register,
@@ -213,7 +210,6 @@ const Form = () => {
             label="TAGS*"
             inputProps={{
               onChange: (e) => {
-                console.log("on change");
                 setTag(e.target.value);
               },
               value: tag,

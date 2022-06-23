@@ -19,7 +19,7 @@ const OrderlistItem: React.FC<IProps> = ({ order, active, setActive }) => {
     setActive(order.id);
   };
   const date = new Date(order.dateOfPurchase);
-  console.log(order.dateOfPurchase);
+
   const day = date.getDate();
   const dayString = day < 10 ? "0" + day : day;
   const month = date.getMonth() + 1;

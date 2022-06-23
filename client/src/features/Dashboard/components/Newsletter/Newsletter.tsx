@@ -55,7 +55,6 @@ const Newsletter = () => {
         setError("email", { type: "custom", message: error.message });
       });
   };
-  console.log(errors);
   return (
     <section className={styles.container}>
       <div className={styles.content}>

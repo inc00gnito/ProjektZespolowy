@@ -17,6 +17,7 @@ export default class AuthenticationStore {
   user: IUser | null = null;
   isLoading = true;
   isSubmitting = false;
+  resetToken: string | null = null;
 
   authFunc = () => {
     if (this.isAuthenticated) return true;
@@ -39,7 +40,6 @@ export default class AuthenticationStore {
       this.user = data;
       this.isAuthenticated = true;
       this.isLoading = false;
-      console.log("set authenticated");
     } catch (error) {
       this.isAuthenticated = false;
       this.isLoading = false;
@@ -48,7 +48,6 @@ export default class AuthenticationStore {
   };
 
   signIn = async (creds: ICreds) => {
-    console.log("store?");
     try {
       const { data } = await agent.Authentication.signin(creds);
       const { user, token } = data;
@@ -115,7 +114,8 @@ export default class AuthenticationStore {
   sendResetCode = async (email: string) => {
     this.isSubmitting = true;
     try {
-      await agent.User.sendResetCode(email);
+      const { data } = await agent.User.sendResetCode(email);
+      this.resetToken = data;
       runInAction(() => {
         this.isSubmitting = false;
       });
@@ -129,7 +129,7 @@ export default class AuthenticationStore {
   resetPassword = async (code: string, newPassword: string) => {
     this.isSubmitting = true;
     try {
-      await agent.User.resetPassword(code, newPassword);
+      await agent.User.resetPassword(code, newPassword, this.resetToken || "");
       runInAction(() => {
         this.isSubmitting = false;
       });

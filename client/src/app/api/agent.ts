@@ -5,16 +5,16 @@ import { ITrack } from "app/model/Track";
 import { IOrder, IUser } from "app/model/User";
 import { getToken } from "app/utils/Token";
 import axios, { AxiosRequestConfig } from "axios";
-import { request } from "http";
 
 axios.defaults.baseURL = "https://trackslance.herokuapp.com/api/";
 axios.defaults.withCredentials = true;
 
 axios.interceptors.request.use((config: AxiosRequestConfig) => {
   const token = getToken();
-  config.headers = {
-    Authorization: token,
-  };
+  if (token && !!config?.headers?.token)
+    config.headers = {
+      Authorization: token,
+    };
   return config;
 });
 
@@ -51,9 +51,20 @@ const User = {
   details: () => requests.get<IUser>("user"),
   orderList: () => requests.get<IOrder[]>("order"),
   sendResetCode: (email: string) =>
-    requests.post("user/sendResetCode", { email }),
-  resetPassword: (code: string, newPassword: string) =>
-    requests.post("user/resetPassword", { resetCode: code, newPassword }),
+    requests.post<string>("user/sendResetCode", { email }),
+  resetPassword: (code: string, newPassword: string, token: string) =>
+    axios.post(
+      "user/resetPassword",
+      {
+        resetCode: code,
+        newPassword,
+      },
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    ),
 };
 
 const Contact = {

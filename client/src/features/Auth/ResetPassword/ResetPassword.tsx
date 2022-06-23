@@ -119,6 +119,7 @@ const ResetPasswordWithCode = observer(
             <AuthInput
               label="Nowe hasło"
               inputProps={register("password")}
+              type="password"
               error={errors.password?.message}
             />
           </div>
@@ -126,6 +127,7 @@ const ResetPasswordWithCode = observer(
             <AuthInput
               label="Powtórz hasło"
               inputProps={register("confirmPassword")}
+              type="password"
               error={errors.confirmPassword?.message}
             />
           </div>

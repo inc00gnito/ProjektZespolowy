@@ -20,7 +20,6 @@ const PrimaryArrayInput: React.FC<IProps> = ({
   onButtonClick,
   buttonText,
 }) => {
-  console.log(inputProps);
   return (
     <div className={styles.container}>
       <label htmlFor={label} className={styles.name}>

@@ -13,13 +13,9 @@ export default class CartStore {
     if (cart) {
       const cartList = JSON.parse(cart) as any;
       cartList.forEach((item: any) => {
-        console.log("item");
-        console.log(item);
         this.shoppingList.set(item.id, item);
       });
     }
-
-    console.log(this.shoppingList);
   }
   shoppingList = new Map<number, ICartItem>();
   isPopup = false;
@@ -33,10 +29,7 @@ export default class CartStore {
   };
 
   addCartItem = checkAuth((track: ITrack) => {
-    console.log(this.shoppingList);
     const cartItem = this.shoppingList.get(track.id);
-    console.log("track");
-    console.log(cartItem);
     let newCartItem: ICartItem;
     if (cartItem) {
       return;
@@ -45,7 +38,6 @@ export default class CartStore {
       ...JSON.parse(JSON.stringify(track)),
       quantity: 1,
     };
-    console.log(newCartItem);
     this.shoppingList.set(newCartItem.id, newCartItem);
 
     this.openPopup();

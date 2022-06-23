@@ -35,7 +35,6 @@ const Popup = () => {
       <span className={styles.title}>YOUR CART ({itemCount}):</span>
       <div className={styles.trackList}>
         {Array.from(shoppingList.values()).map((track) => {
-          console.log(track);
           return (
             <div className={styles.track}>
               <div className={styles.photo}>

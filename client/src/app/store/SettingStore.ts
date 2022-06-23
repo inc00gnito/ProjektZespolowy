@@ -53,7 +53,7 @@ export default class SettingStore {
       if (!axios.isAxiosError(err)) return;
       const status = err.response?.status;
       const message = err.response?.data;
-      console.log(status);
+
       if (status === 409 && message === "Username already exists")
         throw new Error("Username already exists");
     }
